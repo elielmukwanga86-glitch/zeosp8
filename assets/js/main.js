@@ -162,4 +162,124 @@
       a.classList.add('is-active');
     }
   });
+
+  /* ---------- Preloader ---------- */
+  var minPreloadTimer = new Promise(function(res){ setTimeout(res, 500); });
+  var pageReady = new Promise(function(res){
+    if(document.readyState === 'complete') res();
+    else window.addEventListener('load', res, {once:true});
+  });
+  Promise.all([minPreloadTimer, pageReady]).then(function(){
+    document.documentElement.classList.add('is-loaded');
+    setTimeout(function(){
+      var pl = document.querySelector('.preloader');
+      if(pl) pl.remove();
+    }, 750);
+  });
+
+  /* ---------- Scroll progress bar ---------- */
+  var progress = document.querySelector('.scroll-progress');
+  function updateProgress(){
+    if(!progress) return;
+    var doc = document.documentElement;
+    var scrollable = doc.scrollHeight - doc.clientHeight;
+    var pct = scrollable > 0 ? (doc.scrollTop || window.scrollY) / scrollable * 100 : 0;
+    progress.style.width = pct + '%';
+  }
+  document.addEventListener('scroll', updateProgress, {passive:true});
+  updateProgress();
+
+  /* ---------- Custom cursor (desktop, fine pointer only) ---------- */
+  if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+    document.body.classList.add('has-custom-cursor');
+    var dot = document.createElement('div');
+    dot.className = 'cursor-dot';
+    var ring = document.createElement('div');
+    ring.className = 'cursor-ring';
+    document.body.appendChild(dot);
+    document.body.appendChild(ring);
+    var ringX = 0, ringY = 0, mx = 0, my = 0;
+    window.addEventListener('mousemove', function(e){
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+    }, {passive:true});
+    (function raf(){
+      ringX += (mx - ringX) * 0.18;
+      ringY += (my - ringY) * 0.18;
+      ring.style.transform = 'translate(' + ringX + 'px,' + ringY + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(raf);
+    })();
+    document.addEventListener('mouseover', function(e){
+      var t = e.target.closest('a, button, [data-tilt], [data-lightbox-trigger]');
+      ring.classList.toggle('is-hover', !!t);
+    });
+    document.addEventListener('mouseleave', function(){
+      dot.classList.add('is-hidden'); ring.classList.add('is-hidden');
+    });
+    document.addEventListener('mouseenter', function(){
+      dot.classList.remove('is-hidden'); ring.classList.remove('is-hidden');
+    });
+  }
+
+  /* ---------- Magnetic buttons ---------- */
+  document.querySelectorAll('[data-magnetic]').forEach(function(el){
+    el.addEventListener('mousemove', function(e){
+      var r = el.getBoundingClientRect();
+      var x = (e.clientX - r.left - r.width / 2) * 0.25;
+      var y = (e.clientY - r.top - r.height / 2) * 0.4;
+      el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+    });
+    el.addEventListener('mouseleave', function(){ el.style.transform = ''; });
+  });
+
+  /* ---------- Image shimmer removal once loaded ---------- */
+  document.querySelectorAll('img[loading="lazy"]').forEach(function(img){
+    if(img.complete && img.naturalWidth) img.classList.add('is-loaded');
+    else {
+      img.addEventListener('load', function(){ img.classList.add('is-loaded'); });
+      img.addEventListener('error', function(){ img.classList.add('is-loaded'); });
+    }
+  });
+
+  /* ---------- Lightbox gallery ---------- */
+  var lbTriggers = Array.prototype.slice.call(document.querySelectorAll('[data-lightbox-trigger]'));
+  if(lbTriggers.length){
+    var lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML =
+      '<button class="lightbox-close" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+      '<button class="lightbox-prev" aria-label="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 6l-6 6 6 6"/></svg></button>' +
+      '<img alt="">' +
+      '<button class="lightbox-next" aria-label="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 6l6 6-6 6"/></svg></button>' +
+      '<div class="lightbox-count"></div>';
+    document.body.appendChild(lb);
+    var lbImg = lb.querySelector('img');
+    var lbCount = lb.querySelector('.lightbox-count');
+    var current = 0;
+
+    function openLb(i){
+      current = i;
+      var t = lbTriggers[i];
+      lbImg.src = t.getAttribute('data-full') || t.querySelector('img').src;
+      lbImg.alt = t.querySelector('img').alt || '';
+      lbCount.textContent = (i + 1) + ' / ' + lbTriggers.length;
+      lb.classList.add('is-open');
+    }
+    function closeLb(){ lb.classList.remove('is-open'); }
+    function step(delta){ openLb((current + delta + lbTriggers.length) % lbTriggers.length); }
+
+    lbTriggers.forEach(function(t, i){
+      t.addEventListener('click', function(e){ e.preventDefault(); openLb(i); });
+    });
+    lb.querySelector('.lightbox-close').addEventListener('click', closeLb);
+    lb.querySelector('.lightbox-prev').addEventListener('click', function(){ step(-1); });
+    lb.querySelector('.lightbox-next').addEventListener('click', function(){ step(1); });
+    lb.addEventListener('click', function(e){ if(e.target === lb) closeLb(); });
+    document.addEventListener('keydown', function(e){
+      if(!lb.classList.contains('is-open')) return;
+      if(e.key === 'Escape') closeLb();
+      if(e.key === 'ArrowLeft') step(-1);
+      if(e.key === 'ArrowRight') step(1);
+    });
+  }
 })();
