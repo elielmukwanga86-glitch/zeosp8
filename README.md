@@ -109,20 +109,19 @@ d'entrée), avec un coût d'emprunt d'environ 2,5 % par an. Le risque est plus
 
 ## Résultats actuels
 
-Après quelques entraînements (septembre 2026) :
+Après une série d'entraînements (septembre 2026), avec vente à découvert :
 
-- **Examen (100 marchés simulés)** : Sharpe médian entre 0,07 et 0,18 selon les
+- **Examen (100 marchés simulés)** : Sharpe médian entre −0,09 et 0,18 selon les
   cerveaux, pour 0,3 exigé. **Le robot n'a pas encore réussi l'examen.**
 - **Plafond théorique** : même un robot qui connaîtrait parfaitement le régime du
   marché chaque jour, sans frais, n'obtiendrait qu'un Sharpe médian de 0,52 (achat
-  seul) ou 0,66 (avec découvert) sur ces marchés simulés. Le seuil de 0,3 exige
-  donc de capter la moitié de ce qu'une connaissance parfaite rapporterait.
-- **Données réelles (tranche « test neutre », jamais apprise)** : avec vente à
-  découvert, Sharpe médian 0,66 et 6 marchés gagnants sur 8, avec des pertes
-  maximales faibles (9 % au pire). Les gains restent modestes (+2 % à +9 %) car le
-  robot n'engage qu'une petite partie du capital. Il a gagné +3,4 % sur le Brent
-  quand le pétrole perdait 40 %. Attention : 5 de ces 8 marchés sont des actions
-  sur la même période (2013-2014), ce n'est donc pas 8 tests indépendants.
+  seul) ou 0,66 (avec découvert) sur ces marchés simulés.
+- **Données open source (tranche « test neutre », jamais apprise, 18 marchés)** :
+  14 marchés gagnants sur 18, Sharpe médian 0,28, perte maximale 5,2 % au pire.
+  **Mais les gains sont très faibles** (+0,1 % à +3,6 % sur 1 à 9 ans) : le robot
+  trade très peu (souvent 2 à 6 opérations) et engage une petite part du capital.
+  Il évite surtout de perdre (Brent +2,3 % quand le pétrole perdait 40 %), sans
+  encore savoir gagner. Un placement sans risque ferait mieux sur ces périodes.
 
 ## À savoir avant de mettre de l'argent réel
 
