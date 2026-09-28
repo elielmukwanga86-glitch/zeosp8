@@ -27,7 +27,7 @@ from typing import Callable
 
 from .backtest import Result, RiskLimits, run_backtest
 from .learning import TrainConfig, evaluate, evolve
-from .market import Bar, generate_market
+from .market import Bar, generate_market, split_real
 from .strategy import Genome
 
 SIMULATION, PAPER, LIVE = "simulation", "paper", "live"
@@ -36,11 +36,15 @@ SIMULATION, PAPER, LIVE = "simulation", "paper", "live"
 # jamais été vu pendant l'entraînement.
 SEED_BASE = {"train": 1_000_000, "val": 2_000_000, "exam": 3_000_000, "paper": 4_000_000}
 
+# Nombre de périodes passées fournies avant une session sur données réelles,
+# pour que les indicateurs longs (jusqu'à 300 périodes) soient disponibles.
+WARMUP = 300
+
 
 @dataclass
 class Criteria:
     # Examen de simulation -> paper
-    exam_markets: int = 40
+    exam_markets: int = 100
     exam_min_median_sharpe: float = 0.3
     exam_min_profitable_pct: float = 0.6
     exam_max_drawdown: float = 0.20
@@ -65,6 +69,8 @@ class State:
     paper_sessions: list = field(default_factory=list)
     live: dict = field(default_factory=dict)
     journal: list = field(default_factory=list)
+    settings: dict = field(default_factory=lambda: {"allow_short": False})
+    claude_suggestions: list = field(default_factory=list)
 
 
 def _now() -> str:
@@ -82,10 +88,10 @@ class TraderAgent:
     ):
         self.state_path = state_path
         self.criteria = criteria or Criteria()
-        self.risk = risk or RiskLimits()
         self.bars_per_market = bars_per_market
         self.log = log
         self.state = self._load()
+        self.risk = risk or RiskLimits(allow_short=self.state.settings.get("allow_short", False))
 
     # --- persistance -------------------------------------------------------------
 
@@ -113,6 +119,23 @@ class TraderAgent:
         self.state.journal.append({"date": _now(), "message": message})
         self.log(message)
 
+    def _reset_to_simulation(self, reason: str) -> None:
+        if self.state.stage != SIMULATION:
+            self._note(f"{reason} : retour en SIMULATION, le robot doit repasser l'examen.")
+        self.state.stage = SIMULATION
+        self.state.paper_sessions = []
+        self.state.live = {}
+
+    def set_short_selling(self, enabled: bool) -> None:
+        """Autorise ou interdit la vente à découvert (pari à la baisse)."""
+        if self.state.settings.get("allow_short", False) == enabled:
+            return
+        self.state.settings["allow_short"] = enabled
+        self.risk.allow_short = enabled
+        self._note(f"Vente à découvert {'autorisée' if enabled else 'interdite'}.")
+        self._reset_to_simulation("Règles de trading modifiées")
+        self.save()
+
     def _fresh_markets(self, kind: str, n: int, bars: int | None = None) -> list[list[Bar]]:
         start = SEED_BASE[kind] + self.state.seed_counters[kind]
         self.state.seed_counters[kind] += n
@@ -123,30 +146,42 @@ class TraderAgent:
     def train(
         self,
         config: TrainConfig | None = None,
-        n_train: int = 20,
-        n_val: int = 6,
-        n_holdout: int = 20,
-        extra_markets: list[list[Bar]] | None = None,
+        n_train: int = 60,
+        n_val: int = 12,
+        n_holdout: int = 60,
+        real_series: list[list[Bar]] | None = None,
     ) -> bool:
-        """Entraîne le robot. Renvoie True si un meilleur cerveau a été adopté."""
+        """Entraîne le robot. Renvoie True si un meilleur cerveau a été adopté.
+
+        `real_series` : historiques réels. Les 20 % les plus récents sont mis en
+        réserve pour le paper trading ; le reste est découpé en entraînement
+        (60 %), validation (20 %) et test neutre (20 %).
+        """
         config = config or TrainConfig()
         train = self._fresh_markets("train", n_train)
         val = self._fresh_markets("val", n_val)
-        for m in extra_markets or []:
-            cut = int(len(m) * 0.7)
-            train.append(m[:cut])
-            val.append(m[cut:])
+        real_holdout = []
+        for series in real_series or []:
+            learn, _reserve = split_real(series)
+            a, b = int(len(learn) * 0.6), int(len(learn) * 0.8)
+            train.append(learn[:a])
+            val.append(learn[a:b])
+            real_holdout.append(learn[b:])
 
         current = self.genome
-        candidate, _ = evolve(train, val, config, self.risk, seeds=[current], log=self.log)
+        seeds = [current] + [Genome.from_dict(d) for d in self.state.claude_suggestions]
+        if len(seeds) > 1:
+            self.log(f"{len(seeds) - 1} stratégie(s) proposée(s) par Claude ajoutée(s) à la population.")
+        candidate, _ = evolve(train, val, config, self.risk, seeds=seeds, log=self.log)
+        self.state.claude_suggestions = []
 
         # Le candidat a été choisi sur `val` : pour le comparer équitablement au
         # cerveau actuel, on utilise un troisième jeu de marchés, jamais vu par
         # aucun des deux.
-        holdout = self._fresh_markets("val", n_holdout)
+        holdout = self._fresh_markets("val", n_holdout) + real_holdout
         current_score, _ = evaluate(current, holdout, self.risk)
         candidate_score, _ = evaluate(candidate, holdout, self.risk)
-        self.log(f"Test final sur {n_holdout} marchés neutres : actuel {current_score:+.3f}, candidat {candidate_score:+.3f}")
+        self.log(f"Test final sur {len(holdout)} marchés neutres : actuel {current_score:+.3f}, candidat {candidate_score:+.3f}")
         adopted = candidate_score > current_score
         self.state.training_runs.append(
             {
@@ -161,12 +196,8 @@ class TraderAgent:
         if adopted:
             self.state.genome = candidate.to_dict()
             self.state.validation_score = candidate_score
-            if self.state.stage != SIMULATION:
-                # Un nouveau cerveau n'a pas encore fait ses preuves : retour à la case examen.
-                self._note("Nouveau cerveau : retour en SIMULATION, il doit repasser l'examen.")
-            self.state.stage = SIMULATION
-            self.state.paper_sessions = []
-            self.state.live = {}
+            # Un nouveau cerveau n'a pas encore fait ses preuves.
+            self._reset_to_simulation("Nouveau cerveau")
             self._note(f"Nouveau cerveau adopté (score {current_score:+.3f} -> {candidate_score:+.3f}).")
         else:
             self._note("Aucun progrès sur les marchés neutres : le cerveau actuel est conservé.")
@@ -214,17 +245,29 @@ class TraderAgent:
 
     # --- 3. paper trading ------------------------------------------------------------
 
-    def paper_session(self, bars: list[Bar] | None = None, capital: float = 10_000.0) -> Result:
+    def paper_session(
+        self, bars: list[Bar] | None = None, capital: float = 10_000.0, trade_from: int = 0, name: str = "simulé"
+    ) -> Result:
         """Une session de trading fictif sur des données jamais vues."""
         if self.state.stage == SIMULATION:
             raise PermissionError("Le robot doit d'abord réussir l'examen (commande `exam`).")
         if bars is None:
-            bars = self._fresh_markets("paper", 1, bars=500)[0]
-        result = run_backtest(bars, self.genome, initial_cash=capital, risk=self.risk)
-        self.state.paper_sessions.append({"date": _now(), **result.summary()})
-        self.log(f"Session paper n°{len(self.state.paper_sessions)} : {result.summary()}")
+            bars = self._fresh_markets("paper", 1, bars=500 + WARMUP)[0]
+            trade_from = WARMUP
+        result = run_backtest(bars, self.genome, initial_cash=capital, risk=self.risk, trade_from=trade_from)
+        self.state.paper_sessions.append({"date": _now(), "marche": name, **result.summary()})
+        self.log(f"Session paper n°{len(self.state.paper_sessions)} ({name}) : {result.summary()}")
         self.save()
         return result
+
+    def paper_real(self, series: dict[str, list[Bar]]) -> list[Result]:
+        """Paper trading sur la réserve (20 % les plus récents) de chaque historique réel."""
+        results = []
+        for name, bars in series.items():
+            learn, reserve = split_real(bars)
+            history = learn[-WARMUP:]
+            results.append(self.paper_session(history + reserve, trade_from=len(history), name=name))
+        return results
 
     def live_eligibility(self) -> tuple[bool, list[str]]:
         c = self.criteria
@@ -303,6 +346,8 @@ class TraderAgent:
             "entrainements": len(self.state.training_runs),
             "dernier_examen": self.state.exams[-1] if self.state.exams else None,
             "sessions_paper": len(self.state.paper_sessions),
+            "vente_a_decouvert": self.risk.allow_short,
+            "suggestions_claude_en_attente": len(self.state.claude_suggestions),
             "eligible_capital_reel": eligible,
             "manque_pour_capital_reel": reasons,
             "live": self.state.live or None,

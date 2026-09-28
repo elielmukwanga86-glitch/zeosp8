@@ -53,3 +53,21 @@ def momentum(values: list[float], n: int) -> Series:
     for i in range(n, len(values)):
         out[i] = values[i] / values[i - n] - 1.0
     return out
+
+
+def volatility(values: list[float], n: int) -> Series:
+    """Écart-type des rendements journaliers sur les n dernières périodes."""
+    out: Series = [None] * len(values)
+    rets = [0.0] + [values[i] / values[i - 1] - 1.0 for i in range(1, len(values))]
+    s = s2 = 0.0
+    for i, r in enumerate(rets):
+        s += r
+        s2 += r * r
+        if i >= n:
+            old = rets[i - n]
+            s -= old
+            s2 -= old * old
+        if i >= n:
+            mean = s / n
+            out[i] = max(s2 / n - mean * mean, 0.0) ** 0.5
+    return out

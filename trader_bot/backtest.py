@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 
 from .broker import PaperBroker, Trade
 from .market import Bar
-from .strategy import Genome, scores
+from .strategy import Genome, signals
 
 
 @dataclass
@@ -22,6 +22,8 @@ class RiskLimits:
 
     max_position_pct: float = 0.5  # part maximale du capital engagée sur une position
     max_drawdown_pct: float = 0.25  # coupe-circuit : arrêt du trading au-delà de cette perte depuis le plus haut
+    allow_short: bool = False  # vente à découvert autorisée ?
+    borrow_rate: float = 0.0001  # coût d'emprunt par période d'une position vendeuse (~2,5 %/an)
 
 
 @dataclass
@@ -46,6 +48,7 @@ class Result:
             "sharpe": round(self.sharpe, 2),
             "drawdown_max": round(self.max_drawdown, 4),
             "trades": self.n_trades,
+            "ventes_decouvert": sum(t.side == "vente_decouvert" for t in self.trades),
             "taux_reussite": round(self.win_rate, 3),
             "profit_factor": round(self.profit_factor, 2),
             "coupe_circuit": self.halted,
@@ -60,34 +63,54 @@ def run_backtest(
     fee_rate: float = 0.001,
     slippage: float = 0.0005,
     bars_per_year: int = 252,
+    trade_from: int = 0,
 ) -> Result:
+    """Rejoue `genome` sur `bars`.
+
+    `trade_from` : les périodes antérieures servent seulement à calculer les
+    indicateurs (historique de chauffe) ; le trading commence à cet indice.
+    """
     risk = risk or RiskLimits()
     broker = PaperBroker(cash=initial_cash, fee_rate=fee_rate, slippage=slippage)
-    signal = scores([b.close for b in bars], genome)
+    sig = signals(tuple(b.close for b in bars), tuple(b.volume for b in bars), genome)
 
     equity_curve: list[float] = []
     peak = initial_cash
     halted = False
     pending: str | None = None
+    pending_size = 0.0
     stop_price = take_price = 0.0
 
     for i, bar in enumerate(bars):
+        if i < trade_from:
+            continue
         # 1. Exécuter l'ordre décidé à la période précédente, au prix d'ouverture.
-        if pending == "buy" and broker.position == 0 and not halted:
-            size = min(genome.position_size, risk.max_position_pct)
-            broker.buy(broker.equity(bar.open) * size, bar.open, i)
-            stop_price = broker.entry_price * (1.0 - genome.stop_loss)
-            take_price = broker.entry_price * (1.0 + genome.take_profit)
-        elif pending == "sell":
-            broker.sell_all(bar.open, i, "coupe_circuit" if halted else "signal")
+        if pending in ("buy", "short") and broker.position == 0 and not halted:
+            amount = broker.equity(bar.open) * min(genome.position_size, risk.max_position_pct) * pending_size
+            if pending == "buy":
+                broker.buy(amount, bar.open, i)
+                stop_price = broker.entry_price * (1.0 - genome.stop_loss)
+                take_price = broker.entry_price * (1.0 + genome.take_profit)
+            else:
+                broker.sell_short(amount, bar.open, i)
+                stop_price = broker.entry_price * (1.0 + genome.stop_loss)
+                take_price = broker.entry_price * (1.0 - genome.take_profit)
+        elif pending == "close":
+            broker.close(bar.open, i, "coupe_circuit" if halted else "signal")
         pending = None
 
         # 2. Stop-loss / take-profit pendant la période.
         if broker.position > 0:
             if bar.low <= stop_price:
-                broker.sell_all(min(bar.open, stop_price), i, "stop_loss")
+                broker.close(min(bar.open, stop_price), i, "stop_loss")
             elif bar.high >= take_price:
-                broker.sell_all(max(bar.open, take_price), i, "take_profit")
+                broker.close(max(bar.open, take_price), i, "take_profit")
+        elif broker.position < 0:
+            broker.cash -= -broker.position * bar.close * risk.borrow_rate
+            if bar.high >= stop_price:
+                broker.close(max(bar.open, stop_price), i, "stop_loss")
+            elif bar.low <= take_price:
+                broker.close(min(bar.open, take_price), i, "take_profit")
 
         # 3. Suivi du capital et coupe-circuit.
         equity = broker.equity(bar.close)
@@ -97,17 +120,24 @@ def run_backtest(
             halted = True
 
         # 4. Décision pour la période suivante.
-        s = signal[i]
-        if broker.position > 0 and (halted or (s is not None and s <= genome.exit)):
-            pending = "sell"
-        elif broker.position == 0 and not halted and s is not None and s >= genome.entry:
-            pending = "buy"
+        s = sig.score[i]
+        if broker.position > 0:
+            if halted or (s is not None and s <= genome.exit):
+                pending = "close"
+        elif broker.position < 0:
+            if halted or (s is not None and s >= -genome.exit):
+                pending = "close"
+        elif not halted and s is not None:
+            if s >= genome.entry:
+                pending, pending_size = "buy", sig.size[i]
+            elif risk.allow_short and s <= -genome.entry:
+                pending, pending_size = "short", sig.size[i]
 
-    if broker.position > 0:
-        broker.sell_all(bars[-1].close, len(bars) - 1, "fin_simulation")
+    if broker.position != 0:
+        broker.close(bars[-1].close, len(bars) - 1, "fin_simulation")
         equity_curve[-1] = broker.cash
 
-    return _metrics(bars, broker, equity_curve, initial_cash, halted, bars_per_year)
+    return _metrics(bars[trade_from:], broker, equity_curve, initial_cash, halted, bars_per_year)
 
 
 def _metrics(bars, broker, curve, initial, halted, bars_per_year) -> Result:

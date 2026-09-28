@@ -9,6 +9,8 @@ stratégie qui généralise le mieux, pas celle qui a « appris par cœur ».
 
 from __future__ import annotations
 
+import multiprocessing as mp
+import os
 import random
 import statistics
 from dataclasses import dataclass
@@ -27,29 +29,44 @@ class TrainConfig:
     tournament: int = 3
     mutation_rate: float = 0.25
     seed: int | None = None
+    workers: int = 0  # processus en parallèle (0 = un par cœur du processeur)
 
 
 def fitness(results: list[Result]) -> float:
-    """Note d'une stratégie sur plusieurs marchés.
+    """Note d'une stratégie sur plusieurs marchés, alignée sur les critères de l'examen.
 
-    On récompense le rendement ajusté du risque (Sharpe) et on pénalise fortement
-    les pertes maximales. On prend la médiane et le pire cas pour favoriser les
-    stratégies robustes plutôt que chanceuses.
+    - Sharpe médian : rendement ajusté du risque d'un marché typique ;
+    - part de marchés gagnants : régularité ;
+    - pénalité seulement au-delà de 15 % de drawdown : on veut limiter les
+      grosses pertes sans rendre le robot timide au point de ne plus rien gagner ;
+    - pénalités si la stratégie ne trade quasiment pas ou déclenche le coupe-circuit.
     """
-    per_market = []
-    for r in results:
-        score = r.sharpe - 3.0 * r.max_drawdown
-        if r.n_trades < 3:
-            score -= 1.0  # une stratégie qui ne trade pas n'apprend rien
-        if r.halted:
-            score -= 1.0
-        per_market.append(score)
-    return 0.7 * statistics.median(per_market) + 0.3 * min(per_market)
+    n = len(results)
+    median_sharpe = statistics.median(r.sharpe for r in results)
+    profitable = sum(r.total_return > 0 for r in results) / n
+    excess_dd = statistics.mean(max(0.0, r.max_drawdown - 0.15) for r in results)
+    inactive = sum(r.n_trades < 3 for r in results) / n
+    halted = sum(r.halted for r in results) / n
+    return median_sharpe + (profitable - 0.5) - 5.0 * excess_dd - inactive - 2.0 * halted
 
 
 def evaluate(genome: Genome, markets: list[list[Bar]], risk: RiskLimits) -> tuple[float, list[Result]]:
     results = [run_backtest(m, genome, risk=risk) for m in markets]
     return fitness(results), results
+
+
+# Les marchés d'entraînement sont transmis une seule fois à chaque processus.
+_WORKER_MARKETS: list[list[Bar]] = []
+_WORKER_RISK = RiskLimits()
+
+
+def _init_worker(markets: list[list[Bar]], risk: RiskLimits) -> None:
+    global _WORKER_MARKETS, _WORKER_RISK
+    _WORKER_MARKETS, _WORKER_RISK = markets, risk
+
+
+def _score_worker(genome: Genome) -> float:
+    return evaluate(genome, _WORKER_MARKETS, _WORKER_RISK)[0]
 
 
 def evolve(
@@ -72,13 +89,28 @@ def evolve(
     population = list(seeds or [])[: cfg.population]
     population += [Genome.random(rng) for _ in range(cfg.population - len(population))]
 
+    workers = cfg.workers or os.cpu_count() or 1
+    method = "fork" if "fork" in mp.get_all_start_methods() else "spawn"  # Windows : spawn
+    pool = mp.get_context(method).Pool(workers, _init_worker, (train_markets, risk)) if workers > 1 else None
+    try:
+        return _evolve_loop(population, train_markets, val_markets, cfg, risk, rng, pool, log)
+    finally:
+        if pool:
+            pool.close()
+            pool.join()
+
+
+def _evolve_loop(population, train_markets, val_markets, cfg, risk, rng, pool, log) -> tuple[Genome, float]:
     best_genome, best_val = population[0], float("-inf")
+    known: dict[tuple, float] = {}  # les élites déjà notées ne sont pas réévaluées
     for gen in range(cfg.generations):
-        scored = sorted(
-            ((evaluate(g, train_markets, risk)[0], g) for g in population),
-            key=lambda x: x[0],
-            reverse=True,
-        )
+        todo = [g for g in population if _key(g) not in known]
+        if pool:
+            fits = pool.map(_score_worker, todo)
+        else:
+            fits = [evaluate(g, train_markets, risk)[0] for g in todo]
+        known.update(zip(map(_key, todo), fits))
+        scored = sorted(((known[_key(g)], g) for g in population), key=lambda x: x[0], reverse=True)
         champion_train, champion = scored[0]
         val_score, _ = evaluate(champion, val_markets, risk)
         if val_score > best_val:
@@ -97,6 +129,10 @@ def evolve(
         population = children
 
     return best_genome, best_val
+
+
+def _key(g: Genome) -> tuple:
+    return tuple(g.to_dict().values())
 
 
 def _tournament(scored: list[tuple[float, Genome]], k: int, rng: random.Random) -> Genome:
