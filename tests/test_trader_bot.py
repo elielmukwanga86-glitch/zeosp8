@@ -55,6 +55,21 @@ class MarketTests(unittest.TestCase):
             os.unlink(f.name)
 
 
+    def test_load_csv_prefixed_reversed_with_thousands(self):
+        bars = generate_market(120, seed=9)
+        with tempfile.NamedTemporaryFile("w", suffix=".csv", delete=False) as f:
+            f.write('"date","X.Close","X.Volume","X.Open","X.High","X.Low"\n')
+            f.write('"11:34","1","1,000","1","1","1"\n')  # ligne intrajournalière sans date : ignorée
+            for i, b in reversed(list(enumerate(bars))):
+                day = f"2020/{1 + i // 28:02d}/{1 + i % 28:02d}"
+                f.write(f'"{day}","{b.close}","1,234","{b.open}","{b.high}","{b.low}"\n')
+        try:
+            loaded = load_csv(f.name)
+        finally:
+            os.unlink(f.name)
+        self.assertEqual([round(b.close, 6) for b in loaded], [round(b.close, 6) for b in bars])
+        self.assertEqual(loaded[0].volume, 1234)
+
 class StrategyTests(unittest.TestCase):
     def test_no_lookahead(self):
         """Modifier le futur ne doit pas changer les scores du passé."""

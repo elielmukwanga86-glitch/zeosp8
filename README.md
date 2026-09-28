@@ -39,7 +39,14 @@ est dans `bot_state.json`. Supprimez ce fichier pour repartir de zéro.
 ### Avec de vraies données
 
 Tout fichier CSV avec les colonnes `Open, High, Low, Close` (export Yahoo Finance,
-Binance, etc.) peut servir :
+Binance, etc.) peut servir. Deux exemples sont fournis dans `data/` : Apple
+(2015-2017) et Tesla (2015-2018), en cours journaliers :
+
+```bash
+python -m trader_bot train --csv data/AAPL.csv --csv data/TSLA.csv
+```
+
+Avec vos propres fichiers :
 
 ```bash
 python -m trader_bot train --csv data/BTC-USD.csv --csv data/CAC40.csv

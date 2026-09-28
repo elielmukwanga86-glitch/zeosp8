@@ -6,6 +6,7 @@ import csv
 import math
 import random
 from dataclasses import dataclass
+from datetime import datetime
 
 
 @dataclass(frozen=True)
@@ -63,28 +64,59 @@ def generate_market(n_bars: int = 1000, seed: int = 0, start_price: float = 100.
     return bars
 
 
-def load_csv(path: str) -> list[Bar]:
-    """Charge des données OHLC depuis un CSV (format Yahoo Finance, Binance export, etc.).
+DATE_FORMATS = ("%Y-%m-%d", "%Y/%m/%d", "%d/%m/%Y", "%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S")
 
-    Colonnes attendues (insensible à la casse) : open, high, low, close et
-    optionnellement volume. Les lignes incomplètes sont ignorées.
+
+def _parse_date(text: str) -> datetime | None:
+    text = text.strip()
+    for fmt in DATE_FORMATS:
+        try:
+            return datetime.strptime(text[: len(datetime.now().strftime(fmt))], fmt)
+        except ValueError:
+            continue
+    return None
+
+
+def _number(text: str | None) -> float:
+    return float((text or "").replace(",", "").strip())
+
+
+def load_csv(path: str) -> list[Bar]:
+    """Charge des données OHLC depuis un CSV (Yahoo Finance, Binance, plotly...).
+
+    Colonnes attendues (insensible à la casse, préfixe du type « AAPL.Open »
+    accepté) : open, high, low, close et optionnellement volume et date. Si une
+    colonne date existe, les lignes sans date valide sont ignorées et les données
+    sont remises dans l'ordre chronologique. Les lignes incomplètes sont ignorées.
     """
-    bars: list[Bar] = []
+    rows: list[tuple[datetime | None, list[float], float]] = []
     with open(path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         if reader.fieldnames is None:
             raise ValueError(f"{path} : fichier CSV vide")
-        cols = {name.strip().lower(): name for name in reader.fieldnames}
+        cols = {name.strip().lower().rsplit(".", 1)[-1]: name for name in reader.fieldnames}
         missing = [c for c in ("open", "high", "low", "close") if c not in cols]
         if missing:
             raise ValueError(f"{path} : colonnes manquantes {missing}")
+        date_col = cols.get("date") or cols.get("timestamp")
         for row in reader:
             try:
-                values = [float(row[cols[c]]) for c in ("open", "high", "low", "close")]
+                values = [_number(row[cols[c]]) for c in ("open", "high", "low", "close")]
             except (TypeError, ValueError):
                 continue
-            volume = float(row[cols["volume"]] or 0) if "volume" in cols else 0.0
-            bars.append(Bar(len(bars), *values, volume))
+            try:
+                volume = _number(row[cols["volume"]]) if "volume" in cols else 0.0
+            except (TypeError, ValueError):
+                volume = 0.0
+            date = None
+            if date_col:
+                date = _parse_date(row[date_col] or "")
+                if date is None:
+                    continue
+            rows.append((date, values, volume))
+    if date_col:
+        rows.sort(key=lambda r: r[0])
+    bars = [Bar(i, *values, volume) for i, (_, values, volume) in enumerate(rows)]
     if len(bars) < 100:
         raise ValueError(f"{path} : trop peu de données ({len(bars)} lignes, minimum 100)")
     return bars
