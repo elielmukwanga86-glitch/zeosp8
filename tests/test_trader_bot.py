@@ -257,12 +257,14 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(len(result.equity_curve), 400)  # 20 % les plus récents
         self.assertEqual(agent.state.paper_sessions[0]["marche"], "TEST")
 
-    def test_training_with_real_series_and_claude_seeds(self):
+    def test_training_with_real_series(self):
         agent = self.make()
-        agent.state.claude_suggestions = [Genome(fast=5, slow=60).to_dict()]
-        agent.train(TrainConfig(population=6, generations=2, elite=2, seed=0, workers=1), n_train=2, n_val=2, n_holdout=2,
-                    real_series=[generate_market(1500, seed=77)])
-        self.assertEqual(agent.state.claude_suggestions, [])
+        adopted = agent.train(
+            TrainConfig(population=6, generations=2, elite=2, seed=0, workers=1), n_train=2, n_val=2, n_holdout=2,
+            real_series=[generate_market(1500, seed=77)],
+        )
+        self.assertEqual(len(agent.state.training_runs), 1)
+        self.assertIsInstance(adopted, bool)
 
     def test_exam_failure_keeps_simulation(self):
         agent = self.make(exam_markets=3, exam_min_median_sharpe=99)
@@ -271,58 +273,28 @@ class AgentTests(unittest.TestCase):
 
 
 
-class FakeClaude:
-    """Imite le client Anthropic pour tester le coach sans clé API."""
 
-    def __init__(self, payload, stop_reason="end_turn"):
-        import json
-        from types import SimpleNamespace
+class OpenDataTests(unittest.TestCase):
+    def test_download_writes_one_csv_per_market(self):
+        from unittest import mock
 
-        self.calls = []
-        block = SimpleNamespace(type="text", text=json.dumps(payload))
-        response = SimpleNamespace(stop_reason=stop_reason, content=[block])
+        from trader_bot import open_data
 
-        def create(**kwargs):
-            self.calls.append(kwargs)
-            return response
+        days = [f"2020-{1 + i // 28:02d}-{1 + i % 28:02d}" for i in range(120)]
+        commodity = "Date,Price\n" + "".join(f"{d},{50 + i}\n" for i, d in enumerate(days))
+        stocks = '"MSFT","GSPC","Date"\n' + "".join(f'{10 + i},{100 + i},"{d}"\n' for i, d in enumerate(days))
+        fx = "Date,Country,Exchange rate\n" + "".join(
+            f"{d},Euro,{1 + i / 1000}\n{d},Venezuela,{i}\n" for i, d in enumerate(days)
+        )
 
-        self.beta = SimpleNamespace(messages=SimpleNamespace(create=create))
+        def fake_get(path):
+            return stocks if path == open_data.STOCKS else fx if path == open_data.FX else commodity
 
-
-class CoachTests(unittest.TestCase):
-    def setUp(self):
-        self.dir = tempfile.TemporaryDirectory()
-        self.agent = TraderAgent(os.path.join(self.dir.name, "s.json"), bars_per_market=300, log=quiet)
-
-    def tearDown(self):
-        self.dir.cleanup()
-
-    def test_suggestions_are_repaired_and_queued(self):
-        from trader_bot.coach import coach
-
-        wild = dict(Genome().to_dict(), fast=999, entry=5.0, idee="tendance lente")
-        fake = FakeClaude({"diagnostic": "pas d'avantage", "conseils": ["réduire la taille"], "genomes": [wild]})
-        advice = coach(self.agent, {"X": generate_market(1500, seed=2)}, client=fake)
-        self.assertEqual(advice["diagnostic"], "pas d'avantage")
-        queued = self.agent.state.claude_suggestions
-        self.assertEqual(len(queued), 1)
-        self.assertEqual(queued[0]["fast"], 30)  # ramené dans l'intervalle
-        self.assertLessEqual(queued[0]["entry"], 0.8)
-        call = self.fake_call(fake)
-        self.assertEqual(call["model"], "claude-opus-5")
-        self.assertEqual(call["fallbacks"], "default")
-        self.assertIn("resultats_donnees_reelles_apprentissage", call["messages"][0]["content"])
-
-    def fake_call(self, fake):
-        self.assertEqual(len(fake.calls), 1)
-        return fake.calls[0]
-
-    def test_refusal_raises(self):
-        from trader_bot.coach import CoachError, coach
-
-        with self.assertRaises(CoachError):
-            coach(self.agent, client=FakeClaude({}, stop_reason="refusal"))
-        self.assertEqual(self.agent.state.claude_suggestions, [])
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(open_data, "_get", fake_get):
+            open_data.download(d, log=quiet)
+            files = sorted(os.listdir(d))
+            self.assertEqual(files, ["BRENT.csv", "FX_EUR.csv", "GAZ.csv", "MSFT.csv", "SP500.csv", "WTI.csv"])
+            self.assertEqual(len(load_csv(os.path.join(d, "FX_EUR.csv"))), 120)
 
 
 if __name__ == "__main__":

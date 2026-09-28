@@ -70,7 +70,6 @@ class State:
     live: dict = field(default_factory=dict)
     journal: list = field(default_factory=list)
     settings: dict = field(default_factory=lambda: {"allow_short": False})
-    claude_suggestions: list = field(default_factory=list)
 
 
 def _now() -> str:
@@ -169,11 +168,7 @@ class TraderAgent:
             real_holdout.append(learn[b:])
 
         current = self.genome
-        seeds = [current] + [Genome.from_dict(d) for d in self.state.claude_suggestions]
-        if len(seeds) > 1:
-            self.log(f"{len(seeds) - 1} stratégie(s) proposée(s) par Claude ajoutée(s) à la population.")
-        candidate, _ = evolve(train, val, config, self.risk, seeds=seeds, log=self.log)
-        self.state.claude_suggestions = []
+        candidate, _ = evolve(train, val, config, self.risk, seeds=[current], log=self.log)
 
         # Le candidat a été choisi sur `val` : pour le comparer équitablement au
         # cerveau actuel, on utilise un troisième jeu de marchés, jamais vu par
@@ -347,7 +342,6 @@ class TraderAgent:
             "dernier_examen": self.state.exams[-1] if self.state.exams else None,
             "sessions_paper": len(self.state.paper_sessions),
             "vente_a_decouvert": self.risk.allow_short,
-            "suggestions_claude_en_attente": len(self.state.claude_suggestions),
             "eligible_capital_reel": eligible,
             "manque_pour_capital_reel": reasons,
             "live": self.state.live or None,

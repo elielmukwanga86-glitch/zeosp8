@@ -11,27 +11,29 @@ Il progresse par étapes, et chaque étape doit être méritée :
 
 | Étape | Ce que fait le robot | Pour passer à la suite |
 |---|---|---|
-| **Simulation** | S'entraîne sur des marchés simulés (haussiers, baissiers, latéraux, volatils) et sur 40 ans de prix réels | Réussir l'examen sur 100 marchés jamais vus : Sharpe médian ≥ 0,3, ≥ 60 % de marchés gagnants, drawdown ≤ 20 % |
+| **Simulation** | S'entraîne sur des données de marché open source (19 marchés réels, jusqu'à 55 ans d'historique) et sur des marchés simulés | Réussir l'examen sur 100 marchés jamais vus : Sharpe médian ≥ 0,3, ≥ 60 % de marchés gagnants, drawdown ≤ 20 % |
 | **Paper trading** | Trade avec de l'argent fictif sur la **réserve** des données réelles (les 20 % les plus récents, jamais vus) | ≥ 5 sessions, ≥ 60 % gagnantes, rendement moyen positif, drawdown ≤ 20 % |
 | **Capital réel** | Reçoit le capital **par tranches** : 25 % au départ, +25 % après chaque période gagnante, divisé par 2 après une perte | 3 pertes d'affilée ou un drawdown trop fort : retour en paper trading |
 
-Python 3.10+ suffit. Le SDK `anthropic` n'est nécessaire que pour le coach Claude.
+Python 3.10+ suffit, sans aucune dépendance ni clé d'API.
 
 ## Démarrage rapide
 
 ```bash
-python fetch_data.py                  # télécharge les prix réels dans data/ (déjà fournis)
 python -m trader_bot short on         # optionnel : autoriser les paris à la baisse
-python -m trader_bot auto --real      # entraînement + examen + paper trading, en boucle
+python -m trader_bot auto             # entraînement + examen + paper trading, en boucle
 python -m trader_bot status           # où en est le robot, ce qui lui manque
 ```
+
+Les données open source (déjà fournies dans `data/`) sont utilisées automatiquement,
+et téléchargées si le dossier est vide. `python -m trader_bot data` les met à jour.
 
 Les commandes une par une :
 
 ```bash
-python -m trader_bot train --real     # un entraînement (~1 min)
+python -m trader_bot train            # un entraînement (~2 min)
 python -m trader_bot exam             # examen sur 100 marchés inédits
-python -m trader_bot paper --real     # trading fictif sur la réserve réelle (après l'examen)
+python -m trader_bot paper            # trading fictif sur la réserve réelle (après l'examen)
 python -m trader_bot backtest --csv data/SP500.csv
 ```
 
@@ -45,16 +47,21 @@ python -m trader_bot live-report --return 0.03 --drawdown 0.04   # bilan d'une p
 La mémoire du robot (son « cerveau », ses examens, ses sessions, son capital, ses
 réglages) est dans `bot_state.json`. Supprimez ce fichier pour repartir de zéro.
 
-## Données réelles
+## Données open source
 
-`python fetch_data.py` récupère des historiques journaliers publics :
+Historiques journaliers publics et gratuits, récupérés sur GitHub
+(`github.com/datasets`, `github.com/plotly/datasets`) par `python -m trader_bot data` :
 
 | Fichier | Marché | Période |
 |---|---|---|
+| `FX_EUR`, `FX_JPY`, `FX_GBP`, `FX_CHF`, `FX_CAD`, `FX_AUD`, `FX_NZD`, `FX_SEK`, `FX_NOK`, `FX_MXN` | 10 devises face au dollar (Réserve fédérale américaine) | 1971/1993/1999 → 2026 |
 | `BRENT.csv`, `WTI.csv` | Pétrole | 1986/1987 → 2026 |
 | `GAZ.csv` | Gaz naturel | 1997 → 2026 |
 | `SP500.csv`, `AAPL.csv`, `MSFT.csv`, `IBM.csv`, `SBUX.csv` | Actions / indice | 2007 → 2016 |
-| `TSLA.csv` | Tesla (OHLC complet) | 2015 → 2018 |
+| `TSLA.csv` | Tesla (OHLC complet, ajouté à la main) | 2015 → 2018 |
+
+Seules les devises à change flottant sont retenues : les monnaies ancrées ou très
+encadrées (Hong Kong, Chine, Venezuela...) ne se comportent pas comme un marché libre.
 
 Chaque historique est découpé ainsi :
 
@@ -64,7 +71,8 @@ Chaque historique est découpé ainsi :
 ```
 
 Tout CSV avec une colonne de clôture (`Close`, `Price`, `Adj Close`...) convient,
-par exemple un export Yahoo Finance : `--csv mon_fichier.csv` (répétable).
+par exemple un export Yahoo Finance : déposez-le dans `data/`, ou passez
+`--csv mon_fichier.csv`. `--sans-donnees-reelles` entraîne sur les seuls marchés simulés.
 
 ## Comment il apprend
 
@@ -73,8 +81,8 @@ par exemple un export Yahoo Finance : `--csv mon_fichier.csv` (répétable).
    momentum et volume. Deux mécanismes gèrent le risque : un filtre qui évite de
    prendre position quand le marché s'emballe, et une taille de position réduite
    quand la volatilité monte. Son « cerveau » est un ensemble de 20 paramètres.
-2. **L'évolution** (`learning.py`) : 40 cerveaux sont testés sur 60 marchés
-   simulés et les données réelles. Les meilleurs se reproduisent (croisement +
+2. **L'évolution** (`learning.py`) : 40 cerveaux sont testés sur les données
+   open source et 60 marchés simulés. Les meilleurs se reproduisent (croisement +
    mutation) sur 20 générations. Le calcul utilise tous les cœurs du processeur.
 3. **Contre le sur-apprentissage** : le champion de chaque génération est jugé
    sur des marchés de validation, puis n'est adopté que s'il bat le cerveau
@@ -89,25 +97,6 @@ par exemple un export Yahoo Finance : `--csv mon_fichier.csv` (répétable).
 négatif ouvre une position vendeuse, protégée par un stop-loss (au-dessus du prix
 d'entrée), avec un coût d'emprunt d'environ 2,5 % par an. Le risque est plus
 élevé : en théorie, une hausse n'a pas de limite. `short off` revient à l'achat seul.
-
-## Claude comme coach
-
-Claude analyse le bilan du robot (examens, entraînements, cerveau, résultats sur
-les données d'apprentissage), explique ce qui ne va pas et propose jusqu'à
-5 stratégies. Celles-ci sont ajoutées à la population du prochain entraînement :
-elles doivent battre le cerveau actuel puis réussir l'examen, **comme toutes les
-autres**. Claude ne voit jamais la réserve de paper trading.
-
-```bash
-pip install anthropic
-export ANTHROPIC_API_KEY=sk-ant-...      # clé à créer sur console.anthropic.com
-python -m trader_bot coach --real        # diagnostic + stratégies proposées
-python -m trader_bot auto --real --coach # Claude conseille avant chaque entraînement
-```
-
-Modèle utilisé : `claude-opus-5`. Si Claude refuse une demande, l'API bascule
-automatiquement sur le modèle de repli recommandé (`fallbacks: "default"`).
-Chaque appel est facturé sur votre compte Anthropic.
 
 ## Garde-fous
 
@@ -146,7 +135,6 @@ Après quelques entraînements (septembre 2026) :
 ## Structure
 
 ```
-fetch_data.py    téléchargement des prix réels
 trader_bot/
   market.py      marchés simulés, chargement CSV, découpage réserve
   indicators.py  moyennes mobiles, RSI, momentum, volatilité
@@ -155,7 +143,7 @@ trader_bot/
   backtest.py    moteur de simulation, garde-fous, métriques
   learning.py    algorithme génétique (parallèle)
   agent.py       le robot : mémoire, examen, paper trading, gestion du capital
-  coach.py       Claude comme coach
+  open_data.py   téléchargement des données open source
   cli.py         commandes
 tests/           python -m unittest
 ```
