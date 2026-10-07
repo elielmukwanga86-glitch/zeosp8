@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Figures du Projet Mairie, rendues en PNG par rendu-schemas.js (un élément d'id X -> img/X.png).
+     Dépôt public : toute adresse IP interne est écrite déjà masquée (192.168.x.x). -->
+<style>
+@font-face{font-family:Plex;src:url(../../fonts/IBMPlexSans-Regular.ttf);font-weight:400}
+@font-face{font-family:Plex;src:url(../../fonts/IBMPlexSans-SemiBold.ttf);font-weight:600}
+@font-face{font-family:Plex;src:url(../../fonts/IBMPlexSans-Bold.ttf);font-weight:700}
+@font-face{font-family:PlexCond;src:url(../../fonts/IBMPlexSansCondensed-Bold.ttf);font-weight:700}
+@font-face{font-family:PlexMono;src:url(../../fonts/IBMPlexMono-Regular.ttf);font-weight:400}
+@font-face{font-family:PlexMono;src:url(../../fonts/IBMPlexMono-Bold.ttf);font-weight:700}
+:root{--ink:#12161C;--ink2:#3F4852;--mut:#77808B;--line:#D5DAE0;--tint:#F3F4F6;--acc:#E8572A;--ok:#23946A;--paper:#FFFFFF}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:Plex,sans-serif;color:var(--ink);padding:20px;display:grid;gap:20px;justify-content:start}
+.fig{background:var(--paper);width:1000px;position:relative}
+.mono{font-family:PlexMono,monospace}
+.lbl{font-family:PlexMono,monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+/* ---------- Architecture ---------- */
+#arch{height:600px;padding:34px 36px}
+#arch .col-l{position:absolute;left:36px;top:70px;width:300px;display:grid;gap:12px}
+.dev{border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;display:flex;align-items:center;gap:12px;font-size:19px;font-weight:600;background:#fff}
+.dev small{display:block;font-family:PlexMono;font-weight:400;font-size:13px;color:var(--mut);letter-spacing:.02em;margin-top:1px}
+.ico{width:34px;height:34px;flex:none;border-radius:8px;background:var(--tint);display:grid;place-items:center}
+.ico svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.6}
+#arch .esx{position:absolute;left:560px;top:52px;width:404px;height:400px;border:1.5px dashed #9AA3AD;border-radius:16px;padding:16px}
+#arch .esx>.lbl{color:var(--ink2)}
+#arch .vm{margin-top:12px;border:1.5px solid var(--ink);border-radius:12px;padding:14px;background:#fff}
+#arch .vm .h{display:flex;justify-content:space-between;align-items:baseline;font-weight:700;font-size:20px}
+#arch .vm .h span{font-family:PlexMono;font-weight:400;font-size:14px;color:var(--ink2)}
+.svc{margin-top:10px;border-radius:9px;padding:11px 14px;background:var(--tint);font-size:18px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.svc em{font-style:normal;font-family:PlexMono;font-weight:400;font-size:12.5px;color:var(--mut);letter-spacing:-.01em}
+.svc.main{background:var(--ink);color:#fff}
+.svc.main em{color:#C4CAD2}
+.svc.main b{color:var(--acc)}
+#arch .admin{position:absolute;left:560px;top:488px;width:404px;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;gap:12px;align-items:center;font-size:18px;font-weight:600}
+#arch svg.links{position:absolute;inset:0;pointer-events:none}
+.tag{position:absolute;font-family:PlexMono;font-size:14px;background:#fff;padding:3px 8px;border-radius:6px;border:1.5px solid var(--ink);font-weight:700}
+.tag.acc{border-color:var(--acc);color:var(--acc)}
+/* ---------- Discovery ---------- */
+#disc{padding:30px 36px 34px}
+#disc .row{display:grid;grid-template-columns:repeat(3,1fr);gap:46px;position:relative}
+#disc .row+.row{margin-top:40px}
+.step{border:1.5px solid var(--line);border-radius:12px;padding:16px 16px 18px;background:#fff;position:relative;min-height:148px}
+.step .n{font-family:PlexMono;font-weight:700;font-size:15px;color:var(--acc);letter-spacing:.06em}
+.step h4{font-size:22px;font-weight:700;margin:6px 0 6px;letter-spacing:-.01em}
+.step p{font-size:16px;line-height:1.38;color:var(--ink2)}
+.step.final{border-color:var(--ink);background:var(--ink);color:#fff}
+.step.final p{color:#D3D8DE}
+.step.final .n{color:var(--acc)}
+.arrow{position:absolute;top:50%;right:-40px;width:34px;height:2px;background:var(--ink)}
+.arrow:after{content:"";position:absolute;right:-1px;top:-5px;border:6px solid transparent;border-left:9px solid var(--ink);border-right:0}
+.turn{position:absolute;right:calc(16.66% - 8px);bottom:-40px;height:40px;width:2px}
+/* ---------- SNMP ---------- */
+#snmp{height:330px;padding:30px 36px}
+#snmp .eq,#snmp .zbx{position:absolute;top:100px;width:220px;border-radius:12px;padding:16px;font-weight:700;font-size:20px}
+#snmp .eq{left:36px;border:1.5px solid var(--ink);background:#fff}
+#snmp .zbx{left:456px;background:var(--ink);color:#fff}
+#snmp .eq small,#snmp .zbx small{display:block;font-family:PlexMono;font-weight:400;font-size:13px;margin-top:4px;color:var(--mut)}
+#snmp .zbx small{color:#C4CAD2}
+#snmp .metrics{position:absolute;left:724px;top:40px;width:240px;display:grid;gap:9px}
+.met{border:1.5px solid var(--line);border-radius:9px;padding:9px 12px;font-size:17px;font-weight:600;display:flex;align-items:center;gap:10px;background:#fff}
+.met i{width:9px;height:9px;border-radius:50%;background:var(--ok);flex:none}
+/* ---------- Cover ---------- */
+#cover{width:794px;height:1123px;background:#0E1217;overflow:hidden}
+#cover .grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.075) 1px,transparent 1.2px);background-size:22px 22px}
+#cover svg{position:absolute;left:0;top:0}
+#cover .band{position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--acc)}
+#cover .coord{position:absolute;font-family:PlexMono;font-size:9.5px;letter-spacing:.08em;color:#8B95A1;background:#0E1217;padding:2px 6px}
+</style></head>
+<body>
+
+<!-- ============ ARCHITECTURE ============ -->
+<div class="fig" id="arch">
+  <div class="lbl" style="position:absolute;left:36px;top:34px">Équipements supervisés</div>
+  <div class="col-l">
+    <div class="dev"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 12h.01M10 12h.01M13 12h.01M16 12h.01"/></svg></span><span>Switches &amp; routeurs<small>interfaces, trafic, erreurs</small></span></div>
+    <div class="dev"><span class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="8" rx="1.5"/><rect x="5" y="13" width="14" height="8" rx="1.5"/><path d="M8 7h.01M8 17h.01"/></svg></span><span>Serveurs &amp; hyperviseurs<small>disponibilité, ressources</small></span></div>
+    <div class="dev"><span class="ico"><svg viewBox="0 0 24 24"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg></span><span>Imprimantes / copieurs<small>identification par OID SNMP</small></span></div>
+    <div class="dev"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="10" rx="2"/><path d="M16 11l5-3v8l-5-3"/></svg></span><span>Caméras &amp; antennes<small>disponibilité</small></span></div>
+    <div class="dev"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></span><span>Postes de travail<small>disponibilité</small></span></div>
+  </div>
+  <div class="esx">
+    <div class="lbl">Hyperviseur · VMware ESXi</div>
+    <div class="vm">
+      <div class="h">VM Debian 13 <span>192.168.x.x/24</span></div>
+      <div class="svc main"><span style="white-space:nowrap">Zabbix Server <b>7.4</b></span><em style="white-space:nowrap">collecte, découverte</em></div>
+      <div class="svc"><span>MariaDB</span><em>base « zabbix »</em></div>
+      <div class="svc"><span>Apache + PHP</span><em>interface web</em></div>
+      <div class="svc"><span>Agent Zabbix</span><em>installé localement</em></div>
+    </div>
+  </div>
+  <div class="admin"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5 7-5s5.8 1.4 7 5"/></svg></span><span>Administrateur · interface web Zabbix</span></div>
+  <svg class="links" width="1000" height="600" viewBox="0 0 1000 600">
+    <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#12161C"/></marker>
+    <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#E8572A"/></marker></defs>
+    <g fill="none" stroke-width="2">
+      <path d="M338 103 C 450 103, 450 160, 556 160" stroke="#12161C" marker-end="url(#ah)"/>
+      <path d="M338 181 C 450 181, 450 170, 556 170" stroke="#12161C" marker-end="url(#ah)"/>
+      <path d="M338 259 C 450 259, 450 180, 556 180" stroke="#12161C" marker-end="url(#ah)"/>
+      <path d="M338 337 C 450 337, 450 190, 556 190" stroke="#12161C" marker-end="url(#ah)"/>
+      <path d="M338 415 C 450 415, 450 200, 556 200" stroke="#12161C" marker-end="url(#ah)"/>
+      <path d="M762 486 L 762 457" stroke="#12161C" marker-end="url(#ah)"/>
+    </g>
+  </svg>
+  <div class="tag" style="left:372px;top:236px">ICMP · ping</div>
+  <div class="tag acc" style="left:372px;top:278px">SNMP · UDP 161</div>
+</div>
+
+<!-- ============ DISCOVERY ============ -->
+<div class="fig" id="disc">
+  <div class="row">
+    <div class="step"><div class="n">01</div><h4>Plage IP</h4><p>La règle définit la plage à balayer et l’intervalle de découverte.</p><span class="arrow"></span></div>
+    <div class="step"><div class="n">02</div><h4>Test ICMP</h4><p>L’équipement répond-il au ping ? Chaque vérification est traitée séparément.</p><span class="arrow"></span></div>
+    <div class="step"><div class="n">03</div><h4>Test SNMP</h4><p>Interrogation en UDP 161 avec la communauté (v2c) ou les paramètres v3.</p></div>
+  </div>
+  <svg width="928" height="40" style="display:block;margin:0" viewBox="0 0 928 40"><path d="M790 0 V20 H138 V36" fill="none" stroke="#12161C" stroke-width="2"/><path d="M132 30 L138 40 L144 30z" fill="#12161C"/></svg>
+  <div class="row" style="margin-top:0">
+    <div class="step"><div class="n">04</div><h4>Collecte</h4><p>Nom, sysObjectID, OID constructeur : ce que l’équipement expose.</p><span class="arrow"></span></div>
+    <div class="step"><div class="n">05</div><h4>Événement</h4><p>Zabbix génère un événement de découverte avec le statut <b class="mono">Up</b>.</p><span class="arrow"></span></div>
+    <div class="step final"><div class="n">06</div><h4>Action</h4><p>Créer ou activer l’hôte, l’ajouter au bon groupe, lier le modèle, poser les tags.</p></div>
+  </div>
+</div>
+
+<!-- ============ SNMP ============ -->
+<div class="fig" id="snmp">
+  <div class="lbl" style="position:absolute;left:36px;top:30px">Principe d’une requête SNMP</div>
+  <div class="eq">Équipement<small>switch, copieur, onduleur…</small></div>
+  <div class="zbx">Serveur Zabbix<small>Debian 13 · VM ESXi</small></div>
+  <svg width="1000" height="330" style="position:absolute;inset:0" viewBox="0 0 1000 330">
+    <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#12161C"/></marker></defs>
+    <g fill="none" stroke-width="2" stroke="#12161C">
+      <path d="M452 140 H262" marker-end="url(#ah2)"/>
+      <path d="M262 170 H452" marker-end="url(#ah2)" stroke="#E8572A"/>
+      <path d="M678 154 C 700 154, 700 60, 720 60"/><path d="M678 154 C 700 154, 700 106, 720 106"/><path d="M678 154 H720"/><path d="M678 154 C 700 154, 700 200, 720 200"/><path d="M678 154 C 700 154, 700 246, 720 246"/>
+    </g>
+  </svg>
+  <div class="mono" style="position:absolute;left:280px;top:112px;font-size:13px;color:#3F4852">requête GET · UDP 161</div>
+  <div class="mono" style="position:absolute;left:280px;top:180px;font-size:13px;color:#E8572A;font-weight:700">réponse (valeurs des OID)</div>
+  <div class="metrics">
+    <div class="met"><i></i>Disponibilité</div>
+    <div class="met"><i></i>Interfaces</div>
+    <div class="met"><i></i>Trafic entrant / sortant</div>
+    <div class="met"><i></i>Informations système</div>
+    <div class="met"><i></i>Compteurs spécifiques</div>
+  </div>
+</div>
+
+<!-- ============ COVER BACKGROUND ============ -->
+<div class="fig" id="cover">
+  <div class="grid"></div>
+  <svg width="794" height="1123" viewBox="0 0 794 1123" id="topo"></svg>
+  <div class="coord" style="left:56px;bottom:34px">PROJET MAIRIE · SUPERVISION ZABBIX</div>
+  <div class="coord" style="right:56px;bottom:34px">ICMP / SNMP — ≈ 169 HÔTES</div>
+  <div class="band"></div>
+</div>
+
+<script>
+// Deterministic topology drawing for the cover (lower half of the page).
+(function(){
+  const svg=document.getElementById('topo'); const NS='http://www.w3.org/2000/svg';
+  let s=7; const rnd=()=>{s=(s*16807)%2147483647;return (s-1)/2147483646};
+  const cx=520, cy=895; // Zabbix core position
+  const vlans=[['VLAN 50',230,725],['VLAN 101',440,700],['VLAN 102',650,715],['VLAN 106',680,845],['VLAN 200',680,960],['VLAN 300',470,985],['VLAN 72',220,960],['VLAN 1',120,870],['VLAN 100',340,815]];
+  const labels=[];
+  const g=(tag,attrs,parent=svg)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e};
+  // rings
+  [90,190,300].forEach((r,i)=>g('circle',{cx,cy,r,fill:'none',stroke:'rgba(255,255,255,'+(0.07-i*0.015)+')','stroke-width':1}));
+  vlans.forEach(([name,x,y],i)=>{
+    g('line',{x1:cx,y1:cy,x2:x,y2:y,stroke:'rgba(255,255,255,.22)','stroke-width':1.1});
+    const n=9+Math.floor(rnd()*9);
+    for(let k=0;k<n;k++){
+      const a=rnd()*Math.PI*2, d=26+rnd()*58; const hx=Math.min(x+Math.cos(a)*d, 760), hy=Math.min(y+Math.sin(a)*d, 1030);
+      g('line',{x1:x,y1:y,x2:hx,y2:hy,stroke:'rgba(255,255,255,.12)','stroke-width':.8});
+      const warn = (i===5&&k===2);
+      g('circle',{cx:hx,cy:hy,r:warn?3.6:2.4,fill:warn?'#F2B13D':'rgba(214,220,227,.75)'});
+    }
+    g('circle',{cx:x,cy:y,r:7,fill:'#0E1217',stroke:'#D6DCE3','stroke-width':1.5});
+    labels.push([name,x,y]);
+  });
+  // Labels drawn last, each on a solid plate so no line crosses them.
+  labels.forEach(([name,x,y])=>{
+    const right=x>600; const tx=right?x-12:x+12;
+    const t=g('text',{x:tx,y:y-12,fill:'#9AA4AF','font-family':'PlexMono','font-size':10.5,'letter-spacing':'.06em','text-anchor':right?'end':'start'}); t.textContent=name;
+    const b=t.getBBox(); const r=g('rect',{x:b.x-4,y:b.y-2,width:b.width+8,height:b.height+4,rx:3,fill:'#0E1217'});
+    svg.insertBefore(r,t);
+  });
+  g('circle',{cx,cy,r:30,fill:'rgba(232,87,42,.14)'});
+  g('circle',{cx,cy,r:15,fill:'#E8572A'});
+  g('circle',{cx,cy,r:5,fill:'#0E1217'});
+  const t=g('text',{x:cx+24,y:cy+40,fill:'#E8572A','font-family':'PlexMono','font-size':11,'font-weight':700,'letter-spacing':'.08em'}); t.setAttribute('stroke','#0E1217');t.setAttribute('stroke-width',4);t.setAttribute('paint-order','stroke');t.textContent='ZABBIX SERVER';
+})();
+</script>
+</body></html>

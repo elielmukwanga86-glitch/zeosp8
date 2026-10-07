@@ -1,40 +1,49 @@
 # Portfolio — Eliel Mukwanga · BTS SIO SISR
 
-Portfolio de 2ᵉ année de BTS SIO, option SISR (ENSITECH). Site statique en HTML, CSS et JavaScript, sans dépendance ni étape de compilation.
+Portfolio de 2ᵉ année de BTS SIO, option SISR (ENSITECH, Montigny-le-Bretonneux).
 
-## Contenu
+En ligne : **https://elielmukwanga86-glitch.github.io/zeosp8/**
 
-| Fichier | Rôle |
+## Organisation du dépôt
+
+| Dossier | Rôle |
 | --- | --- |
-| `index.html` | Accueil : projets, parcours, compétences, à propos, contact |
-| `projets/projet-mairie.html` | Étude de cas : supervision Zabbix à la mairie des Clayes-sous-Bois |
-| `projets/projet-cloison.html` | Étude de cas : réseau Wi-Fi à deux VLAN pour un cabinet de kiné (cas d’école) |
-| `404.html` | Page d’erreur |
-| `assets/css/style.css` | Styles (identité commune avec les dossiers PDF) |
-| `assets/js/main.js` | Menu, animations au défilement, horloge, filtres, visionneuse d’images |
-| `assets/js/topology.js` | Animation du réseau en haut de l’accueil |
-| `assets/docs/` | Dossiers PDF téléchargeables |
-| `assets/img/` | Schémas et visuels des projets |
+| `src/contenu/site.js` | Textes généraux : présentation, parcours, compétences, veille, certifications, contact |
+| `src/contenu/projets/` | Une réalisation par fichier (`_modele.js` sert de modèle) |
+| `src/contenu/referentiel.js` | Compétences du référentiel BTS SIO (tableau de synthèse) |
+| `src/templates/` | Gabarits HTML (accueil, étude de cas, synthèse, 404) |
+| `src/assets/` | CSS, JavaScript, images (`img/`) et dossiers PDF (`docs/`) |
+| `docs/` | **Site généré**, publié par GitHub Pages — ne pas modifier à la main |
+| `outils/documentation/` | Générateur des dossiers PDF/Word des projets (voir son README) |
 
-Les adresses IP internes de la mairie sont masquées (`x.x`) dans la documentation publiée.
-
-## Modifier le contenu
-
-Tout le texte est directement dans les fichiers HTML. Pour ajouter un projet, dupliquer un bloc `<article class="project">` dans `index.html` et une page dans `projets/`.
-
-## Voir le site en local
-
-Ouvrir `index.html` dans un navigateur, ou lancer un petit serveur :
+## Mettre à jour le site
 
 ```bash
-python3 -m http.server 8000
-# puis ouvrir http://localhost:8000
+node src/build.js      # régénère docs/ (Node 18 ou plus, aucune dépendance)
+npm run serve          # aperçu sur http://localhost:8000
 ```
 
-## Publier avec GitHub Pages
+Le générateur vérifie le contenu avant d’écrire quoi que ce soit : champs manquants, images
+absentes, compétences inconnues et **adresses IP internes non masquées** (le dépôt est public).
 
-1. Fusionner la branche dans `main`.
-2. Sur GitHub : **Settings → Pages → Build and deployment → Deploy from a branch**, branche `main`, dossier `/ (root)`.
-3. Le site est publié à l’adresse `https://<utilisateur>.github.io/<dépôt>/`.
+## Ajouter une réalisation
 
-Tous les liens sont relatifs : le site fonctionne aussi dans un sous-dossier.
+1. Produire le dossier PDF avec `outils/documentation/` (facultatif pour une réalisation courte).
+2. Copier `src/contenu/projets/_modele.js` en `src/contenu/projets/<slug>.js` et le remplir.
+3. Déposer les images dans `src/assets/img/` (WebP, ≈ 2000 px de large) et le PDF dans `src/assets/docs/`.
+4. Relier les compétences : `competencesBts` dans le projet, `contextes` dans `site.js`.
+5. `node src/build.js`, vérifier l’aperçu, puis commit et push.
+
+Les sections **Veille** et **Certifications** apparaissent sur l’accueil dès qu’elles ont du contenu
+(`veille` et `certifications` dans `site.js`).
+
+## Publication (GitHub Pages)
+
+Une seule fois : *Settings → Pages → Build and deployment → Source : Deploy from a branch*, branche
+`claude/gifted-pasteur-8nd9c6`, dossier `/docs`, puis *Save*. Ensuite, chaque push sur cette branche
+met le site à jour en une à deux minutes (onglet *Actions* : « pages build and deployment »).
+
+## Confidentialité
+
+- Les adresses IP internes de la mairie sont masquées (`x.x`) partout : site, PDF et sources.
+- Pas de photo, de téléphone ni d’adresse postale sur le site.
