@@ -9,7 +9,7 @@ module.exports = {
   titre: 'Supervision Zabbix en mairie',
   accroche: 'Un serveur Zabbix qui découvre les équipements de la mairie et commence à les classer par type.',
   resume: 'Installation de Zabbix 7.4 sur une VM Debian 13 (VMware ESXi), supervision ICMP et SNMP, règles de découverte par réseau et actions de classement automatique.',
-  intro: 'Pendant mon stage de première année, j’ai installé Zabbix 7.4 sur une VM Debian 13 hébergée sous VMware ESXi. J’ai ensuite mis en place la découverte automatique en ICMP et SNMP, puis le classement des équipements trouvés sur les réseaux de la mairie.',
+  intro: 'Pendant mon stage de première année, j’ai installé Zabbix 7.4 sur une VM Debian 13 hébergée sous VMware ESXi. J’ai ensuite mis en place la découverte automatique en ICMP et SNMP, puis commencé à classer les équipements trouvés sur les réseaux de la mairie.',
   description: 'Étude de cas : installation de Zabbix 7.4 sur Debian 13 (VMware ESXi) à la mairie des Clayes-sous-Bois, découverte automatique ICMP / SNMP et classement des équipements.',
 
   // milieu : 'professionnel' (stage) ou 'formation' (atelier, TP, projet d’école)
@@ -71,10 +71,10 @@ module.exports = {
       id: 'demarche', label: 'Ma démarche', titre: 'De la VM au serveur opérationnel',
       blocs: [
         { etapes: [
-          ['Créer la VM Debian 13 sous VMware ESXi', 'Ressources, carte réseau reliée aux VLAN supervisés et adresse IP fixe, puis installation de SSH pour administrer le serveur à distance.'],
+          ['Créer la VM Debian 13 sous VMware ESXi', 'Ressources, carte réseau connectée au réseau qui permet d’atteindre les VLAN supervisés, adresse IP fixe, puis installation de SSH pour administrer le serveur à distance.'],
           ['Installer Zabbix 7.4 depuis le dépôt officiel', 'Serveur Zabbix, interface web (Apache + PHP), agent Zabbix et base MariaDB avec un utilisateur dédié.'],
           ['Configurer la supervision SNMP', 'Communauté SNMP, tests avec `snmpwalk` et ouverture des flux sur le pare-feu géré par Active Directory.'],
-          ['Créer les règles et les actions de découverte', 'Des règles pour chaque réseau à analyser, et des actions qui créent l’hôte, l’ajoutent au bon groupe et lui associent un modèle.'],
+          ['Créer les règles et les actions de découverte', 'Une règle par réseau à analyser, puis des actions qui créent l’hôte, l’ajoutent au bon groupe et lui associent un modèle.'],
           ['Organiser, tester, dépanner', 'Groupes d’équipements, tests de validation, gestion des doublons et diagnostic réseau étape par étape.'],
         ] },
         { figure: {
@@ -112,7 +112,7 @@ module.exports = {
         { liste: [
           'Serveur Zabbix opérationnel sur une VM Debian 13 hébergée sous VMware ESXi.',
           'Supervision ICMP et SNMP en place, avec la découverte automatique de plusieurs réseaux.',
-          'Classement automatique en groupes en place pour les principaux types d’équipements, encore à terminer pour les autres.',
+          'Classement automatique en groupes mis en place pour les principaux types d’équipements, encore à finaliser pour les autres.',
           'Imprimantes et copieurs pris en compte grâce à l’identification SNMP.',
         ] },
       ],

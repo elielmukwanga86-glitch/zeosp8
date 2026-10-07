@@ -105,7 +105,7 @@ function realisations(index, projets) {
   const short = projets.filter((p) => !p.page);
   return `    <section class="section paper" id="realisations" aria-labelledby="realisations-title">
       <div class="wrap">
-${sectionHead(index, 'realisations', 'Réalisations', `Mes réalisations en milieu professionnel (stages) et en formation. ${full.length === 1 ? 'La première est documentée' : `Les ${['', '', 'deux', 'trois', 'quatre', 'cinq', 'six'][full.length] || full.length} premières sont documentées`} de bout en bout, avec un dossier PDF à télécharger.`)}
+${sectionHead(index, 'realisations', 'Réalisations', `Mes réalisations en milieu professionnel (stages) et en formation. ${full.length === 1 ? 'La première est documentée' : `Les ${['', '', 'deux', 'trois', 'quatre', 'cinq', 'six'][full.length] || full.length} premières sont documentées`} en détail, avec un dossier PDF à télécharger.`)}
         <div class="projects">
 ${full.map(projectCard).join('\n')}
         </div>${short.length ? `

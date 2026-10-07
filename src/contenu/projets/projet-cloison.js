@@ -8,12 +8,12 @@ module.exports = {
   nom: 'Projet Cloison',
   titre: 'Deux Wi-Fi pour un cabinet de kinésithérapie',
   accroche: 'Un Wi-Fi pour le cabinet, un autre pour les patients : audit, VLAN, devis et compte rendu.',
-  resume: 'Un cabinet de kinésithérapie (fictif) subit des coupures et partage son Wi-Fi avec ses patients. Je qualifie la demande, je fais les mesures, je conçois un réseau à deux VLAN isolés et je chiffre la solution.',
-  intro: 'Cas d’école ENSITECH : un kinésithérapeute demande un audit de son réseau. Il subit des coupures en fin de journée, son imprimante disparaît et ses patients utilisent le même Wi-Fi que le cabinet. J’ai qualifié la demande, fait les mesures, conçu un réseau à deux VLAN, chiffré la solution, puis rédigé un compte rendu simple pour le client.',
+  resume: 'Un cabinet de kinésithérapie (fictif) subit des coupures et partage son Wi-Fi avec ses patients. J’ai qualifié la demande, fait les mesures, conçu un réseau à deux VLAN isolés et chiffré la solution.',
+  intro: 'Cas d’école de l’atelier de professionnalisation ENSITECH : un kinésithérapeute demande un audit de son réseau. Il subit des coupures en fin de journée, son imprimante disparaît et ses patients utilisent le même Wi-Fi que le cabinet. J’ai qualifié la demande, fait les mesures, conçu un réseau à deux VLAN, chiffré la solution, puis rédigé un compte rendu simple pour le client.',
   description: 'Étude de cas : audit réseau, conception d’un réseau à deux VLAN, devis et compte rendu pour un cabinet de kinésithérapie (cas d’école ENSITECH).',
 
   milieu: 'formation',
-  cadre: { type: 'Atelier', organisation: 'Cas d’école · ENSITECH', periode: 'Septembre 2026', court: 'Sept. 2026', annee: '2026' },
+  cadre: { type: 'Atelier de professionnalisation', organisation: 'Cas d’école · ENSITECH', periode: 'Septembre 2026', court: 'Sept. 2026', annee: '2026' },
   filtre: 'Projet Cloison',
 
   visuel: {
@@ -55,7 +55,7 @@ module.exports = {
             ['Coupures entre 17 h et 19 h', 'Panne'],
             ['L’imprimante disparaît du PC de l’accueil', 'Confort'],
             ['Les patients ont le même Wi-Fi que le cabinet', 'Sécurité'],
-            ['Bilans scannés sur un dossier partagé du PC de l’accueil', 'Sécurité'],
+            ['Bilans scannés dans un dossier partagé du PC de l’accueil', 'Sécurité'],
           ],
         } },
         { encadre: { type: 'warn', titre: 'Données de santé', texte: 'Un bilan scanné est une donnée de santé, protégée par le RGPD (article 9). Comme le code Wi-Fi est affiché en salle d’attente, n’importe quel téléphone de patient se retrouve sur le même réseau que ce dossier partagé.' } },
@@ -74,13 +74,13 @@ module.exports = {
           'nc -vz www.ameli.fr 443    # le port HTTPS répond-il ?',
         ] } },
         { chiffres: [['38 ms', 'latence à vide'], ['955 ms', 'latence, ligne chargée'], ['10 %', 'de perte vers la passerelle'], ['0 %', 'de perte vers 1.1.1.1']] },
-        { titre: 'Ce que l’audit apprend pour le cabinet' },
+        { titre: 'Ce que l’audit apprend sur le cabinet' },
         { liste: [
           '**Les coupures du soir** : quand la ligne est chargée, la latence augmente fortement. Entre 17 h et 19 h, les téléphones des patients occupent la connexion et le logiciel de dossiers patients finit par décrocher.',
           '**L’imprimante qui disparaît** : elle reçoit son adresse en DHCP pour une durée limitée (le bail). Quand le bail expire, l’adresse peut changer : il faut donc lui réserver une adresse fixe.',
-          '**Le Wi-Fi des salles du fond** : le 5 GHz traverse mal le béton. Il faut sortir le Wi-Fi du placard en posant une borne au plafond du couloir, alimentée par le câble (PoE).',
+          '**Le Wi-Fi des salles du fond** : le 5 GHz risque de mal traverser le béton. Je propose de sortir le Wi-Fi du placard en posant une borne au plafond du couloir, alimentée par le câble (PoE).',
         ] },
-        { encadre: { type: 'ok', titre: 'Synthèse de l’audit', texte: 'Le signal Wi-Fi est excellent (−45 dBm) et internet répond (0 % de perte vers 1.1.1.1, port 443 d’ameli.fr ouvert). En revanche, on relève 10 % de perte vers la passerelle et une latence qui monte de 38 à 955 ms quand la ligne est chargée : c’est la connexion sollicitée qui pose problème, comme au cabinet entre 17 h et 19 h.' } },
+        { encadre: { type: 'ok', titre: 'Synthèse de l’audit', texte: 'Le signal Wi-Fi est excellent (−45 dBm) et internet répond (0 % de perte vers 1.1.1.1, port 443 d’ameli.fr ouvert). En revanche, on relève 10 % de perte vers la passerelle et une latence qui monte de 38 à 955 ms quand la ligne est chargée : le problème ne vient pas de la radio mais de la connexion quand elle est sollicitée, comme au cabinet entre 17 h et 19 h.' } },
       ],
     },
     {
@@ -109,7 +109,7 @@ module.exports = {
     {
       id: 'devis', label: 'Le devis', titre: '600 € HT pour un budget d’environ 1 000 €',
       blocs: [
-        { p: 'J’ai choisi du matériel de la gamme TP-Link Omada, avec les prix du catalogue de l’exercice vérifiés chez un revendeur. J’ai écarté le switch non administrable, moins cher : il ne gère ni les VLAN ni le PoE.' },
+        { p: 'J’ai choisi du matériel de la gamme TP-Link Omada, avec les prix du catalogue de l’exercice. J’ai vérifié deux de ces prix chez LDLC (le routeur ER605 et la borne EAP650) : ils y sont un peu plus élevés. J’ai écarté le switch non administrable, moins cher : il ne gère ni les VLAN ni le PoE.' },
         { tableau: {
           entetes: ['Désignation', 'Qté', 'Total HT'],
           droite: [1, 2], mono: [1, 2],

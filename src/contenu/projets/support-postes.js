@@ -8,7 +8,7 @@ module.exports = {
   nom: 'Support et postes',
   titre: 'Déploiement de postes et support utilisateurs',
   milieu: 'professionnel',
-  cadre: { type: 'Stages', organisation: 'Mairie des Clayes-sous-Bois', periode: '2024–2026', court: '2024–2026' },
+  cadre: { type: 'Stages (Bac Pro et BTS)', organisation: 'Mairie des Clayes-sous-Bois', periode: '2024–2026', court: '2024–2026' },
   filtre: 'Stages en mairie',
 
   details: [
