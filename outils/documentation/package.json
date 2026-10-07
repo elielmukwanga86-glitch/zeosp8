@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-documentation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Générateur des dossiers PDF du portfolio (docx-js, LibreOffice). Voir README.md.",
+  "scripts": {
+    "generer": "./generer.sh"
+  },
+  "dependencies": {
+    "docx": "9.7.1"
+  }
+}

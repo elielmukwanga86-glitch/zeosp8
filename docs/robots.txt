@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://elielmukwanga86-glitch.github.io/zeosp8/sitemap.xml

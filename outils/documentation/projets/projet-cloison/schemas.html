@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Figures du Projet Cloison, rendues en PNG par rendu-schemas.js (un élément d'id X -> img/X.png).
+     Adressage fictif (plan conçu pour le cas d'école) : il reste visible. -->
+<style>
+@font-face{font-family:Plex;src:url(../../fonts/IBMPlexSans-Regular.ttf);font-weight:400}
+@font-face{font-family:Plex;src:url(../../fonts/IBMPlexSans-SemiBold.ttf);font-weight:600}
+@font-face{font-family:Plex;src:url(../../fonts/IBMPlexSans-Bold.ttf);font-weight:700}
+@font-face{font-family:PlexMono;src:url(../../fonts/IBMPlexMono-Regular.ttf);font-weight:400}
+@font-face{font-family:PlexMono;src:url(../../fonts/IBMPlexMono-Bold.ttf);font-weight:700}
+:root{--ink:#12161C;--ink2:#3F4852;--mut:#77808B;--line:#D5DAE0;--tint:#F3F4F6;--acc:#E8572A;--accT:#FDF0EA;--ok:#23946A;--okT:#EAF5EF;--red:#C8372D}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:Plex,sans-serif;color:var(--ink);padding:20px;display:grid;gap:20px;justify-content:start}
+.fig{background:#fff;width:1000px;position:relative}
+.mono{font-family:PlexMono,monospace}
+.node{position:absolute;border:1.5px solid var(--ink);border-radius:10px;background:#fff;padding:9px 12px 10px 52px;font-weight:700;font-size:17px;line-height:1.15}
+.node small{display:block;font-family:PlexMono;font-weight:400;font-size:12px;color:var(--ink2);margin-top:3px;line-height:1.35}
+.node .ico{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:8px;background:var(--tint);display:grid;place-items:center}
+.ico svg{width:21px;height:21px;stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.zone{position:absolute;z-index:0;border-radius:14px;padding:14px 16px}
+.zone h5{font-size:16px;font-weight:700;letter-spacing:-.005em}
+.zone h5 b{font-family:PlexMono;font-size:12px;letter-spacing:.08em;margin-right:8px}
+.zone p{font-family:PlexMono;font-size:12px;color:var(--ink2);margin-top:4px;line-height:1.45}
+.z10{border:2px solid var(--ok);background:var(--okT)}.z10 h5 b{color:var(--ok)}
+.z20{border:2px solid var(--acc);background:var(--accT)}.z20 h5 b{color:var(--acc)}
+.dev{position:absolute;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:9px 10px 9px 48px;font-weight:600;font-size:15px;line-height:1.2}
+.dev small{display:block;font-family:PlexMono;font-weight:400;font-size:12px;color:var(--ink2);margin-top:3px}
+.dev .ico{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:7px;background:var(--tint);display:grid;place-items:center}
+.lbl{position:absolute;font-family:PlexMono;font-size:12px;color:var(--ink2);background:#fff;padding:1px 6px;border-radius:4px}
+.legend{position:absolute;font-family:PlexMono;font-size:12px;color:var(--ink2);line-height:1.7}
+.legend i{display:inline-block;width:30px;vertical-align:middle;margin-right:8px;border-top:2px solid var(--ink)}
+.legend i.d{border-top:2px dashed var(--ink2)}
+.block{position:absolute;display:flex;align-items:center;gap:8px;background:var(--red);color:#fff;font-family:PlexMono;font-weight:700;font-size:12.5px;letter-spacing:.06em;padding:6px 10px;border-radius:999px}
+.warn{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;font-family:PlexMono;font-weight:700;font-size:13px;display:grid;place-items:center}
+.note{position:absolute;font-size:13.5px;line-height:1.4;color:var(--ink2)}
+.note b{color:var(--ink)}
+#cover{width:794px;height:1123px;background:#0E1217;overflow:hidden}
+#cover .grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.075) 1px,transparent 1.2px);background-size:22px 22px}
+#cover .band{position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--acc)}
+#cover .coord{position:absolute;margin-bottom:-12px;font-family:PlexMono;font-size:9.5px;letter-spacing:.08em;color:#5E6873}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.1 9.2 4.5 4.5 0 0 0 7 18z"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 13h.01M10 13h.01M8 9 6 5M16 9l2-4"/></symbol>
+    <symbol id="i-router" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="7" rx="2"/><path d="M7 14.5h.01M10 14.5h.01M12 11V6M9 7.5a4 4 0 0 1 6 0"/></symbol>
+    <symbol id="i-switch" viewBox="0 0 24 24"><rect x="2.5" y="8" width="19" height="8" rx="1.5"/><path d="M6 12h1M9 12h1M12 12h1M15 12h1M18 12h1"/></symbol>
+    <symbol id="i-ap" viewBox="0 0 24 24"><circle cx="12" cy="15" r="5"/><circle cx="12" cy="15" r="1"/><path d="M8.5 6.5a5 5 0 0 1 7 0M6 4a8.5 8.5 0 0 1 12 0"/></symbol>
+    <symbol id="i-pc" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></symbol>
+    <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="10" rx="1.5"/><path d="M3 19h18"/></symbol>
+    <symbol id="i-printer" viewBox="0 0 24 24"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2h8.5A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></symbol>
+  </defs>
+</svg>
+
+<!-- ================= APRÈS : futur réseau ================= -->
+<div class="fig" id="apres" style="height:900px">
+  <div class="legend" style="left:24px;top:20px"><div class="mono" style="font-weight:700;letter-spacing:.08em;color:#12161C">LÉGENDE</div><div><i></i>câble</div><div><i class="d"></i>Wi-Fi</div></div>
+  <div class="zone z10" style="left:24px;top:540px;width:440px;height:300px">
+    <h5><b>VLAN 10</b>Cabinet · 192.168.10.0/24</h5>
+    <p>SSID Kine-Cabinet · passerelle 192.168.10.1<br>DHCP .100 à .199</p>
+  </div>
+  <div class="zone z20" style="left:536px;top:540px;width:440px;height:300px">
+    <h5><b>VLAN 20</b>Patients · 192.168.20.0/24</h5>
+    <p>SSID Kine-Patients · passerelle 192.168.20.1<br>DHCP .100 à .199 · internet uniquement</p>
+  </div>
+  <svg width="1000" height="900" style="position:absolute;inset:0" viewBox="0 0 1000 900">
+    <g fill="none" stroke="#12161C" stroke-width="2">
+      <path d="M500 62 V104"/><path d="M500 148 V190"/><path d="M500 254 V300"/><path d="M500 344 V396"/>
+      <path d="M330 322 H10 V676 H44"/>
+    </g>
+    <g fill="none" stroke-width="2" stroke-dasharray="6 6">
+      <path d="M420 470 C 400 510, 300 510, 280 540" stroke="#23946A"/>
+      <path d="M580 470 C 600 510, 700 510, 720 540" stroke="#E8572A"/>
+    </g>
+    <path d="M500 548 V832" stroke="#C8372D" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/>
+    <circle cx="500" cy="690" r="15" fill="#C8372D"/>
+    <path d="M493 683 L507 697 M507 683 L493 697" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+  </svg>
+  <div class="node" style="left:330px;top:18px;width:340px"><span class="ico"><svg><use href="#i-cloud"/></svg></span>Internet<small>fibre SFR</small></div>
+  <div class="node" style="left:330px;top:104px;width:340px"><span class="ico"><svg><use href="#i-box"/></svg></span>Box SFR<small>192.168.1.1 · DMZ vers le routeur</small></div>
+  <div class="node" style="left:330px;top:190px;width:340px;background:#12161C;color:#fff"><span class="ico" style="background:#2A313A"><svg style="stroke:#fff"><use href="#i-router"/></svg></span>Routeur TP-Link ER605<small style="color:#C4CAD2">WAN 192.168.1.2<br>passerelles 192.168.10.1 / .20.1</small></div>
+  <div class="node" style="left:330px;top:300px;width:340px"><span class="ico"><svg><use href="#i-switch"/></svg></span>Switch TL-SG2210P<small>192.168.10.2 · 8 ports PoE+</small></div>
+  <div class="node" style="left:330px;top:396px;width:340px"><span class="ico"><svg><use href="#i-ap"/></svg></span>Borne Wi-Fi EAP650<small>192.168.10.3 · plafond du couloir<br>PoE · diffuse les 2 SSID</small></div>
+  <div class="lbl" style="left:512px;top:272px">câble · VLAN 10 + 20</div>
+  <div class="lbl" style="left:510px;top:364px">câble PoE · VLAN 10 + 20</div>
+  <div class="lbl" style="left:120px;top:296px">câble · VLAN 10</div>
+  <div class="lbl" style="left:206px;top:492px;color:#23946A;font-weight:700">Wi-Fi Kine-Cabinet</div>
+  <div class="lbl" style="left:664px;top:492px;color:#E8572A;font-weight:700">Wi-Fi Kine-Patients</div>
+  <div class="dev" style="left:44px;top:634px;width:198px"><span class="ico"><svg><use href="#i-pc"/></svg></span>PC accueil<small>192.168.10.10<br>réservation DHCP</small></div>
+  <div class="dev" style="left:250px;top:634px;width:198px"><span class="ico"><svg><use href="#i-printer"/></svg></span>Imprimante<small>192.168.10.20<br>réservation DHCP</small></div>
+  <div class="dev" style="left:44px;top:744px;width:198px"><span class="ico"><svg><use href="#i-pc"/></svg></span>PC salle 1<small>DHCP</small></div>
+  <div class="dev" style="left:250px;top:744px;width:198px"><span class="ico"><svg><use href="#i-laptop"/></svg></span>Portable salle 2<small>DHCP</small></div>
+  <div class="dev" style="left:556px;top:634px;width:220px"><span class="ico"><svg><use href="#i-phone"/></svg></span>Téléphones<small>des patients · DHCP</small></div>
+  <div class="note mono" style="left:556px;top:730px;width:400px;font-size:12.5px;color:#C8372D;line-height:1.7">✕ imprimante<br>✕ PC de l'accueil<br>✕ bilans scannés</div>
+  <div class="note" style="left:24px;top:856px;width:952px;text-align:center"><b style="color:#C8372D">Règle d'isolation</b> · le VLAN 20 (patients) ne peut pas joindre le VLAN 10 (cabinet). Les patients ont internet, rien d'autre.</div>
+</div>
+
+<!-- ================= AVANT : réseau actuel ================= -->
+<div class="fig" id="avant" style="height:470px">
+  <div class="node" style="left:24px;top:30px;width:230px"><span class="ico"><svg><use href="#i-box"/></svg></span>Box SFR<small>placard du couloir<br>DHCP · un seul Wi-Fi</small></div>
+  <div class="zone" style="left:310px;top:20px;width:666px;height:430px;border:2px dashed #C8372D;background:#FBF1F0">
+    <h5><b style="color:#C8372D">UN SEUL RÉSEAU</b>Tout le monde au même endroit</h5>
+    <p>Code Wi-Fi affiché en salle d'attente</p>
+  </div>
+  <div class="dev" style="left:334px;top:110px;width:200px"><span class="ico"><svg><use href="#i-pc"/></svg></span>PC accueil<small>câble · dossier partagé</small></div>
+  <div class="dev" style="left:550px;top:110px;width:200px"><span class="ico"><svg><use href="#i-printer"/></svg></span>Imprimante Brother<small>Wi-Fi · adresse DHCP</small></div>
+  <div class="dev" style="left:766px;top:110px;width:190px"><span class="ico"><svg><use href="#i-folder"/></svg></span>Bilans scannés<small>sur le PC de l'accueil</small></div>
+  <div class="dev" style="left:334px;top:208px;width:200px"><span class="ico"><svg><use href="#i-pc"/></svg></span>PC salle 1<small>Wi-Fi</small></div>
+  <div class="dev" style="left:550px;top:208px;width:200px"><span class="ico"><svg><use href="#i-laptop"/></svg></span>Portable salle 2<small>Wi-Fi</small></div>
+  <div class="dev" style="left:334px;top:330px;width:420px;border-color:#C8372D"><span class="ico"><svg><use href="#i-phone"/></svg></span>Téléphones des patients<small>Wi-Fi · même réseau que le PC de l'accueil</small></div>
+  <svg width="1000" height="470" style="position:absolute;inset:0" viewBox="0 0 1000 470">
+    <g fill="none" stroke="#12161C" stroke-width="2"><path d="M254 74 H290 V140 H334"/></g>
+    <g fill="none" stroke="#3F4852" stroke-width="2" stroke-dasharray="6 6"><path d="M254 90 H300 V238 H334"/><path d="M300 238 V360 H334"/></g>
+    
+  </svg>
+  <div class="warn" style="left:242px;top:20px">1</div>
+  <div class="warn" style="left:740px;top:100px">2</div>
+  <div class="warn" style="left:742px;top:320px">3</div>
+  <div class="warn" style="left:946px;top:100px">4</div>
+  <div class="note" style="left:24px;top:170px;width:260px">
+    <div style="margin-bottom:8px"><b class="mono" style="color:#C8372D">1</b>&nbsp; Coupures entre 17 h et 19 h</div>
+    <div style="margin-bottom:8px"><b class="mono" style="color:#C8372D">2</b>&nbsp; L'imprimante « disparaît »</div>
+    <div style="margin-bottom:8px"><b class="mono" style="color:#C8372D">3</b>&nbsp; Patients sur le Wi-Fi du cabinet</div>
+    <div><b class="mono" style="color:#C8372D">4</b>&nbsp; Bilans dans un dossier partagé</div>
+  </div>
+</div>
+
+<!-- ================= COVER ================= -->
+<div class="fig" id="cover">
+  <div class="grid"></div>
+  <svg id="topo" width="794" height="1123" viewBox="0 0 794 1123" style="position:absolute;inset:0"></svg>
+  <div class="coord" style="left:56px;bottom:40px">CLOISON · VLAN 10 / VLAN 20 · TP-LINK OMADA</div>
+  <div class="coord" style="right:56px;bottom:40px">CAS D'ÉCOLE — ENSITECH</div>
+  <div class="band"></div>
+</div>
+<script>
+(function(){
+  const svg=document.getElementById('topo'); const NS='http://www.w3.org/2000/svg';
+  let s=11; const rnd=()=>{s=(s*16807)%2147483647;return (s-1)/2147483646};
+  const g=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e};
+  const ap={x:397,y:680};
+  // zones
+  const zones=[{cx:215,cy:885,col:'#3DBE8B',label:'VLAN 10 · CABINET',n:7},{cx:585,cy:885,col:'#F07A50',label:'VLAN 20 · PATIENTS',n:16}];
+  // barrier
+  g('line',{x1:397,y1:760,x2:397,y2:1050,stroke:'#C8372D','stroke-width':2,'stroke-dasharray':'2 7','stroke-linecap':'round'});
+  g('circle',{cx:397,cy:905,r:13,fill:'#C8372D'});
+  const x=g('path',{d:'M391 899 L403 911 M403 899 L391 911',stroke:'#fff','stroke-width':2.2,'stroke-linecap':'round'});
+  zones.forEach(z=>{
+    g('circle',{cx:z.cx,cy:z.cy,r:150,fill:'none',stroke:z.col,'stroke-opacity':.25,'stroke-dasharray':'3 5'});
+    g('path',{d:`M${ap.x} ${ap.y+14} Q ${(ap.x+z.cx)/2} ${ap.y+60} ${z.cx} ${z.cy-26}`,fill:'none',stroke:z.col,'stroke-opacity':.55,'stroke-width':1.3,'stroke-dasharray':'5 5'});
+    for(let k=0;k<z.n;k++){
+      const a=rnd()*Math.PI*2, d=34+rnd()*92; const hx=z.cx+Math.cos(a)*d, hy=z.cy+Math.sin(a)*d*0.9;
+      g('line',{x1:z.cx,y1:z.cy,x2:hx,y2:hy,stroke:'rgba(255,255,255,.12)','stroke-width':.8});
+      g('circle',{cx:hx,cy:hy,r:2.6,fill:z.col,'fill-opacity':.85});
+    }
+    g('circle',{cx:z.cx,cy:z.cy,r:8,fill:'#0E1217',stroke:z.col,'stroke-width':2});
+    const t=g('text',{x:z.cx,y:z.cy+150,fill:z.col,'font-family':'PlexMono','font-size':10.5,'font-weight':700,'letter-spacing':'.08em','text-anchor':'middle'}); t.textContent=z.label;
+  });
+  // chain
+  [[397,585],[397,630]].forEach(([cx,cy])=>g('circle',{cx,cy,r:4,fill:'#D6DCE3'}));
+  g('line',{x1:397,y1:565,x2:397,y2:666,stroke:'rgba(255,255,255,.35)','stroke-width':1.2});
+  g('circle',{cx:ap.x,cy:ap.y,r:24,fill:'rgba(232,87,42,.14)'});
+  g('circle',{cx:ap.x,cy:ap.y,r:12,fill:'#E8572A'});
+  g('circle',{cx:ap.x,cy:ap.y,r:4,fill:'#0E1217'});
+  [26,40,54].forEach((r,i)=>g('path',{d:`M${ap.x-r} ${ap.y-6} A ${r} ${r} 0 0 1 ${ap.x+r} ${ap.y-6}`,fill:'none',stroke:'#E8572A','stroke-opacity':0.5-i*0.13,'stroke-width':1.4}));
+})();
+</script>
+</body></html>

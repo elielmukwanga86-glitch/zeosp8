@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!--
+  MODÈLE — figures d'un projet, rendues en PNG par rendu-schemas.js.
+  Règles :
+  - chaque figure est un élément d'id unique (class="fig") ; rendu-schemas.js liste ces id
+    et produit img/<id>.png. Dans contenu.js : figure('<id>.png', hauteur / largeur, 'Légende').
+    Ex. : <div class="fig" id="schema" style="height:520px"> (1000 px de large)  ->  figure('schema.png', 520 / 1000, '…')
+  - largeur des figures : 1000 px (rendues ×3 -> 3000 px, nettes à l'impression) ;
+  - la couverture (id="cover") fait 794 × 1123 px (A4 à 96 dpi), rendue ×2,5 ; le texte de
+    couverture est ajouté par contenu.js, l'image ne porte que le décor (moitié basse de la page) ;
+  - polices locales uniquement (../../fonts), aucune ressource réseau ;
+  - dépôt public : AUCUNE adresse IP interne réelle ici, écrire 192.168.x.x (le PNG n'est pas masqué
+    automatiquement ; generer.sh refuse un projet masqué dont schemas.html contient une adresse complète).
+-->
+<style>
+@font-face{font-family:Plex;src:url(../../fonts/IBMPlexSans-Regular.ttf);font-weight:400}
+@font-face{font-family:Plex;src:url(../../fonts/IBMPlexSans-SemiBold.ttf);font-weight:600}
+@font-face{font-family:Plex;src:url(../../fonts/IBMPlexSans-Bold.ttf);font-weight:700}
+@font-face{font-family:PlexCond;src:url(../../fonts/IBMPlexSansCondensed-Bold.ttf);font-weight:700}
+@font-face{font-family:PlexMono;src:url(../../fonts/IBMPlexMono-Regular.ttf);font-weight:400}
+@font-face{font-family:PlexMono;src:url(../../fonts/IBMPlexMono-Bold.ttf);font-weight:700}
+/* Couleurs de l'identité (mêmes valeurs que doc-lib.js et le site) */
+:root{--ink:#12161C;--ink2:#3F4852;--mut:#77808B;--line:#D5DAE0;--tint:#F3F4F6;--acc:#E8572A;--ok:#23946A;--red:#C8372D}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:Plex,sans-serif;color:var(--ink);padding:20px;display:grid;gap:20px;justify-content:start}
+.fig{background:#fff;width:1000px;position:relative}
+.mono{font-family:PlexMono,monospace}
+.lbl{font-family:PlexMono,monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.box{position:absolute;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;background:#fff;font-weight:600;font-size:19px}
+.box small{display:block;font-family:PlexMono;font-weight:400;font-size:13px;color:var(--mut);margin-top:3px}
+.box.main{background:var(--ink);border-color:var(--ink);color:#fff}
+.box.main small{color:#C4CAD2}
+.tag{position:absolute;font-family:PlexMono;font-size:14px;font-weight:700;background:#fff;padding:3px 8px;border-radius:6px;border:1.5px solid var(--acc);color:var(--acc)}
+/* Couverture */
+#cover{width:794px;height:1123px;background:#0E1217;overflow:hidden}
+#cover .grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.075) 1px,transparent 1.2px);background-size:22px 22px}
+#cover .band{position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--acc)}
+#cover .coord{position:absolute;font-family:PlexMono;font-size:9.5px;letter-spacing:.08em;color:#8B95A1;background:#0E1217;padding:2px 6px}
+</style></head>
+<body>
+
+<!-- ============ FIGURE : schéma de principe (1000 × 360) ============ -->
+<div class="fig" id="schema" style="height:360px">
+  <div class="lbl" style="position:absolute;left:36px;top:30px">Schéma de principe</div>
+  <div class="box" style="left:36px;top:130px;width:240px">Poste client<small>192.168.x.x</small></div>
+  <div class="box main" style="left:380px;top:130px;width:240px">Serveur<small>service à décrire</small></div>
+  <div class="box" style="left:724px;top:130px;width:240px">Équipement<small>rôle à décrire</small></div>
+  <svg width="1000" height="360" viewBox="0 0 1000 360" style="position:absolute;inset:0">
+    <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#12161C"/></marker></defs>
+    <g fill="none" stroke="#12161C" stroke-width="2">
+      <path d="M278 170 H376" marker-end="url(#ah)"/>
+      <path d="M622 170 H720" marker-end="url(#ah)"/>
+    </g>
+  </svg>
+  <div class="tag" style="left:290px;top:210px">PROTOCOLE</div>
+  <div class="mono" style="position:absolute;left:36px;top:300px;font-size:13px;color:#3F4852">Légende ou remarque courte, en français, sans jargon inutile.</div>
+</div>
+
+<!-- ============ COUVERTURE (décor seul, 794 × 1123) ============ -->
+<div class="fig" id="cover">
+  <div class="grid"></div>
+  <svg width="794" height="1123" viewBox="0 0 794 1123" style="position:absolute;inset:0">
+    <!-- Décor dans la moitié basse (le texte occupe le haut de la page). -->
+    <g fill="none" stroke="rgba(255,255,255,.12)">
+      <circle cx="397" cy="860" r="90"/><circle cx="397" cy="860" r="190"/><circle cx="397" cy="860" r="290"/>
+    </g>
+    <circle cx="397" cy="860" r="30" fill="rgba(232,87,42,.14)"/>
+    <circle cx="397" cy="860" r="15" fill="#E8572A"/>
+    <circle cx="397" cy="860" r="5" fill="#0E1217"/>
+  </svg>
+  <div class="coord" style="left:56px;bottom:34px">PROJET · SOUS-TITRE COURT</div>
+  <div class="coord" style="right:56px;bottom:34px">BTS SIO SISR</div>
+  <div class="band"></div>
+</div>
+
+</body></html>
