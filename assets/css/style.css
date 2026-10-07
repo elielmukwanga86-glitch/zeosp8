@@ -103,7 +103,8 @@ ul, ol { padding: 0; list-style: none; }
 /* ---------- Header ---------- */
 .site-header {
   position: fixed; inset: 0 0 auto 0; z-index: 50;
-  height: var(--header-h);
+  height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
   color: var(--td);
   background: rgba(14, 18, 23, .78);
   -webkit-backdrop-filter: saturate(140%) blur(14px);
@@ -234,11 +235,11 @@ ul, ol { padding: 0; list-style: none; }
 @media (hover: hover) and (pointer: fine) { .link-arrow:hover svg { transform: translate(2px, -2px); } }
 
 /* ---------- Reveal (only when JS runs) ---------- */
-.js [data-reveal] { opacity: 0; transform: translateY(26px); }
+.js [data-reveal].is-pending { opacity: 0; transform: translateY(26px); }
 .js [data-reveal].is-in { opacity: 1; transform: none; transition: opacity .9s var(--ease-out), transform .9s var(--ease-out); transition-delay: var(--d, 0s); }
 .mask { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
 .mask > span { display: inline-block; }
-.js [data-lines] .mask > span { transform: translateY(108%); }
+.js [data-lines].is-pending .mask > span { transform: translateY(108%); }
 .js [data-lines].is-in .mask > span { transform: none; transition: transform 1s var(--ease-out); }
 .js [data-lines].is-in .mask:nth-child(2) > span { transition-delay: .08s; }
 .js [data-lines].is-in .mask:nth-child(3) > span { transition-delay: .16s; }

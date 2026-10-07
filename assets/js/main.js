@@ -11,7 +11,7 @@
   var loaded = false;
   function markLoaded() { if (!loaded) { loaded = true; requestAnimationFrame(function () { root.classList.add('is-loaded'); }); } }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(markLoaded);
-  setTimeout(markLoaded, 900);
+  setTimeout(markLoaded, 600);
 
   /* ---------- Clock (Europe/Paris) and days in training ---------- */
   var fmtShort = new Intl.DateTimeFormat('fr-FR', { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit' });
@@ -42,16 +42,17 @@
   }
 
   /* ---------- Reveal on scroll ---------- */
+  // Content already on screen stays visible at rest; only what is below the fold animates in.
   var revealEls = $$('[data-reveal], [data-lines]');
   if ('IntersectionObserver' in window && !reduce) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+        if (en.isIntersecting) { en.target.classList.remove('is-pending'); en.target.classList.add('is-in'); io.unobserve(en.target); }
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
-    revealEls.forEach(function (el) { io.observe(el); });
-  } else {
-    revealEls.forEach(function (el) { el.classList.add('is-in'); });
+    revealEls.forEach(function (el) {
+      if (el.getBoundingClientRect().top > window.innerHeight * 0.92) { el.classList.add('is-pending'); io.observe(el); }
+    });
   }
 
   /* ---------- Header: scroll progress ---------- */
