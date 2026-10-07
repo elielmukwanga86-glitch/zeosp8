@@ -40,8 +40,8 @@ Les sections **Veille** et **Certifications** apparaissent sur l’accueil dès 
 ## Publication (GitHub Pages)
 
 Une seule fois : *Settings → Pages → Build and deployment → Source : Deploy from a branch*, branche
-`claude/gifted-pasteur-8nd9c6`, dossier `/docs`, puis *Save*. Ensuite, chaque push sur cette branche
-met le site à jour en une à deux minutes (onglet *Actions* : « pages build and deployment »).
+`main`, dossier `/docs`, puis *Save*. Ensuite, chaque push sur `main` met le site à jour en une à
+deux minutes (onglet *Actions* : « pages build and deployment »).
 
 ## Confidentialité
 
