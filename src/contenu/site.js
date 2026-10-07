@@ -39,8 +39,8 @@ module.exports = {
   aPropos: {
     phrase: 'Je suis Eliel Mukwanga. Ce qui m’intéresse : déployer, superviser et **documenter** des infrastructures réseau.',
     paragraphes: [
-      'Je suis actuellement en **deuxième année de BTS SIO option SISR** à l’école ENSITECH, à Montigny-le-Bretonneux. Je suis passionné par l’informatique, les innovations technologiques et les infrastructures réseaux.',
-      'Mes stages et mes projets m’ont permis d’acquérir des compétences en administration systèmes, réseaux, support informatique, virtualisation et supervision avec Zabbix.',
+      'Actuellement en **deuxième année de BTS SIO option SISR** à l’école ENSITECH, à Montigny-le-Bretonneux, je suis passionné par l’informatique, les innovations technologiques et les infrastructures réseau.',
+      'Mes stages et mes projets m’ont permis d’acquérir des compétences en administration des systèmes et des réseaux, en support informatique, en virtualisation et en supervision avec Zabbix.',
       'Rigoureux, autonome et curieux, je souhaite contribuer au bon fonctionnement et à l’évolution d’une infrastructure informatique.',
     ],
     fiche: [
@@ -67,7 +67,7 @@ module.exports = {
         'Installation d’un serveur de supervision Zabbix sur une VM Debian 13 hébergée sous VMware ESXi.',
         'Mise en place du service SSH pour administrer le serveur à distance.',
         'Découverte automatique des équipements en ICMP et SNMP, règles de découverte et actions de classement.',
-        'Configuration du pare-feu géré par Active Directory pour autoriser les échanges entre Zabbix et les équipements.',
+        'Configuration des règles de pare-feu gérées par Active Directory pour autoriser les échanges entre Zabbix et les équipements.',
         'Préparation, installation et configuration de postes ; résolution d’incidents auprès des utilisateurs.',
       ],
       projet: 'projet-mairie',
@@ -77,7 +77,7 @@ module.exports = {
       titre: 'Stage de Bac Pro — technicien informatique',
       lieu: 'Mairie des Clayes-sous-Bois (78)',
       missions: [
-        'Maintenance de postes informatiques et des équipements réseau.',
+        'Maintenance des postes informatiques et des équipements réseau.',
         'Préparation, installation et configuration de postes Windows.',
         'Assistance technique et support informatique de premier niveau.',
         'Mise en service d’imprimantes réseau ; suivi des équipements et services réseau.',

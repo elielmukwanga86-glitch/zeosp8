@@ -66,9 +66,9 @@
     <section class="case-hero dark" aria-labelledby="case-title">
       <div class="wrap case-hero__grid">
         <a class="case-hero__back label" href="../index.html#realisations"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3M7 4 3 8l4 4"/></svg>Toutes les réalisations</a>
-        <p class="case-hero__meta label"><span>02 · Projet Cloison</span><span>En formation · Atelier</span><span>Cas d’école · ENSITECH</span><span>Septembre 2026</span></p>
+        <p class="case-hero__meta label"><span>02 · Projet Cloison</span><span>En formation · Atelier de professionnalisation</span><span>Cas d’école · ENSITECH</span><span>Septembre 2026</span></p>
         <h1 class="case-hero__title display" id="case-title" data-lines><span class="mask"><span>Deux Wi‑Fi pour un cabinet de kinésithérapie</span></span></h1>
-        <p class="case-hero__text">Cas d’école ENSITECH : un kinésithérapeute demande un audit de son réseau. Il subit des coupures en fin de journée, son imprimante disparaît et ses patients utilisent le même Wi‑Fi que le cabinet. J’ai qualifié la demande, fait les mesures, conçu un réseau à deux VLAN, chiffré la solution, puis rédigé un compte rendu simple pour le client.</p>
+        <p class="case-hero__text">Cas d’école de l’atelier de professionnalisation ENSITECH : un kinésithérapeute demande un audit de son réseau. Il subit des coupures en fin de journée, son imprimante disparaît et ses patients utilisent le même Wi‑Fi que le cabinet. J’ai qualifié la demande, fait les mesures, conçu un réseau à deux VLAN, chiffré la solution, puis rédigé un compte rendu simple pour le client.</p>
         <div class="case-hero__actions"><a class="btn btn--primary" href="../assets/docs/Projet-Cloison_Reseau-cabinet-kine.pdf" download data-dir="down">Dossier de réalisation (PDF) <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v9M4 8.5 8 12.5l4-4M3 14h10"/></svg></span></a></div>
         <dl class="spec">
           <div><dt class="label">Réseaux</dt><dd>VLAN 10 · VLAN 20</dd></div>
@@ -108,7 +108,7 @@
                   <tr><th scope="row">Coupures entre 17 h et 19 h</th><td>Panne</td></tr>
                   <tr><th scope="row">L’imprimante disparaît du PC de l’accueil</th><td>Confort</td></tr>
                   <tr><th scope="row">Les patients ont le même Wi‑Fi que le cabinet</th><td>Sécurité</td></tr>
-                  <tr><th scope="row">Bilans scannés sur un dossier partagé du PC de l’accueil</th><td>Sécurité</td></tr>
+                  <tr><th scope="row">Bilans scannés dans un dossier partagé du PC de l’accueil</th><td>Sécurité</td></tr>
                 </tbody>
               </table>
             </div>
@@ -130,13 +130,13 @@
               <div class="kpi"><div class="kpi__n">10 %</div><div class="kpi__l">de perte vers la passerelle</div></div>
               <div class="kpi"><div class="kpi__n">0 %</div><div class="kpi__l">de perte vers 1.1.1.1</div></div>
             </div>
-            <h3>Ce que l’audit apprend pour le cabinet</h3>
+            <h3>Ce que l’audit apprend sur le cabinet</h3>
             <ul class="bullets">
               <li><strong>Les coupures du soir</strong> : quand la ligne est chargée, la latence augmente fortement. Entre 17 h et 19 h, les téléphones des patients occupent la connexion et le logiciel de dossiers patients finit par décrocher.</li>
               <li><strong>L’imprimante qui disparaît</strong> : elle reçoit son adresse en DHCP pour une durée limitée (le bail). Quand le bail expire, l’adresse peut changer : il faut donc lui réserver une adresse fixe.</li>
-              <li><strong>Le Wi‑Fi des salles du fond</strong> : le 5 GHz traverse mal le béton. Il faut sortir le Wi‑Fi du placard en posant une borne au plafond du couloir, alimentée par le câble (PoE).</li>
+              <li><strong>Le Wi‑Fi des salles du fond</strong> : le 5 GHz risque de mal traverser le béton. Je propose de sortir le Wi‑Fi du placard en posant une borne au plafond du couloir, alimentée par le câble (PoE).</li>
             </ul>
-            <div class="callout callout--ok"><span class="label">Synthèse de l’audit</span><p>Le signal Wi‑Fi est excellent (−45 dBm) et internet répond (0 % de perte vers 1.1.1.1, port 443 d’ameli.fr ouvert). En revanche, on relève 10 % de perte vers la passerelle et une latence qui monte de 38 à 955 ms quand la ligne est chargée : c’est la connexion sollicitée qui pose problème, comme au cabinet entre 17 h et 19 h.</p></div>
+            <div class="callout callout--ok"><span class="label">Synthèse de l’audit</span><p>Le signal Wi‑Fi est excellent (−45 dBm) et internet répond (0 % de perte vers 1.1.1.1, port 443 d’ameli.fr ouvert). En revanche, on relève 10 % de perte vers la passerelle et une latence qui monte de 38 à 955 ms quand la ligne est chargée : le problème ne vient pas de la radio mais de la connexion quand elle est sollicitée, comme au cabinet entre 17 h et 19 h.</p></div>
           </section>
 
           <section id="conception" aria-labelledby="conception-titre">
@@ -163,7 +163,7 @@
 
           <section id="devis" aria-labelledby="devis-titre">
             <h2 id="devis-titre" data-reveal><span class="label">04 — Le devis</span>600 € HT pour un budget d’environ 1 000 €</h2>
-            <p>J’ai choisi du matériel de la gamme TP-Link Omada, avec les prix du catalogue de l’exercice vérifiés chez un revendeur. J’ai écarté le switch non administrable, moins cher : il ne gère ni les VLAN ni le PoE.</p>
+            <p>J’ai choisi du matériel de la gamme TP-Link Omada, avec les prix du catalogue de l’exercice. J’ai vérifié deux de ces prix chez LDLC (le routeur ER605 et la borne EAP650) : ils y sont un peu plus élevés. J’ai écarté le switch non administrable, moins cher : il ne gère ni les VLAN ni le PoE.</p>
             <div class="table-wrap" tabindex="0" role="region" aria-label="Désignation, Qté, Total HT">
               <table class="table">
                 <thead><tr><th scope="col">Désignation</th><th scope="col" class="r">Qté</th><th scope="col" class="r">Total HT</th></tr></thead>

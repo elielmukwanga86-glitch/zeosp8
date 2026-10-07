@@ -68,7 +68,7 @@
         <a class="case-hero__back label" href="../index.html#realisations"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3M7 4 3 8l4 4"/></svg>Toutes les réalisations</a>
         <p class="case-hero__meta label"><span>01 · Projet Mairie</span><span>En milieu professionnel · Stage</span><span>Mairie des Clayes‑sous‑Bois</span><span>juillet – août 2026</span></p>
         <h1 class="case-hero__title display" id="case-title" data-lines><span class="mask"><span>Supervision Zabbix en mairie</span></span></h1>
-        <p class="case-hero__text">Pendant mon stage de première année, j’ai installé Zabbix 7.4 sur une VM Debian 13 hébergée sous VMware ESXi. J’ai ensuite mis en place la découverte automatique en ICMP et SNMP, puis le classement des équipements trouvés sur les réseaux de la mairie.</p>
+        <p class="case-hero__text">Pendant mon stage de première année, j’ai installé Zabbix 7.4 sur une VM Debian 13 hébergée sous VMware ESXi. J’ai ensuite mis en place la découverte automatique en ICMP et SNMP, puis commencé à classer les équipements trouvés sur les réseaux de la mairie.</p>
         <div class="case-hero__actions"><a class="btn btn--primary" href="../assets/docs/Projet-Mairie_Supervision-Zabbix.pdf" download data-dir="down">Documentation technique (PDF) <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v9M4 8.5 8 12.5l4-4M3 14h10"/></svg></span></a></div>
         <dl class="spec">
           <div><dt class="label">Hyperviseur</dt><dd>VMware ESXi</dd></div>
@@ -121,10 +121,10 @@
           <section id="demarche" aria-labelledby="demarche-titre">
             <h2 id="demarche-titre" data-reveal><span class="label">03 — Ma démarche</span>De la VM au serveur opérationnel</h2>
             <ol class="steps">
-              <li><div><b>Créer la VM Debian 13 sous VMware ESXi</b><span>Ressources, carte réseau reliée aux VLAN supervisés et adresse IP fixe, puis installation de SSH pour administrer le serveur à distance.</span></div></li>
+              <li><div><b>Créer la VM Debian 13 sous VMware ESXi</b><span>Ressources, carte réseau connectée au réseau qui permet d’atteindre les VLAN supervisés, adresse IP fixe, puis installation de SSH pour administrer le serveur à distance.</span></div></li>
               <li><div><b>Installer Zabbix 7.4 depuis le dépôt officiel</b><span>Serveur Zabbix, interface web (Apache + PHP), agent Zabbix et base MariaDB avec un utilisateur dédié.</span></div></li>
               <li><div><b>Configurer la supervision SNMP</b><span>Communauté SNMP, tests avec <code>snmpwalk</code> et ouverture des flux sur le pare-feu géré par Active Directory.</span></div></li>
-              <li><div><b>Créer les règles et les actions de découverte</b><span>Des règles pour chaque réseau à analyser, et des actions qui créent l’hôte, l’ajoutent au bon groupe et lui associent un modèle.</span></div></li>
+              <li><div><b>Créer les règles et les actions de découverte</b><span>Une règle par réseau à analyser, puis des actions qui créent l’hôte, l’ajoutent au bon groupe et lui associent un modèle.</span></div></li>
               <li><div><b>Organiser, tester, dépanner</b><span>Groupes d’équipements, tests de validation, gestion des doublons et diagnostic réseau étape par étape.</span></div></li>
             </ol>
             <figure class="figure" data-reveal>
@@ -161,7 +161,7 @@
             <ul class="bullets">
               <li>Serveur Zabbix opérationnel sur une VM Debian 13 hébergée sous VMware ESXi.</li>
               <li>Supervision ICMP et SNMP en place, avec la découverte automatique de plusieurs réseaux.</li>
-              <li>Classement automatique en groupes en place pour les principaux types d’équipements, encore à terminer pour les autres.</li>
+              <li>Classement automatique en groupes mis en place pour les principaux types d’équipements, encore à finaliser pour les autres.</li>
               <li>Imprimantes et copieurs pris en compte grâce à l’identification SNMP.</li>
             </ul>
           </section>
