@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page introuvable · Eliel Mukwanga</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0E1217">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230E1217%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%274%27 fill=%27%23E8572A%27/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#0E1217; --td:#E8EBEE; --td-2:#AEB6BF; --acc:#E8572A; --acc-soft:#F59A75; --ok:#3DBE8B; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100svh; display: grid; place-items: center; background: var(--ink); color: var(--td); font-family: "IBM Plex Sans", system-ui, sans-serif; padding: 24px; }
+    main { width: 100%; max-width: 40rem; display: grid; gap: 22px; }
+    .label { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+    h1 { margin: 0; font-family: "IBM Plex Sans Condensed", sans-serif; font-weight: 700; font-size: clamp(3.4rem, 14vw, 7rem); line-height: .9; letter-spacing: -.02em; }
+    pre { margin: 0; background: #141920; border: 1px solid rgba(255,255,255,.1); border-radius: 4px; padding: 18px 20px; font: 14px/1.7 "IBM Plex Mono", monospace; color: var(--td-2); overflow-x: auto; }
+    .k { color: var(--acc-soft); } .ok { color: var(--ok); }
+    a { color: var(--td); font-weight: 600; border-bottom: 1px solid currentColor; text-decoration: none; justify-self: start; padding-bottom: 2px; }
+    a:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="label">Erreur 404</p>
+    <h1>Hôte injoignable.</h1>
+    <pre><span class="k">ping</span> cette-page
+Request timeout for icmp_seq 0
+Request timeout for icmp_seq 1
+--- 2 paquets transmis, 0 reçu, <span class="k">100 % de perte</span> ---
+
+<span class="k">ping</span> accueil
+64 bytes : icmp_seq=0 <span class="ok">ttl=64 temps=1 ms</span></pre>
+    <p>La page demandée n’existe pas ou a été déplacée. L’accueil, lui, répond.</p>
+    <a href="./" data-home>Revenir à l’accueil du portfolio</a>
+  </main>
+  <script>
+    // On GitHub Pages project sites the portfolio lives under /<dépôt>/.
+    (function () {
+      var a = document.querySelector('[data-home]');
+      if (a && /\.github\.io$/.test(location.hostname)) a.href = '/' + location.pathname.split('/')[1] + '/';
+    })();
+  </script>
+</body>
+</html>

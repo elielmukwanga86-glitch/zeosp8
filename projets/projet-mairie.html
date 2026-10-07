@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Projet Mairie — Supervision Zabbix · Eliel Mukwanga</title>
+  <meta name="description" content="Étude de cas : déploiement de Zabbix 7.4 sur Debian 13 (VMware ESXi) à la mairie des Clayes-sous-Bois, découverte automatique ICMP / SNMP et classement des équipements.">
+  <meta name="theme-color" content="#0E1217">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Projet Mairie — Supervision Zabbix">
+  <meta property="og:description" content="Un serveur Zabbix qui découvre et classe les équipements d’une mairie. Stage BTS SIO SISR, juillet – août 2026.">
+  <meta property="og:image" content="../assets/img/og.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html" aria-label="Eliel Mukwanga, accueil du portfolio">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1C222B"/><path d="M9 22 16 10 23 22" stroke="#848E99" stroke-width="1.6" fill="none"/><circle cx="16" cy="10" r="3.2" fill="#E8572A"/><circle cx="9" cy="22" r="2.2" fill="#E8EBEE"/><circle cx="23" cy="22" r="2.2" fill="#E8EBEE"/></svg>
+        <span class="brand__name">Eliel Mukwanga <span class="brand__meta label">· BTS SIO SISR</span></span>
+      </a>
+      <nav class="nav" aria-label="Navigation principale">
+        <ol>
+          <li><a href="../index.html#projets" data-scramble aria-current="true"><span class="mono">01</span>Projets</a></li>
+          <li><a href="../index.html#parcours" data-scramble><span class="mono">02</span>Parcours</a></li>
+          <li><a href="../index.html#competences" data-scramble><span class="mono">03</span>Compétences</a></li>
+          <li><a href="../index.html#a-propos" data-scramble><span class="mono">04</span>À propos</a></li>
+          <li><a href="../index.html#contact" data-scramble><span class="mono">05</span>Contact</a></li>
+        </ol>
+      </nav>
+      <p class="status label"><span class="status__dot" aria-hidden="true"></span><span>En formation</span><span class="num" data-clock aria-label="Heure à Paris">--:--</span></p>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu <span class="menu-btn__icon" aria-hidden="true"></span></button>
+    </div>
+    <div class="progress" aria-hidden="true"></div>
+  </header>
+
+  <div class="menu" id="menu" aria-label="Menu">
+    <nav aria-label="Navigation mobile">
+      <ol>
+        <li><a href="../index.html#projets"><span class="mono">01</span>Projets</a></li>
+        <li><a href="../index.html#parcours"><span class="mono">02</span>Parcours</a></li>
+        <li><a href="../index.html#competences"><span class="mono">03</span>Compétences</a></li>
+        <li><a href="../index.html#a-propos"><span class="mono">04</span>À propos</a></li>
+        <li><a href="../index.html#contact"><span class="mono">05</span>Contact</a></li>
+      </ol>
+    </nav>
+    <div class="menu__foot label"><span>BTS SIO option SISR · ENSITECH</span><span>elielmukwanga86@gmail.com</span></div>
+  </div>
+
+  <main id="contenu">
+    <section class="case-hero dark" aria-labelledby="case-title">
+      <div class="wrap">
+        <a class="case-hero__back label" href="../index.html#projets"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3M7 4 3 8l4 4"/></svg>Tous les projets</a>
+        <p class="case-hero__meta label" data-reveal><span>Projet Mairie</span><span>Stage · Mairie des Clayes-sous-Bois</span><span>Juillet – août 2026</span></p>
+        <h1 class="case-hero__title display" id="case-title" data-lines><span class="mask"><span>Projet Mairie</span></span></h1>
+        <p class="case-hero__sub" data-reveal>Supervision centralisée de l’infrastructure municipale avec Zabbix.</p>
+        <p class="case-hero__text" data-reveal>Déploiement de Zabbix 7.4 sur une VM Debian 13 hébergée sous VMware ESXi, découverte automatique ICMP / SNMP et classement des équipements découverts sur les réseaux de la mairie.</p>
+        <div class="case-hero__actions" data-reveal>
+          <a class="btn btn--primary" href="../assets/docs/Projet-Mairie_Supervision-Zabbix.pdf" download data-magnetic data-dir="down">Documentation PDF <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 3v9M4 8.5 8 12.5l4-4M3 14h10"/></svg></span></a>
+        </div>
+        <dl class="spec" data-reveal>
+          <div><dt class="label">Hyperviseur</dt><dd>VMware ESXi</dd></div>
+          <div><dt class="label">Système</dt><dd>Debian 13</dd></div>
+          <div><dt class="label">Supervision</dt><dd>Zabbix 7.4</dd></div>
+          <div><dt class="label">Protocoles</dt><dd>ICMP · SNMP</dd></div>
+        </dl>
+      </div>
+      <div class="case-hero__visual"><img src="../assets/img/mairie-visuel.webp" width="1600" height="999" alt="Illustration : le serveur Zabbix au centre, relié aux équipements de neuf réseaux (VLAN)."></div>
+    </section>
+
+    <section class="section paper">
+      <div class="wrap case">
+        <nav class="toc" aria-label="Sommaire de l’étude de cas">
+          <p class="label" style="color:var(--t-mut);margin-bottom:14px">Sommaire</p>
+          <ol>
+            <li><a href="#contexte"><span class="mono">01</span>Contexte</a></li>
+            <li><a href="#architecture"><span class="mono">02</span>Architecture</a></li>
+            <li><a href="#demarche"><span class="mono">03</span>Ma démarche</a></li>
+            <li><a href="#decouverte"><span class="mono">04</span>Découverte automatique</a></li>
+            <li><a href="#resultats"><span class="mono">05</span>Résultats</a></li>
+            <li><a href="#difficulte"><span class="mono">06</span>Difficulté rencontrée</a></li>
+            <li><a href="#evolutions"><span class="mono">07</span>Évolutions</a></li>
+            <li><a href="#competences-mobilisees"><span class="mono">08</span>Compétences</a></li>
+          </ol>
+        </nav>
+
+        <div class="prose">
+          <section id="contexte" data-reveal>
+            <h2><span class="label">01 — Contexte</span>Une administration encore manuelle</h2>
+            <p>Pendant mon stage de juillet – août 2026 à la <strong>mairie des Clayes-sous-Bois</strong>, j’ai mis en place une solution de supervision centralisée de l’infrastructure informatique. Le parc est réparti sur plusieurs réseaux (VLAN) : serveurs, données, VoIP, caméras, école, libre-service… et son administration était jusque-là principalement manuelle.</p>
+            <h3>Objectifs</h3>
+            <ul class="bullets">
+              <li>Installer Debian 13 sur une machine virtuelle VMware ESXi et y déployer le serveur Zabbix.</li>
+              <li>Mettre en place la supervision ICMP et SNMP.</li>
+              <li>Découvrir automatiquement les équipements présents sur les différents réseaux.</li>
+              <li>Classer automatiquement les équipements par type : PC, switch, serveur, caméra, antenne, hyperviseur, imprimante / copieur, routeur…</li>
+              <li>Identifier les imprimantes et copieurs à partir d’informations SNMP et de leur nom.</li>
+            </ul>
+          </section>
+
+          <section id="architecture" data-reveal>
+            <h2><span class="label">02 — Architecture</span>Un serveur au centre, neuf réseaux autour</h2>
+            <p>Le serveur Zabbix tourne dans une VM Debian 13 sur l’hyperviseur VMware ESXi. Il interroge les équipements en ICMP (disponibilité) et en SNMP (UDP 161), stocke les résultats dans MariaDB et les restitue dans l’interface web servie par Apache et PHP.</p>
+            <figure class="figure">
+              <button class="figure__btn" type="button" data-caption="Figure 1 — Architecture de la solution de supervision"><img src="../assets/img/mairie-architecture.webp" width="2000" height="1200" alt="Schéma : les équipements supervisés (switches, serveurs, imprimantes, caméras, postes) sont interrogés en ICMP et SNMP par le serveur Zabbix, installé dans une VM Debian 13 sur VMware ESXi avec MariaDB, Apache + PHP et l’agent Zabbix." loading="lazy" decoding="async"></button>
+              <figcaption><b>FIGURE 1</b>Architecture de la solution de supervision</figcaption>
+            </figure>
+          </section>
+
+          <section id="demarche" data-reveal>
+            <h2><span class="label">03 — Ma démarche</span>De la VM au serveur opérationnel</h2>
+            <ol class="steps">
+              <li><div><b>Créer la VM Debian 13 sous VMware ESXi</b><span>Ressources, carte réseau reliée aux VLAN supervisés, adresse IP fixe, puis service SSH pour l’administration à distance.</span></div></li>
+              <li><div><b>Déployer Zabbix 7.4 depuis le dépôt officiel</b><span>Serveur Zabbix, interface web (Apache + PHP), agent Zabbix et base MariaDB avec un utilisateur dédié.</span></div></li>
+              <li><div><b>Configurer la supervision SNMP</b><span>Communauté SNMP, tests avec <code>snmpwalk</code> et ouverture des flux sur le pare-feu géré par Active Directory.</span></div></li>
+              <li><div><b>Créer les règles et les actions de découverte</b><span>Des règles couvrant les réseaux à analyser, et des actions qui créent l’hôte, l’ajoutent au bon groupe et lui lient un modèle.</span></div></li>
+              <li><div><b>Organiser, tester, dépanner</b><span>Groupes d’équipements, tests de validation, gestion des doublons et diagnostic réseau pas à pas.</span></div></li>
+            </ol>
+          </section>
+
+          <section id="decouverte" data-reveal>
+            <h2><span class="label">04 — Découverte automatique</span>Ne plus ajouter les équipements à la main</h2>
+            <p>Zabbix analyse périodiquement des plages d’adresses IP. Chaque réponse ICMP ou SNMP produit un événement de découverte, et une action décide quoi faire de l’équipement.</p>
+            <figure class="figure">
+              <button class="figure__btn" type="button" data-caption="Figure 2 — Chaîne de découverte, de la plage IP à l’action"><img src="../assets/img/mairie-decouverte.webp" width="2000" height="858" alt="Schéma en six étapes : plage IP, test ICMP, test SNMP, collecte des informations, événement de découverte, action (créer l’hôte, l’ajouter au groupe, lier le modèle, poser les tags)." loading="lazy" decoding="async"></button>
+              <figcaption><b>FIGURE 2</b>Chaîne de découverte, de la plage IP à l’action</figcaption>
+            </figure>
+            <pre class="code"><span class="code__label">Exemple de logique d’action</span><span class="k">SI</span> équipement découvert
+<span class="k">ET</span> Discovery status = Up
+<span class="k">ET</span> information SNMP = équipement réseau
+<span class="k">ALORS</span>
+  <span class="ok">→</span> créer / activer l’hôte
+  <span class="ok">→</span> l’ajouter au groupe Switch ou Routeur
+  <span class="ok">→</span> lier le modèle correspondant</pre>
+            <p style="margin-top:18px">Pour les imprimantes et copieurs, qui répondent au ping sans agent Zabbix, l’identification s’appuie sur un OID SNMP et sur le nom de l’hôte.</p>
+          </section>
+
+          <section id="resultats" data-reveal>
+            <h2><span class="label">05 — Résultats</span>Une vue d’ensemble du parc</h2>
+            <div class="kpis kpis--case">
+              <div class="kpi"><div class="kpi__n">≈ 169</div><div class="kpi__l">hôtes découverts lors des essais</div></div>
+              <div class="kpi"><div class="kpi__n">9</div><div class="kpi__l">VLAN recensés</div></div>
+              <div class="kpi"><div class="kpi__n">9</div><div class="kpi__l">groupes d’équipements</div></div>
+              <div class="kpi"><div class="kpi__n">2</div><div class="kpi__l">protocoles : ICMP et SNMP</div></div>
+            </div>
+            <ul class="bullets" style="margin-top:28px">
+              <li>Serveur Zabbix opérationnel sur une VM Debian 13 hébergée sous VMware ESXi.</li>
+              <li>Supervision ICMP et SNMP en place, découverte automatique de plusieurs réseaux.</li>
+              <li>Classement automatique en groupes mis en place pour les principaux types d’équipements, à finaliser pour les autres.</li>
+              <li>Imprimantes et copieurs pris en compte grâce à l’identification SNMP.</li>
+            </ul>
+          </section>
+
+          <section id="difficulte" data-reveal>
+            <h2><span class="label">06 — Difficulté rencontrée</span>La passerelle ne répondait pas</h2>
+            <div class="callout callout--warn">
+              <span class="label">Problème de connectivité</span>
+              <p>Lors de la mise en place, la connectivité vers la passerelle posait problème alors que le serveur DNS répondait. J’ai vérifié par étapes : interface, adresse IP, route par défaut, passerelle, DNS, puis accès aux réseaux supervisés.</p>
+            </div>
+            <pre class="code"><span class="code__label">Diagnostic pas à pas</span><span class="k">ip</span> addr      <span class="c"># l’interface et l’adresse</span>
+<span class="k">ip</span> route     <span class="c"># la route par défaut</span>
+<span class="k">ping</span> -c 4 &lt;passerelle&gt;
+<span class="k">ping</span> -c 4 &lt;serveur DNS&gt;</pre>
+          </section>
+
+          <section id="evolutions" data-reveal>
+            <h2><span class="label">07 — Évolutions</span>Ce que j’ajouterais ensuite</h2>
+            <ul class="bullets">
+              <li>Finaliser la classification automatique de tous les types d’équipements.</li>
+              <li>Configurer des alertes et des notifications adaptées.</li>
+              <li>Passer en SNMPv3 lorsque les équipements le permettent.</li>
+              <li>Créer des tableaux de bord par service ou par type d’équipement.</li>
+              <li>Superviser plus finement les serveurs avec Zabbix agent 2 et sauvegarder régulièrement la base.</li>
+            </ul>
+          </section>
+
+          <section id="competences-mobilisees" data-reveal>
+            <h2><span class="label">08 — Compétences</span>Ce que le projet m’a fait pratiquer</h2>
+            <ul class="tags">
+              <li class="tag">Virtualisation · VMware ESXi</li><li class="tag">Administration Linux · Debian</li><li class="tag">SSH</li>
+              <li class="tag">Zabbix 7.4</li><li class="tag">SNMP · ICMP</li><li class="tag">VLAN · adressage IPv4</li>
+              <li class="tag">Pare-feu · Active Directory</li><li class="tag">MariaDB</li><li class="tag">Apache + PHP</li>
+              <li class="tag">Diagnostic réseau</li><li class="tag">Documentation technique</li>
+            </ul>
+          </section>
+
+          <aside class="download" data-reveal aria-label="Télécharger la documentation">
+            <div>
+              <p class="label" style="color:var(--acc-soft)">Documentation technique · 19 pages</p>
+              <p class="download__title">Toute l’installation, commande par commande.</p>
+              <p>Plan d’adressage, installation, base de données, SNMP, découverte, tests et dépannage. Les adresses IP internes de la mairie sont masquées.</p>
+            </div>
+            <a class="btn btn--primary" href="../assets/docs/Projet-Mairie_Supervision-Zabbix.pdf" download data-magnetic data-dir="down">Télécharger le PDF <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 3v9M4 8.5 8 12.5l4-4M3 14h10"/></svg></span></a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark">
+      <div class="wrap next">
+        <p class="label" style="color:var(--td-mut)">Projet suivant</p>
+        <a href="projet-cloison.html"><span class="next__title">Projet Cloison <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17M14 5l7 7-7 7"/></svg></span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap label">
+      <span>© 2026 Eliel Mukwanga · Portfolio BTS SIO SISR</span>
+      <span>Paris <span class="num" data-clock>--:--</span></span>
+      <a href="#contenu">Haut de page ↑</a>
+    </div>
+  </footer>
+
+  <dialog class="lightbox" aria-label="Figure agrandie">
+    <div class="lightbox__inner">
+      <img src="" alt="">
+      <button class="lightbox__close" type="button">Fermer</button>
+    </div>
+    <p class="lightbox__cap"></p>
+  </dialog>
+
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>
