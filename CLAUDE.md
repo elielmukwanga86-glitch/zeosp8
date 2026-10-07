@@ -2,7 +2,7 @@
 
 Portfolio d’**Eliel Mukwanga**, étudiant en **2ᵉ année de BTS SIO option SISR** à ENSITECH
 (Montigny-le-Bretonneux), en formation initiale. Tout le contenu est en français.
-Site publié par GitHub Pages depuis la branche `main`, dossier `/docs` : https://elielmukwanga86-glitch.github.io/zeosp8/
+Site publié par GitHub Pages (workflow `.github/workflows/deploy-pages.yml`, dossier `docs/`) à chaque push sur la branche par défaut `claude/quirky-curie-ebilp7` ; garder `main` et `claude/quirky-curie-ebilp7` alignées sur `claude/gifted-pasteur-8nd9c6`. URL : https://elielmukwanga86-glitch.github.io/zeosp8/
 
 ## Architecture
 

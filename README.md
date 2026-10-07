@@ -39,9 +39,9 @@ Les sections **Veille** et **Certifications** apparaissent sur l’accueil dès 
 
 ## Publication (GitHub Pages)
 
-Une seule fois : *Settings → Pages → Build and deployment → Source : Deploy from a branch*, branche
-`main`, dossier `/docs`, puis *Save*. Ensuite, chaque push sur `main` met le site à jour en une à
-deux minutes (onglet *Actions* : « pages build and deployment »).
+Le workflow `.github/workflows/deploy-pages.yml` publie le dossier `docs/` à chaque push sur la branche
+par défaut du dépôt (`claude/quirky-curie-ebilp7`, la seule acceptée par l’environnement `github-pages`).
+Les branches `main` et `claude/gifted-pasteur-8nd9c6` contiennent le même portfolio. Suivi : onglet *Actions*.
 
 ## Confidentialité
 
