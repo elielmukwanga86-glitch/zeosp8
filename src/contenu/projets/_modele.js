@@ -21,6 +21,9 @@ module.exports = {
   nom: 'Mon projet',             // nom court (cartes, filtres, synthèse)
   titre: 'Titre descriptif de la réalisation',
   milieu: 'formation',           // 'professionnel' (stage) ou 'formation' (atelier, TP, projet d’école)
+  // anneeBts: 1,                // obligatoire si milieu: 'professionnel' : stage de 1re (1) ou 2de (2) année
+  // synthese: { periode: '06/01/27 au 14/02/27' },  // période affichée dans le tableau de synthèse (sinon cadre.periode)
+  // productions: ['Procédure d’installation', 'Schéma réseau'],  // autres documents cités dans le tableau de synthèse
   cadre: { type: 'Atelier', organisation: 'ENSITECH', periode: 'octobre 2026', court: 'oct. 2026', annee: '2026' },
   filtre: 'Mon projet',          // libellé du bouton de filtre dans « Compétences »
 
