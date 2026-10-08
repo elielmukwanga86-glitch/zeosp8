@@ -686,3 +686,32 @@ html:has(.lightbox[open]) { overflow: hidden; }
   .section, .case-hero { padding-block: 24px !important; }
   .figure, .table-wrap, .code, .callout { break-inside: avoid; }
 }
+
+/* ---------- Tableau de synthèse (format annexe 6-1, épreuve E4) ---------- */
+.synth-hero__fiche { max-width: 64rem; }
+.synth-hero__fiche dd a { border-bottom: 1px solid currentColor; overflow-wrap: anywhere; }
+.synth { min-width: 900px; font-size: 14px; }
+.synth--3 { min-width: 720px; }
+.synth thead th { vertical-align: bottom; font-size: 10px; letter-spacing: .08em; line-height: 1.35; }
+.synth thead th:first-child { width: auto; text-align: left; }
+.synth thead th:first-child small { display: block; margin-top: 4px; text-transform: none; letter-spacing: 0; font-family: var(--f-sans); font-weight: 400; font-size: 12px; }
+.synth thead th:not(:first-child), .synth td { text-align: center; padding-inline: 6px; width: 10%; }
+.synth--3 thead th:not(:first-child), .synth--3 td { width: 15%; }
+.synth thead th:nth-child(2), .synth .synth__per { width: 12%; }
+.synth .synth__per { font-size: 13px; color: var(--t-2); vertical-align: middle; }
+.synth thead th.synth__zero { color: var(--t-mut); opacity: .75; }
+.synth td { vertical-align: middle; }
+.synth tbody th[scope="row"] { font-weight: 500; }
+.synth__group th { padding: 22px 0 10px !important; text-align: left; font-family: var(--f-mono); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--acc-ink) !important; border-bottom: 1px solid var(--line-strong) !important; }
+.synth__none td { text-align: left !important; color: var(--t-mut); font-style: italic; }
+.synth__docs { margin-top: 8px; display: grid; gap: 2px; font-size: 13px; font-weight: 400; }
+.synth__docs li { padding-left: 14px; position: relative; color: var(--t-2); }
+.synth__docs li::before { content: ""; position: absolute; left: 0; top: .7em; width: 8px; height: 2px; background: var(--acc); }
+.synth__docs a { border-bottom: 1px solid var(--line-strong); }
+.synth__detail { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 14px; }
+.synth__detail summary { cursor: pointer; font-family: var(--f-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--acc-ink); min-height: 44px; display: flex; align-items: center; }
+.synth__detail dl { display: grid; gap: 20px 32px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); margin-top: 12px; }
+.synth__detail dt { font-weight: 600; margin-bottom: 6px; }
+.synth__detail li { font-size: 14px; color: var(--t-2); padding-left: 14px; position: relative; margin-top: 4px; }
+.synth__detail li::before { content: "▸"; position: absolute; left: 0; color: var(--acc-ink); }
+@media print { .synth__detail[open] dl, .synth__detail dl { display: grid !important; } }

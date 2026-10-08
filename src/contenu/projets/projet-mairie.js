@@ -14,6 +14,7 @@ module.exports = {
 
   // milieu : 'professionnel' (stage) ou 'formation' (atelier, TP, projet d’école)
   milieu: 'professionnel',
+  anneeBts: 1,                // stage de 1re année (tableau de synthèse E4)
   cadre: { type: 'Stage', organisation: 'Mairie des Clayes-sous-Bois', periode: 'juillet – août 2026', court: 'juil. – août 2026', annee: '2026' },
   filtre: 'Projet Mairie',
 

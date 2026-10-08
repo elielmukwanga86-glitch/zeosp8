@@ -2,47 +2,90 @@
 const { esc, text } = require('../lib/html');
 const { ICON } = require('./layout');
 
-/** Tableau de synthèse : compétences du référentiel (lignes) × réalisations (colonnes). */
-function synthese(site, projets, referentiel) {
-  const head = projets.map((p) => {
-    const name = p.page ? `<a href="projets/${p.slug}.html">${text(p.nom)}</a>` : text(p.nom);
-    return `<th scope="col"><span class="synth__proj">${name}</span><span class="synth__ctx">${text([p.milieu === 'professionnel' ? 'Stage' : 'Formation', p.cadre.court].filter(Boolean).join(' · '))}</span></th>`;
-  }).join('');
+/**
+ * Tableau de synthèse au format de l’annexe 6-1 (épreuve E4) : une ligne par réalisation,
+ * classée « en cours de formation » ou « en milieu professionnel » (1re / 2de année),
+ * une colonne par compétence. Le bloc 2 (épreuve E5) suit la même présentation.
+ */
+const RUBRIQUES = [
+  { id: 'formation', titre: 'Réalisations en cours de formation' },
+  { id: 'pro1', titre: 'Réalisations en milieu professionnel en cours de première année' },
+  { id: 'pro2', titre: 'Réalisations en milieu professionnel en cours de seconde année' },
+];
 
-  const blocs = referentiel.map((bloc) => {
-    const rows = bloc.competences.map((c) => {
-      const cells = projets.map((p) => ((p.competencesBts || []).includes(c.id)
+function rubrique(p) {
+  if (p.milieu === 'formation') return 'formation';
+  return p.anneeBts === 2 ? 'pro2' : 'pro1';
+}
+
+function productions(p) {
+  const items = [];
+  if (p.page) items.push(`<li><a href="projets/${p.slug}.html">Étude de cas en ligne</a></li>`);
+  for (const d of p.documents || []) items.push(`<li><a href="assets/${esc(d.fichier)}">${text(d.titre)} (PDF, ${d.pages} pages)</a></li>`);
+  for (const x of p.productions || []) items.push(`<li>${text(x)}</li>`);
+  return items.length ? `<ul class="synth__docs">${items.join('')}</ul>` : '';
+}
+
+function tableau(bloc, projets) {
+  const comps = bloc.competences;
+  const has = (p, c) => (p.competencesBts || []).includes(c.id);
+  const concernes = projets.filter((p) => comps.some((c) => has(p, c)));
+  const cols = comps.length + 2;
+  const body = RUBRIQUES.map((r) => {
+    const rows = concernes.filter((p) => rubrique(p) === r.id).map((p) => {
+      const cells = comps.map((c) => (has(p, c)
         ? '<td class="synth__yes"><span class="synth__dot" aria-hidden="true"></span><span class="sr-only">oui</span></td>'
         : '<td><span class="sr-only">non</span></td>')).join('');
-      const count = projets.filter((p) => (p.competencesBts || []).includes(c.id)).length;
-      return `              <tr${count ? '' : ' class="synth__empty"'}><th scope="row">${text(c.nom)}</th>${cells}</tr>`;
-    }).join('\n');
-    return `        <div class="synth__bloc" data-reveal>
-          <h2 class="synth__title"><span class="label label--acc">${text(bloc.titre)}</span>${text(bloc.intitule)}</h2>
-          <div class="table-wrap" tabindex="0" role="region" aria-label="${esc(bloc.titre)} : compétences par réalisation">
-            <table class="table synth">
-              <thead><tr><th scope="col">Compétence</th>${head}</tr></thead>
-              <tbody>
-${rows}
-              </tbody>
-            </table>
-          </div>
-        </div>`;
+      return `              <tr><th scope="row"><span class="synth__proj">${text(p.titre)}</span><span class="synth__ctx">${text([p.nom, p.cadre.organisation].filter(Boolean).join(' · '))}</span>${productions(p)}</th><td class="synth__per">${text((p.synthese && p.synthese.periode) || p.cadre.periode || '')}</td>${cells}</tr>`;
+    });
+    if (!rows.length) rows.push(`              <tr class="synth__none"><td colspan="${cols}">Aucune réalisation pour l’instant.</td></tr>`);
+    return `              <tr class="synth__group"><th scope="rowgroup" colspan="${cols}">${text(r.titre)}</th></tr>\n${rows.join('\n')}`;
   }).join('\n');
 
+  const counts = comps.map((c) => concernes.filter((p) => has(p, c)).length);
+  return `        <div class="synth__bloc" data-reveal>
+          <h2 class="synth__title"><span class="label label--acc">${text(bloc.titre)} · ${text(bloc.epreuve)}</span>${text(bloc.intitule)}</h2>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="${esc(bloc.titre)} : réalisations et compétences mises en œuvre">
+            <table class="table synth synth--${comps.length}">
+              <thead><tr><th scope="col">Réalisations professionnelles<small>intitulé, documents et productions</small></th><th scope="col">Période</th>${comps.map((c, i) => `<th scope="col"${counts[i] ? '' : ' class="synth__zero"'}>${text(c.nom)}</th>`).join('')}</tr></thead>
+              <tbody>
+${body}
+              </tbody>
+            </table>
+          </div>${comps.some((c) => c.activites) ? `
+          <details class="synth__detail">
+            <summary>Activités de chaque compétence (référentiel)</summary>
+            <dl>
+${comps.map((c) => `              <div><dt>${text(c.nom)}</dt><dd><ul>${c.activites.map((a) => `<li>${text(a)}</li>`).join('')}</ul></dd></div>`).join('\n')}
+            </dl>
+          </details>` : ''}
+        </div>`;
+}
+
+function synthese(site, projets, referentiel) {
+  const f = site.formation;
+  const fiche = [
+    ['Nom et prénom', `${site.nomFamille.toUpperCase()} ${site.prenom}`],
+    ['Centre de formation', `${f.ecole}, ${f.ville}`],
+    ['Option', `${f.option} — ${f.optionLong}`],
+    ['Adresse URL du portfolio', site.url ? `<a href="${esc(site.url)}">${text(site.url.replace(/^https?:\/\//, ''))}</a>` : 'à venir'],
+  ];
   return `    <section class="case-hero dark synth-hero" aria-labelledby="case-title">
       <div class="wrap">
         <a class="case-hero__back label" href="index.html#realisations">${ICON.arrowLeft}Accueil</a>
-        <p class="case-hero__meta label"><span>Référentiel BTS SIO</span><span>Option SISR</span><span>${text(site.formation.promotion)}</span></p>
+        <p class="case-hero__meta label"><span>BTS SIO</span><span>Option ${text(f.option)}</span><span>${text(f.promotion)}</span></p>
         <h1 class="case-hero__title display" id="case-title" data-lines><span class="mask"><span>Tableau de synthèse</span></span></h1>
-        <p class="case-hero__text">Mes réalisations, en stage et en formation, rapportées aux compétences du référentiel du BTS SIO : bloc 1 (commun aux deux options) et bloc 2 (option SISR). Je complète ce tableau au fil de l’année, à chaque nouvelle réalisation.</p>
+        <p class="case-hero__text">Tableau de synthèse des réalisations professionnelles, présenté comme l’annexe 6‑1 de l’épreuve E4 : mes réalisations en cours de formation et en milieu professionnel, et les compétences du référentiel mises en œuvre. Je le complète au fil de l’année.</p>
+        <dl class="spec synth-hero__fiche">
+${fiche.map(([k, v]) => `          <div><dt class="label">${text(k)}</dt><dd>${v.startsWith('<a') ? v : text(v)}</dd></div>`).join('\n')}
+        </dl>
       </div>
     </section>
 
     <section class="section paper synth-page">
       <div class="wrap">
-${blocs}
-        <p class="synth__legend"><span class="synth__dot" aria-hidden="true"></span>Compétence mobilisée dans la réalisation. Les lignes grisées n’ont pas encore de réalisation associée.</p>
+${referentiel.map((b) => tableau(b, projets)).join('\n')}
+        <p class="synth__legend"><span class="synth__dot" aria-hidden="true"></span>Compétence mise en œuvre dans la réalisation.</p>
       </div>
     </section>`;
 }

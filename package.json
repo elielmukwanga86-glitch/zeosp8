@@ -4,7 +4,10 @@
   "description": "Portfolio BTS SIO SISR d’Eliel Mukwanga : site statique généré dans docs/.",
   "scripts": {
     "build": "node src/build.js",
-    "serve": "python3 -m http.server 8000 --directory docs"
+    "serve": "python3 -m http.server 8000 --directory docs",
+    "synthese": "python3 outils/synthese/remplir.py"
   },
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  }
 }

@@ -166,7 +166,7 @@ ${d.items.map((it) => `              <li class="skill"${it.contextes ? ` data-ct
         <a class="synth-teaser" href="synthese.html" data-reveal>
           <span class="label label--acc">Référentiel BTS SIO</span>
           <span class="synth-teaser__title">Tableau de synthèse des réalisations</span>
-          <span class="synth-teaser__text">Mes réalisations rapportées aux compétences des blocs 1 et 2 (option SISR).</span>
+          <span class="synth-teaser__text">Au format de l’annexe de l’épreuve E4 : mes réalisations et les compétences des blocs 1 et 2 mises en œuvre.</span>
           <span class="synth-teaser__arrow" aria-hidden="true">${ICON.arrowRight}</span>
         </a>
       </div>

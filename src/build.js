@@ -40,6 +40,7 @@ for (const p of projets) {
   slugs.add(p.slug);
   for (const key of ['ordre', 'nom', 'titre', 'cadre']) if (p[key] === undefined) errors.push(`${where} : champ « ${key} » manquant.`);
   if (!['professionnel', 'formation'].includes(p.milieu)) errors.push(`${where} : champ « milieu » à renseigner ('professionnel' ou 'formation').`);
+  if (p.milieu === 'professionnel' && ![1, 2].includes(p.anneeBts)) errors.push(`${where} : champ « anneeBts » à renseigner (1 ou 2) pour une réalisation en stage.`);
   for (const id of p.competencesBts || []) if (!competenceIds.has(id)) errors.push(`${where} : compétence inconnue « ${id} » (voir contenu/referentiel.js).`);
   if (p.page) {
     for (const key of ['accroche', 'resume', 'intro', 'description', 'visuel', 'chiffres', 'technologies', 'fiche', 'sections']) {

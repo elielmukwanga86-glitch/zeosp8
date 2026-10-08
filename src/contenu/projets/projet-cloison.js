@@ -13,7 +13,7 @@ module.exports = {
   description: 'Étude de cas : audit réseau, conception d’un réseau à deux VLAN, devis et compte rendu pour un cabinet de kinésithérapie (cas d’école ENSITECH).',
 
   milieu: 'formation',
-  cadre: { type: 'Atelier de professionnalisation', organisation: 'Cas d’école · ENSITECH', periode: 'Septembre 2026', court: 'Sept. 2026', annee: '2026' },
+  cadre: { type: 'Atelier de professionnalisation', organisation: 'Cas d’école · ENSITECH', periode: 'septembre 2026', court: 'Sept. 2026', annee: '2026' },
   filtre: 'Projet Cloison',
 
   visuel: {

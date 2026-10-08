@@ -11,6 +11,8 @@ Site publié par GitHub Pages (workflow `.github/workflows/deploy-pages.yml`, do
 - `src/assets/` : CSS, JS, `img/` (WebP), `docs/` (PDF publiés).
 - `docs/` : site **généré** par `node src/build.js` — ne jamais l’éditer à la main, toujours régénérer et committer.
 - `outils/documentation/` : générateur des dossiers PDF/DOCX (`./generer.sh <projet>`), voir son README.
+- `outils/synthese/` : remplit l’annexe 6-1 officielle (tableau de synthèse E4) : `npm run synthese`.
+  Le référentiel (`referentiel.js`, bloc 1) reprend mot pour mot les intitulés et activités de cette annexe.
 
 ## Quand l’étudiant envoie une nouvelle documentation
 
@@ -22,7 +24,8 @@ Site publié par GitHub Pages (workflow `.github/workflows/deploy-pages.yml`, do
    'formation' sinon), `competencesBts` (identifiants de referentiel.js), images dans `src/assets/img/`.
 4. Mettre à jour `site.js` : `contextes` des compétences concernées, parcours si c’est un stage.
 5. `node src/build.js`, vérifier en capture (bureau 1440 px et mobile 390 px, aucun défilement horizontal),
-   puis commit et push. Le tableau de synthèse se met à jour tout seul.
+   puis commit et push. Le tableau de synthèse se met à jour tout seul ; régénérer l’Excel (`npm run synthese`)
+   et l’envoyer à l’étudiant. Une réalisation en stage doit avoir `anneeBts` (1 ou 2).
 
 ## Règles de contenu (impératives)
 
