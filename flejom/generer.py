@@ -159,7 +159,7 @@ def layout(page, title, description, body):
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="assets/img/logo.webp" alt="" width="50" height="50"><span><strong>Fondation FLEJOM</strong><small>Léon Joséphine Mukwanga</small></span></a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span></button>
     <nav class="nav" id="nav" aria-label="Navigation principale">{nav}<a class="btn btn-don" href="don.html"{don_courant}>Faire un don</a></nav>
   </div>
 </header>
@@ -228,13 +228,13 @@ def carrousel_3d():
 
 
 def bloc_mpesa(titre_niveau="h3"):
-    return f"""<div class="mpesa">
+    return f"""<div class="bezel bezel-sombre"><div class="coeur mpesa">
   <{titre_niveau}>Don par M-Pesa</{titre_niveau}>
   <p>Faites votre don via M-Pesa au numéro ci-dessous, au nom de notre Coordonnateur.</p>
   <p class="numero">{SITE["mpesa"]}</p>
   <p>{SITE["mpesa_titulaire"]}</p>
-  <button class="btn btn-blanc" type="button" data-copy="{SITE["mpesa"].replace(" ", "")}">Copier le numéro</button>
-</div>"""
+  <button class="btn btn-blanc sans-fleche" type="button" data-copy="{SITE["mpesa"].replace(" ", "")}">Copier le numéro</button>
+</div></div>"""
 
 
 # ---------- Pages ----------
@@ -260,14 +260,14 @@ def accueil():
     )
     une = ACTIVITES[0]
     autres = "".join(
-        f"""<article class="act-num">
+        f"""<article class="bezel"><div class="coeur act-num">
   <span class="num" aria-hidden="true">0{i + 2}</span>
   <div>
     <p class="lieu">{e(a["lieu"])}</p>
     <h3><a href="activites.html#{a["id"]}">{e(a["titre"])}</a></h3>
     <p>{e(a["chapo"])}</p>
   </div>
-</article>"""
+</div></article>"""
         for i, a in enumerate(ACTIVITES[1:])
     )
     valeurs = " ".join(f"<span>{v}</span><i aria-hidden=\"true\">★</i>" for v in ["Solidarité", "Dignité humaine", "Transparence", "Engagement"])
@@ -314,7 +314,7 @@ def accueil():
 <section class="bg-creme">
   <div class="wrap">
     <div class="titre-section"><h2>Nos activités récentes</h2><a href="activites.html">Tous les récits →</a></div>
-    <article class="une">
+    <article class="bezel"><div class="coeur une">
       <figure class="une-photo"><img src="galerie/{une["photo"][0]}" alt="{e(une["photo"][1])}" loading="lazy"><span class="num" aria-hidden="true">01</span></figure>
       <div class="une-texte">
         <p class="lieu">{e(une["lieu"])}</p>
@@ -323,7 +323,7 @@ def accueil():
         <blockquote class="citation"><p>« {e(une["citation"][0])} »</p><footer>— {e(une["citation"][1])}</footer></blockquote>
         <a class="lire" href="activites.html#{une["id"]}">Lire le récit →</a>
       </div>
-    </article>
+    </div></article>
     <div class="act-liste">{autres}</div>
   </div>
 </section>
@@ -378,10 +378,10 @@ def a_propos():
   <div class="wrap">
     <div class="titre-section"><h2>Nos valeurs</h2></div>
     <dl class="valeurs">
-      <div><dt>Solidarité</dt><dd>Chaque geste compte. Ensemble, nous pouvons alléger les souffrances.</dd></div>
-      <div><dt>Respect de la dignité humaine</dt><dd>Chaque bénéficiaire est accueilli avec bienveillance et considération.</dd></div>
-      <div><dt>Transparence</dt><dd>Nous veillons à une gestion rigoureuse et responsable des ressources confiées.</dd></div>
-      <div><dt>Engagement</dt><dd>Notre action est constante, portée par la foi en un avenir meilleur pour tous.</dd></div>
+      <div class="valeur"><span class="num" aria-hidden="true">01</span><dt>Solidarité</dt><dd>Chaque geste compte. Ensemble, nous pouvons alléger les souffrances.</dd></div>
+      <div class="valeur"><span class="num" aria-hidden="true">02</span><dt>Respect de la dignité humaine</dt><dd>Chaque bénéficiaire est accueilli avec bienveillance et considération.</dd></div>
+      <div class="valeur"><span class="num" aria-hidden="true">03</span><dt>Transparence</dt><dd>Nous veillons à une gestion rigoureuse et responsable des ressources confiées.</dd></div>
+      <div class="valeur"><span class="num" aria-hidden="true">04</span><dt>Engagement</dt><dd>Notre action est constante, portée par la foi en un avenir meilleur pour tous.</dd></div>
     </dl>
   </div>
 </section>
@@ -428,27 +428,27 @@ def actions():
     <p class="narrow intro">La Fondation FLEJOM agit en collaboration avec des structures locales, des donateurs engagés et des institutions sensibles à notre mission. Ces partenariats sont le socle de notre impact.</p>
     <p class="narrow" style="margin-bottom:30px">Chaque action est pensée pour répondre à un besoin concret. Nous intervenons dans les quartiers les plus touchés, en partenariat avec des acteurs locaux de confiance. Nos distributions sont organisées avec rigueur et transparence, dans le respect de la dignité des bénéficiaires.</p>
     <div class="structures">
-      <article class="structure"><img src="assets/img/maraichage.webp" alt="Les mamans maraîchères" loading="lazy"><div>
+      <article class="bezel"><div class="coeur structure"><img src="assets/img/maraichage.webp" alt="Les mamans maraîchères" loading="lazy"><div>
         <h3>Association MBONGWANA</h3>
         <p class="lieu">Soutien aux veuves · Kinshasa</p>
         <p>Association des mamans maraîchères. La fondation soutient ces mamans, piliers de leurs familles, notamment par des semences. Dernier appui : pagnes, graines, arrosoirs, bassines et une enveloppe de soutien.</p>
-        <p><a href="activites.html#mamans-maraicheres">Lire le récit</a></p></div></article>
-      <article class="structure"><img src="assets/img/orphelinat.webp" alt="Orphelinat Cité de Victoire" loading="lazy"><div>
+        <p><a href="activites.html#mamans-maraicheres">Lire le récit</a></p></div></div></article>
+      <article class="bezel"><div class="coeur structure"><img src="assets/img/orphelinat.webp" alt="Orphelinat Cité de Victoire" loading="lazy"><div>
         <h3>Cité de Victoire</h3>
         <p class="lieu">Orphelinat à Kinshasa</p>
         <p>Accompagnement et soutien aux enfants orphelins.</p>
-        <p><a href="galerie.html">Voir les photos</a></p></div></article>
-      <article class="structure"><div>
+        <p><a href="galerie.html">Voir les photos</a></p></div></div></article>
+      <article class="bezel"><div class="coeur structure"><div>
         <h3>CHERO</h3>
         <p class="lieu">Orphelinat à Kinshasa</p>
         <p>Quartier Congo, Camp Luka. Responsable : Maman Laurentine.</p>
         <p>Journée de partage à la fin de l’année 2025, puis nouvelle visite avec un lot de lits, des objets de première nécessité et une assistance pour la rentrée scolaire.</p>
-        <p><a href="activites.html#chero-partage">La journée de partage</a> · <a href="activites.html#chero-valeur">La seconde visite</a></p></div></article>
-      <article class="structure"><div>
+        <p><a href="activites.html#chero-partage">La journée de partage</a> · <a href="activites.html#chero-valeur">La seconde visite</a></p></div></div></article>
+      <article class="bezel"><div class="coeur structure"><div>
         <h3>Dieu Mon Refuge</h3>
         <p class="lieu">Orphelinat à Kinshasa</p>
         <p>Remise de dons, puis assistance pour la rentrée scolaire, denrées alimentaires et vêtements pour les plus jeunes.</p>
-        <p><a href="activites.html#dieu-mon-refuge">Lire le récit</a></p></div></article>
+        <p><a href="activites.html#dieu-mon-refuge">Lire le récit</a></p></div></div></article>
     </div>
     <p style="margin-top:30px">Vous souhaitez collaborer avec nous ? <a href="contact.html?sujet=partenariat">Écrivez-nous</a>.</p>
   </div>
@@ -483,7 +483,7 @@ def activites():
     {photo}
     <div class="recit-corps">
       <div>{corps}<blockquote class="citation"><p>« {e(a["citation"][0])} »</p><footer>— {e(a["citation"][1])}</footer></blockquote></div>
-      <dl class="encadre"><dt>Bénéficiaires</dt><dd>{e(a["beneficiaires"])}</dd><dt>Appuis remis</dt><dd>{e(a["appuis"])}</dd></dl>
+      <div class="bezel encadre-bezel"><dl class="coeur encadre"><dt>Bénéficiaires</dt><dd>{e(a["beneficiaires"])}</dd><dt>Appuis remis</dt><dd>{e(a["appuis"])}</dd></dl></div>
     </div>
   </div>
 </article>""")
@@ -515,11 +515,11 @@ def galerie():
 <section class="bg-creme">
   <div class="wrap">
     <div class="titre-section"><h2>Diaporama</h2></div>
-    <div class="slideshow" tabindex="0" aria-roledescription="carrousel" aria-label="Diaporama des photos">
+    <div class="bezel bezel-sombre"><div class="coeur slideshow" tabindex="0" aria-roledescription="carrousel" aria-label="Diaporama des photos">
       <div class="ss-stage"></div>
       <button class="ss-btn ss-prev" type="button" aria-label="Photo précédente">‹</button>
       <button class="ss-btn ss-next" type="button" aria-label="Photo suivante">›</button>
-    </div>
+    </div></div>
     <div class="ss-bar"><button type="button" data-play>Pause</button><span class="ss-legende" aria-live="polite"></span><span class="ss-count"></span></div>
     <div class="thumbs" aria-label="Miniatures"></div>
   </div>

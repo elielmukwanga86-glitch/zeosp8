@@ -10,7 +10,23 @@
     toggle.addEventListener("click", function () {
       var open = nav.classList.toggle("open");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      toggle.textContent = open ? "Fermer" : "Menu";
+      toggle.setAttribute("aria-label", open ? "Fermer le menu" : "Menu");
+      document.body.classList.toggle("menu-ouvert", open);
+    });
+    nav.addEventListener("click", function (e) { if (e.target.tagName === "A" && nav.classList.contains("open")) toggle.click(); });
+  }
+
+  /* Apparition douce des blocs au défilement */
+  if ("IntersectionObserver" in window && !reduceMotion) {
+    var cibles = document.querySelectorAll(".titre-section, .bezel, .photo, .mosaique, .grande-citation, .intro, .recit h2, .valeur, .c3d, .videos > div, .page-title h1, .page-title p");
+    var vu = new IntersectionObserver(function (entrees) {
+      entrees.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("vu"); vu.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    cibles.forEach(function (el) {
+      var freres = Array.prototype.indexOf.call(el.parentNode.children, el);
+      el.classList.add("rv");
+      el.style.transitionDelay = Math.min(freres, 4) * 90 + "ms";
+      vu.observe(el);
     });
   }
 

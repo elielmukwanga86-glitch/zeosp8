@@ -310,3 +310,117 @@ form textarea { min-height: 150px; resize: vertical; }
 .mosaique::before { background: var(--jaune); }
 .mosaique::after { content: "★"; position: absolute; left: -10px; bottom: 30%; font-size: 3.4rem; line-height: 1; color: var(--ciel); }
 .site-footer { border-top: 0; }
+
+/* =========================================================
+   Finitions design : menu flottant, cadres, boutons, mouvement
+   ========================================================= */
+:root { --doux: cubic-bezier(.32,.72,0,1); --rayon: 26px; }
+
+/* Grain de papier, très léger */
+body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 45; opacity: .045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* Plus d'air */
+section { padding: 112px 0; }
+@media (max-width: 760px) { section { padding: 72px 0; } }
+
+/* ---------- Menu flottant ---------- */
+.drapeau { position: relative; z-index: 51; }
+.site-header { position: fixed; top: 20px; left: 0; right: 0; background: none; border: 0; pointer-events: none; }
+.site-header .wrap { position: relative; pointer-events: auto; min-height: 64px; padding: 7px 8px 7px 14px; border-radius: 999px; width: min(var(--wrap), 100% - 24px);
+  box-shadow: 0 0 0 1px rgba(26,42,79,.07), 0 18px 40px -24px rgba(26,42,79,.45); }
+.site-header .wrap::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: rgba(255,253,249,.82); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); z-index: -1; }
+.brand img { width: 44px; height: 44px; border-radius: 50%; }
+.nav a { border-radius: 999px; padding: 8px 13px; transition: background .25s var(--doux), color .25s var(--doux); }
+.nav a:hover { background: rgba(26,42,79,.06); color: var(--navy); }
+.nav a[aria-current="page"] { box-shadow: none; background: var(--navy); color: #fff; }
+.nav .btn { padding: 10px 18px; }
+.hero { height: 100svh; max-height: none; }
+.page-title { padding-top: 168px; }
+.recit { scroll-margin-top: 110px; }
+#partenaires { scroll-margin-top: 90px; }
+
+.menu-toggle { position: relative; width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--navy); padding: 0; }
+.menu-toggle span { position: absolute; left: 15px; right: 15px; height: 2px; background: #fff; border-radius: 2px; transition: transform .45s var(--doux), top .45s var(--doux); }
+.menu-toggle span:first-child { top: 19px; } .menu-toggle span:last-child { top: 27px; }
+.menu-toggle[aria-expanded="true"] span:first-child { top: 23px; transform: rotate(45deg); }
+.menu-toggle[aria-expanded="true"] span:last-child { top: 23px; transform: rotate(-45deg); }
+@media (max-width: 980px) {
+  .site-header .wrap { min-height: 60px; }
+  .nav { display: flex; position: fixed; inset: 0; top: 0; z-index: -2; padding: 120px 28px 40px; border: 0; gap: 4px; justify-content: flex-start;
+    background: var(--sand); opacity: 0; visibility: hidden; transition: opacity .45s var(--doux), visibility .45s; }
+  .nav.open { opacity: 1; visibility: visible; }
+  .nav a { font: 400 2.1rem/1.2 var(--serif); color: var(--navy); border: 0; padding: 8px 0; background: none !important; transform: translateY(28px); opacity: 0; transition: transform .6s var(--doux), opacity .6s var(--doux); }
+  .nav a[aria-current="page"] { color: var(--orange-dark); }
+  .nav.open a { transform: none; opacity: 1; }
+  .nav.open a:nth-child(2) { transition-delay: .05s; } .nav.open a:nth-child(3) { transition-delay: .1s; }
+  .nav.open a:nth-child(4) { transition-delay: .15s; } .nav.open a:nth-child(5) { transition-delay: .2s; }
+  .nav.open a:nth-child(6) { transition-delay: .25s; } .nav.open a:nth-child(7) { transition-delay: .3s; }
+  .nav .btn { font: 600 1.05rem var(--sans); color: #fff !important; background: var(--orange) !important; margin-top: 22px; padding: 14px 22px; text-align: center; }
+  body.menu-ouvert { overflow: hidden; }
+}
+
+/* ---------- Boutons pilule avec flèche ---------- */
+.btn { border-radius: 999px; padding: 8px 8px 8px 22px; display: inline-flex; align-items: center; gap: 12px; transition: background .3s var(--doux), transform .2s var(--doux); }
+.btn:active { transform: scale(.97); }
+.btn::after { content: "→"; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: .95rem; background: rgba(255,255,255,.2); transition: transform .4s var(--doux); }
+.btn:hover::after { transform: translateX(3px) rotate(-45deg); }
+.btn-contour::after { background: rgba(26,42,79,.08); }
+.btn.sans-fleche, .nav .btn, form .btn { padding: 11px 22px; }
+.btn.sans-fleche::after, .nav .btn::after { display: none; }
+.btn-contour { border-width: 1px; border-color: rgba(26,42,79,.25); }
+
+/* ---------- Cadres doubles (coque + cœur) ---------- */
+.bezel { padding: 7px; border-radius: var(--rayon); background: rgba(26,42,79,.045); box-shadow: 0 0 0 1px rgba(26,42,79,.06); }
+.bezel > .coeur { border-radius: calc(var(--rayon) - 7px); overflow: hidden; box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 14px 34px -26px rgba(26,42,79,.55); }
+.bezel-sombre { background: rgba(26,42,79,.12); }
+.sombre .bezel { background: rgba(255,255,255,.06); box-shadow: 0 0 0 1px rgba(255,255,255,.1); }
+.une { margin: 0; }
+.act-liste { gap: 22px; margin-top: 22px; }
+.act-num { border-top: 0; padding: 30px 28px; height: 100%; }
+.act-liste > .bezel { transition: transform .5s var(--doux); }
+.act-liste > .bezel:hover { transform: translateY(-4px); }
+.act-num .num { color: var(--orange); }
+.structure { box-shadow: none; height: 100%; }
+.structures > .bezel { height: 100%; }
+.mpesa { border-radius: inherit; }
+.encadre-bezel { align-self: start; }
+.encadre { border-top: 0; margin: 0; background: var(--paper); }
+.slideshow { border-radius: inherit; }
+.photo img, .recit-photo img { border-radius: 22px; box-shadow: 0 24px 50px -32px rgba(26,42,79,.6); }
+.mosaique img { border-radius: 18px; box-shadow: 0 30px 60px -30px rgba(26,42,79,.55); }
+.mosaique .m2, .mosaique .m3 { border-width: 7px; }
+.c3d-item { border-radius: 16px; }
+.thumbs img { border-radius: 8px; } .thumbs button { border-radius: 11px; }
+.photo-grid img { border-radius: 14px; }
+.video { border-radius: 18px; overflow: hidden; }
+form input, form textarea, form select { border-radius: 14px; border-color: rgba(26,42,79,.18); background: var(--paper); }
+.carte { border-radius: 22px; overflow: hidden; border: 0; box-shadow: 0 0 0 7px rgba(26,42,79,.045), 0 0 0 8px rgba(26,42,79,.06); }
+
+/* Petits titres en pastille */
+.sur-titre { display: inline-flex; align-items: center; gap: 2px; border-radius: 999px; padding: 5px 14px; background: rgba(217,98,43,.1); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
+
+/* Valeurs numérotées */
+.valeurs { gap: 22px; }
+.valeur { position: relative; background: var(--paper); border: 0 !important; border-radius: 22px; padding: 30px 28px 28px !important; box-shadow: 0 0 0 1px rgba(26,42,79,.06); }
+.valeur .num { display: block; font-size: 2.6rem; color: var(--orange); margin-bottom: 10px; }
+
+/* Bandeau de titre de page : relief */
+.page-title { border-radius: 0 0 40px 40px; }
+.page-title + .motif { display: none; }
+.page-title h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); line-height: 1; }
+
+/* Pied de page arrondi */
+.site-footer { border-radius: 40px 40px 0 0; margin-top: -1px; }
+.motif + .site-footer, .site-footer { position: relative; }
+
+/* Apparition au défilement */
+.rv { opacity: 0; transform: translateY(36px); filter: blur(6px); transition: opacity .9s var(--doux), transform .9s var(--doux), filter .9s var(--doux); }
+.rv.vu { opacity: 1; transform: none; filter: none; }
+
+@media (max-width: 760px) {
+  .page-title { border-radius: 0 0 28px 28px; padding-top: 130px; }
+  .site-footer { border-radius: 28px 28px 0 0; }
+  .site-header { top: 12px; }
+  .mosaique img { border-radius: 12px; }
+}

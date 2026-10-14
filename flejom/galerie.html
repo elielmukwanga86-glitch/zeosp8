@@ -24,7 +24,7 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="assets/img/logo.webp" alt="" width="50" height="50"><span><strong>Fondation FLEJOM</strong><small>Léon Joséphine Mukwanga</small></span></a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span></button>
     <nav class="nav" id="nav" aria-label="Navigation principale"><a href="index.html">Accueil</a><a href="a-propos.html">À propos</a><a href="actions.html">Nos actions</a><a href="activites.html">Activités récentes</a><a href="galerie.html" aria-current="page">Galerie</a><a href="contact.html">Contact</a><a class="btn btn-don" href="don.html">Faire un don</a></nav>
   </div>
 </header>
@@ -46,11 +46,11 @@
 <section class="bg-creme">
   <div class="wrap">
     <div class="titre-section"><h2>Diaporama</h2></div>
-    <div class="slideshow" tabindex="0" aria-roledescription="carrousel" aria-label="Diaporama des photos">
+    <div class="bezel bezel-sombre"><div class="coeur slideshow" tabindex="0" aria-roledescription="carrousel" aria-label="Diaporama des photos">
       <div class="ss-stage"></div>
       <button class="ss-btn ss-prev" type="button" aria-label="Photo précédente">‹</button>
       <button class="ss-btn ss-next" type="button" aria-label="Photo suivante">›</button>
-    </div>
+    </div></div>
     <div class="ss-bar"><button type="button" data-play>Pause</button><span class="ss-legende" aria-live="polite"></span><span class="ss-count"></span></div>
     <div class="thumbs" aria-label="Miniatures"></div>
   </div>
