@@ -50,7 +50,7 @@ LEGENDES = {
 
 VIDEOS = [
     ("dlZbV8fdt54", "Nos actions sur le terrain"),
-    ("r85q1MfeS48", "Témoignages des bénéficiaires"),
+    ("r85q1MfeS48", "Activité FLEJOM 2e trimestre"),
     ("v4rZ73rrwjw", "Impact de FLEJOM dans la communauté"),
 ]
 
@@ -102,7 +102,7 @@ ACTIVITES = [
     {
         "id": "chero-partage",
         "titre": "Orphelinat CHERO : une journée de partage",
-        "lieu": "Quartier Congo, Camp Luka · fin 2025",
+        "lieu": "Quartier Congo, Camp Luka · décembre 2025",
         "chapo": "Dernière activité officielle de l’année 2025, au quartier Congo, Camp Luka : un moment de communion fraternelle et de solidarité avec les enfants de l’orphelinat.",
         "corps": [
             "Tôt le matin, les membres de la fondation se sont retrouvés chez le Président pour préparer la journée : équipes, jeux, repas. Un temps d’intercession, conduit par le Président, puis la prière du Pasteur Diamant, venu avec sa famille, ont placé l’activité sous la guidance divine. À l’orphelinat, les enfants, les encadreurs et les mamans maraîchères ont accueilli la délégation par des chants et des danses.",
@@ -178,6 +178,7 @@ def layout(page, title, description, body):
         <ul>
           <li><a href="don.html">Faire un don</a></li>
           <li><a href="contact.html?sujet=benevolat">Devenir bénévole</a></li>
+          <li><a href="actions.html#partenaires">Nos partenaires</a></li>
           <li><a href="contact.html?sujet=partenariat">Proposer un partenariat</a></li>
         </ul>
       </div>
@@ -404,26 +405,31 @@ def actions():
     </div>
   </div>
 </section>
-<section class="bg-sable">
+<section class="bg-sable" id="partenaires">
   <div class="wrap">
-    <div class="titre-section"><h2>Les structures que nous accompagnons</h2><a href="activites.html">Comptes rendus des visites</a></div>
+    <div class="titre-section"><h2>Nos partenaires actuels</h2><a href="activites.html">Comptes rendus des visites</a></div>
+    <p class="narrow intro">La Fondation FLEJOM agit en collaboration avec des structures locales, des donateurs engagés et des institutions sensibles à notre mission. Ces partenariats sont le socle de notre impact.</p>
     <p class="narrow" style="margin-bottom:30px">Chaque action est pensée pour répondre à un besoin concret. Nous intervenons dans les quartiers les plus touchés, en partenariat avec des acteurs locaux de confiance. Nos distributions sont organisées avec rigueur et transparence, dans le respect de la dignité des bénéficiaires.</p>
     <div class="structures">
       <article class="structure"><img src="assets/img/maraichage.webp" alt="Les mamans maraîchères" loading="lazy"><div>
-        <h3>Association Mbongwana des Mamans Maraîchères</h3>
-        <p>La fondation soutient ces mamans, piliers de leurs familles, notamment par des semences. Dernier appui : pagnes, graines, arrosoirs, bassines et une enveloppe de soutien.</p>
+        <h3>Association MBONGWANA</h3>
+        <p class="lieu">Soutien aux veuves · Kinshasa</p>
+        <p>Association des mamans maraîchères. La fondation soutient ces mamans, piliers de leurs familles, notamment par des semences. Dernier appui : pagnes, graines, arrosoirs, bassines et une enveloppe de soutien.</p>
         <p><a href="activites.html#mamans-maraicheres">Lire le récit</a></p></div></article>
       <article class="structure"><img src="assets/img/orphelinat.webp" alt="Orphelinat Cité de Victoire" loading="lazy"><div>
-        <h3>Orphelinat Cité de Victoire</h3>
+        <h3>Cité de Victoire</h3>
+        <p class="lieu">Orphelinat à Kinshasa</p>
         <p>Accompagnement et soutien aux enfants orphelins.</p>
         <p><a href="galerie.html">Voir les photos</a></p></div></article>
       <article class="structure"><div>
-        <h3>Orphelinat CHERO</h3>
+        <h3>CHERO</h3>
+        <p class="lieu">Orphelinat à Kinshasa</p>
         <p>Quartier Congo, Camp Luka. Responsable : Maman Laurentine.</p>
         <p>Journée de partage à la fin de l’année 2025, puis nouvelle visite avec un lot de lits, des objets de première nécessité et une assistance pour la rentrée scolaire.</p>
         <p><a href="activites.html#chero-partage">La journée de partage</a> · <a href="activites.html#chero-valeur">La seconde visite</a></p></div></article>
       <article class="structure"><div>
-        <h3>Orphelinat Dieu mon refuge</h3>
+        <h3>Dieu Mon Refuge</h3>
+        <p class="lieu">Orphelinat à Kinshasa</p>
         <p>Remise de dons, puis assistance pour la rentrée scolaire, denrées alimentaires et vêtements pour les plus jeunes.</p>
         <p><a href="activites.html#dieu-mon-refuge">Lire le récit</a></p></div></article>
     </div>
