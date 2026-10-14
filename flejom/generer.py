@@ -149,7 +149,7 @@ def layout(page, title, description, body):
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 <script type="application/ld+json">{jsonld}</script>
 </head>
@@ -165,6 +165,7 @@ def layout(page, title, description, body):
 <main id="contenu">
 {body}
 </main>
+<div class="motif" aria-hidden="true"></div>
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -191,6 +192,7 @@ def layout(page, title, description, body):
         </ul>
       </div>
     </div>
+    <p class="mot-logo" aria-hidden="true">FLEJOM</p>
     <p class="footer-bas">© Fondation FLEJOM. Tous droits réservés.</p>
   </div>
 </footer>
@@ -210,7 +212,7 @@ def layout(page, title, description, body):
 
 
 def page_title(titre, sous_titre):
-    return f'<div class="page-title"><div class="wrap"><h1>{e(titre)}</h1><p>{e(sous_titre)}</p></div></div>'
+    return f'<div class="page-title"><div class="wrap"><h1>{e(titre)}</h1><p>{e(sous_titre)}</p></div></div><div class="motif" aria-hidden="true"></div>'
 
 
 def carrousel_3d():
@@ -257,83 +259,97 @@ def accueil():
     )
     une = ACTIVITES[0]
     autres = "".join(
-        f"""<article class="activite-court">
-  <p class="lieu">{e(a["lieu"])}</p>
-  <h3><a href="activites.html#{a["id"]}">{e(a["titre"])}</a></h3>
-  <p>{e(a["chapo"])}</p>
-  <a class="lire" href="activites.html#{a["id"]}">Lire le récit</a>
+        f"""<article class="act-num">
+  <span class="num" aria-hidden="true">0{i + 2}</span>
+  <div>
+    <p class="lieu">{e(a["lieu"])}</p>
+    <h3><a href="activites.html#{a["id"]}">{e(a["titre"])}</a></h3>
+    <p>{e(a["chapo"])}</p>
+  </div>
 </article>"""
-        for a in ACTIVITES[1:]
+        for i, a in enumerate(ACTIVITES[1:])
     )
+    valeurs = " ".join(f"<span>{v}</span><i aria-hidden=\"true\">◆</i>" for v in ["Solidarité", "Dignité humaine", "Transparence", "Engagement"])
     body = f"""
-<section class="hero" aria-label="Présentation de la fondation" style="padding:0">
+<section class="hero" aria-label="Présentation de la fondation">
   {imgs}
   <div class="hero-content">
     <div class="wrap">
+      <p class="hero-sur">Kinshasa · RD Congo</p>
       {legendes}
       <div class="boutons">
         <a class="btn btn-don" href="don.html">Faire un don</a>
         <a class="btn btn-blanc" href="a-propos.html">Découvrir notre mission</a>
       </div>
-      <div class="hero-nav">
-        <button type="button" data-prev aria-label="Photo précédente">‹</button>
-        <button type="button" data-next aria-label="Photo suivante">›</button>
-        <span class="hero-count"></span>
-      </div>
     </div>
   </div>
+  <div class="hero-nav">
+    <span class="hero-count"></span>
+    <button type="button" data-prev aria-label="Photo précédente">‹</button>
+    <button type="button" data-next aria-label="Photo suivante">›</button>
+  </div>
 </section>
+<div class="motif" aria-hidden="true"></div>
 
-<section>
-  <div class="wrap deux-col centre">
+<section class="accueil-intro">
+  <div class="wrap mosaique-grid">
+    <div class="mosaique" aria-hidden="true">
+      <img class="m1" src="assets/img/famille.webp" alt="" loading="lazy">
+      <img class="m2" src="assets/img/veuves.webp" alt="" loading="lazy">
+      <img class="m3" src="assets/img/solidarite.webp" alt="" loading="lazy">
+    </div>
     <div>
-      <h2>Bienvenue sur le site officiel de la Fondation FLEJOM</h2>
+      <p class="sur-titre">Bienvenue</p>
+      <h2 class="grand">Agir pour les plus vulnérables</h2>
       <p class="intro">Nous sommes une organisation humanitaire engagée dans le soutien aux plus vulnérables : veuves, orphelins, personnes vulnérables. À travers des dons en nature et en espèces, nous renforçons les actions de structures existantes tout en préparant la création de notre propre espace d’accueil.</p>
       <p>Explorez nos projets, découvrez notre mission, et rejoignez-nous dans cette aventure humaine où chaque geste compte.</p>
       <div class="boutons"><a class="btn btn-plein" href="actions.html">Nos actions</a><a class="btn btn-contour" href="contact.html">Nous contacter</a></div>
     </div>
-    <figure class="photo"><img src="assets/img/famille.webp" alt="L’équipe de la fondation et les enfants devant l’orphelinat Cité de Victoire" loading="lazy"><figcaption>Visite à l’orphelinat Cité de Victoire</figcaption></figure>
   </div>
 </section>
 
-<section class="bg-sable">
+<div class="ruban" aria-label="Nos valeurs : solidarité, dignité humaine, transparence, engagement"><div class="ruban-piste" aria-hidden="true">{valeurs} {valeurs} {valeurs} {valeurs}</div></div>
+
+<section class="bg-creme">
   <div class="wrap">
-    <div class="titre-section"><h2>Nos activités récentes</h2><a href="activites.html">Tous les récits</a></div>
-    <p class="muted" style="margin-top:-18px;margin-bottom:30px">Retour sur les actions menées dernièrement par la Fondation FLEJOM.</p>
-    <article class="deux-col centre" style="margin-bottom:44px">
-      <figure class="photo"><img src="galerie/{une["photo"][0]}" alt="{e(une["photo"][1])}" loading="lazy"></figure>
-      <div>
+    <div class="titre-section"><h2>Nos activités récentes</h2><a href="activites.html">Tous les récits →</a></div>
+    <article class="une">
+      <figure class="une-photo"><img src="galerie/{une["photo"][0]}" alt="{e(une["photo"][1])}" loading="lazy"><span class="num" aria-hidden="true">01</span></figure>
+      <div class="une-texte">
         <p class="lieu">{e(une["lieu"])}</p>
-        <h3 style="font-size:1.7rem"><a href="activites.html#{une["id"]}" style="color:inherit;text-decoration:none">{e(une["titre"])}</a></h3>
-        <p class="intro">{e(une["chapo"])}</p>
-        <blockquote class="citation" style="margin:22px 0"><p>« {e(une["citation"][0])} »</p><footer>— {e(une["citation"][1])}</footer></blockquote>
-        <a class="lire" href="activites.html#{une["id"]}">Lire le récit</a>
+        <h3><a href="activites.html#{une["id"]}">{e(une["titre"])}</a></h3>
+        <p>{e(une["chapo"])}</p>
+        <blockquote class="citation"><p>« {e(une["citation"][0])} »</p><footer>— {e(une["citation"][1])}</footer></blockquote>
+        <a class="lire" href="activites.html#{une["id"]}">Lire le récit →</a>
       </div>
     </article>
-    <div class="activites" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">{autres}</div>
+    <div class="act-liste">{autres}</div>
   </div>
 </section>
 
-<section>
+<section class="sombre">
   <div class="wrap">
-    <div class="titre-section"><h2>Notre action en images</h2><a href="galerie.html">Voir toute la galerie</a></div>
+    <div class="titre-section"><h2>Notre action en images</h2><a href="galerie.html">Voir toute la galerie →</a></div>
     {carrousel_3d()}
   </div>
 </section>
+<div class="motif" aria-hidden="true"></div>
 
-<section class="bg-sable">
-  <div class="wrap deux-col">
-    <div>
-      <h2>Mot du fondateur</h2>
-      <blockquote class="citation" style="margin-bottom:26px"><p>« La souffrance des autres ne doit jamais nous laisser indifférents. »</p></blockquote>
-      <p>La Fondation FLEJOM est née d’un appel intérieur : celui de répondre aux cris silencieux des oubliés. En visitant des orphelinats, en écoutant les récits de veuves abandonnées, j’ai compris que l’action ne pouvait plus attendre.</p>
-      <p>Notre mission est simple mais profonde : tendre la main là où l’espoir vacille. Nous ne prétendons pas tout résoudre, mais nous croyons que chaque acte de solidarité est une victoire sur l’indifférence.</p>
-      <p>Je vous invite à marcher avec nous. À donner, à partager, à croire. Ensemble, nous pouvons bâtir un avenir plus juste.</p>
-      <p><strong>— KM, Fondateur de la Fondation FLEJOM</strong></p>
-    </div>
-    <div>
-      {bloc_mpesa()}
-      <p style="margin-top:18px">Notre compte bancaire arrive bientôt. <a href="don.html">Plus d’informations sur les dons</a></p>
+<section class="fondateur">
+  <div class="wrap">
+    <p class="sur-titre">Mot du fondateur</p>
+    <blockquote class="grande-citation"><p>« La souffrance des autres ne doit jamais nous laisser indifférents. »</p></blockquote>
+    <div class="deux-col">
+      <div>
+        <p>La Fondation FLEJOM est née d’un appel intérieur : celui de répondre aux cris silencieux des oubliés. En visitant des orphelinats, en écoutant les récits de veuves abandonnées, j’ai compris que l’action ne pouvait plus attendre.</p>
+        <p>Notre mission est simple mais profonde : tendre la main là où l’espoir vacille. Nous ne prétendons pas tout résoudre, mais nous croyons que chaque acte de solidarité est une victoire sur l’indifférence.</p>
+        <p>Je vous invite à marcher avec nous. À donner, à partager, à croire. Ensemble, nous pouvons bâtir un avenir plus juste.</p>
+        <p class="signature">— KM, Fondateur de la Fondation FLEJOM</p>
+      </div>
+      <div>
+        {bloc_mpesa()}
+        <p style="margin-top:18px">Notre compte bancaire arrive bientôt. <a href="don.html">Plus d’informations sur les dons</a></p>
+      </div>
     </div>
   </div>
 </section>
@@ -357,7 +373,7 @@ def a_propos():
     <figure class="photo"><img src="assets/img/orphelinat.webp" alt="Membres de la fondation et enfants devant l’orphelinat Cité de Victoire" loading="lazy"><figcaption>Visite à l’orphelinat Cité de Victoire</figcaption></figure>
   </div>
 </section>
-<section class="bg-sable">
+<section class="bg-creme">
   <div class="wrap">
     <div class="titre-section"><h2>Nos valeurs</h2></div>
     <dl class="valeurs">
@@ -405,7 +421,7 @@ def actions():
     </div>
   </div>
 </section>
-<section class="bg-sable" id="partenaires">
+<section class="bg-creme" id="partenaires">
   <div class="wrap">
     <div class="titre-section"><h2>Nos partenaires actuels</h2><a href="activites.html">Comptes rendus des visites</a></div>
     <p class="narrow intro">La Fondation FLEJOM agit en collaboration avec des structures locales, des donateurs engagés et des institutions sensibles à notre mission. Ces partenariats sont le socle de notre impact.</p>
@@ -471,9 +487,9 @@ def activites():
   </div>
 </article>""")
     body = f"""
-<div class="page-title"><div class="wrap"><h1>Nos activités récentes</h1><p>Retour sur les actions menées dernièrement par la Fondation FLEJOM.</p><ul class="sommaire">{sommaire}</ul></div></div>
+<div class="page-title"><div class="wrap"><h1>Nos activités récentes</h1><p>Retour sur les actions menées dernièrement par la Fondation FLEJOM.</p><ul class="sommaire">{sommaire}</ul></div></div><div class="motif" aria-hidden="true"></div>
 {"".join(recits)}
-<section class="bg-sable">
+<section class="bg-creme">
   <div class="wrap deux-col centre">
     <div><h2>Soutenir les prochaines visites</h2><p class="intro">Les appuis remis lors de ces visites viennent des dons reçus par la fondation.</p><a class="btn btn-plein" href="galerie.html">Voir les photos</a></div>
     {bloc_mpesa()}
@@ -490,12 +506,12 @@ def galerie():
     )
     body = f"""
 {page_title("Notre action en images", "Découvrez le quotidien de notre fondation et l’impact de nos programmes sur les communautés.")}
-<section>
+<section class="sombre">
   <div class="wrap">
     {carrousel_3d()}
   </div>
 </section>
-<section class="bg-sable">
+<section class="bg-creme">
   <div class="wrap">
     <div class="titre-section"><h2>Diaporama</h2></div>
     <div class="slideshow" tabindex="0" aria-roledescription="carrousel" aria-label="Diaporama des photos">
@@ -513,7 +529,7 @@ def galerie():
     <div class="photo-grid"></div>
   </div>
 </section>
-<section class="bg-sable">
+<section class="bg-creme">
   <div class="wrap">
     <div class="titre-section"><h2>Vidéos</h2></div>
     <div class="videos">{videos}</div>
