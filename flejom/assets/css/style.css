@@ -156,6 +156,7 @@ section { padding: 72px 0; }
 /* ---------- Don ---------- */
 .mpesa { background: var(--navy); color: #fff; border-radius: 4px; padding: 32px; position: relative; overflow: hidden; }
 .mpesa::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: var(--motif) 0 0 / 20px 10px repeat-x; }
+.mpesa .matondo { margin: 18px 0 6px; font: italic 400 1.15rem var(--serif); color: var(--jaune); }
 .mpesa h2, .mpesa h3 { color: #fff; }
 .mpesa .numero { font: 400 clamp(2.2rem, 5vw, 3rem) var(--serif); letter-spacing: .02em; margin: 6px 0 2px; color: var(--ocre); }
 .mpesa p { color: rgba(255,255,255,.85); }
@@ -243,8 +244,8 @@ form textarea { min-height: 150px; resize: vertical; }
 @media (max-width: 620px) { .photo-grid { columns: 2; column-gap: 8px; } .photo-grid figure { margin-bottom: 8px; } .photo-grid figcaption { font-size: .82rem; } }
 
 /* ---------- Touches de design ---------- */
-:root { --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Crect width='48' height='24' fill='%231a2a4f'/%3E%3Cpath d='M0 12L12 0L24 12L12 24Z' fill='%23d9622b'/%3E%3Cpath d='M24 12L36 0L48 12L36 24Z' fill='%23f2b134'/%3E%3Ccircle cx='12' cy='12' r='3.5' fill='%23f6efe3'/%3E%3Ccircle cx='36' cy='12' r='3.5' fill='%231a2a4f'/%3E%3C/svg%3E"); }
-.motif { height: 14px; background: var(--motif) 0 0 / 28px 14px repeat-x; }
+:root { --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Crect width='40' height='20' fill='%233a2414'/%3E%3Cpath d='M0 16L8 4L16 16L24 4L32 16L40 4' fill='none' stroke='%23e0a33a' stroke-width='3'/%3E%3Crect x='6.5' y='13' width='3' height='3' fill='%23d9622b'/%3E%3Crect x='22.5' y='13' width='3' height='3' fill='%23d9622b'/%3E%3Crect x='14.5' y='4' width='3' height='3' fill='%23f6efe3'/%3E%3Crect x='30.5' y='4' width='3' height='3' fill='%23f6efe3'/%3E%3C/svg%3E"); --ciel: #0a7fd6; --rouge: #ce1021; --jaune: #f7d618; }
+.motif { height: 16px; background: var(--motif) 0 0 / 32px 16px repeat-x; }
 .sur-titre { font-weight: 700; color: var(--orange-dark); margin-bottom: 12px; }
 .grand { font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.02; }
 
@@ -300,3 +301,14 @@ form textarea { min-height: 150px; resize: vertical; }
 .lieu { color: var(--orange-dark); }
 .structure { border: 0; box-shadow: 0 1px 0 var(--line); }
 @media (prefers-reduced-motion: reduce) { .ruban-piste { animation: none; } }
+
+/* ---------- Touche congolaise ---------- */
+/* Bandeau aux couleurs du drapeau de la RD Congo : bleu ciel, jaune et rouge */
+.drapeau { height: 6px; background: linear-gradient(100deg, var(--ciel) 0 44%, var(--jaune) 44% 46%, var(--rouge) 46% 54%, var(--jaune) 54% 56%, var(--ciel) 56%); }
+.hero-sur span { color: #fff; font-weight: 400; margin-left: 6px; }
+.ruban { background: var(--ciel); border-top: 4px solid var(--jaune); border-bottom: 4px solid var(--rouge); }
+.ruban-piste i { color: var(--jaune); font-size: .7em; }
+.sur-titre::before { content: "★"; color: var(--ciel); margin-right: 8px; }
+.mosaique::before { background: var(--jaune); }
+.mosaique::after { content: "★"; position: absolute; left: -10px; bottom: 30%; font-size: 3.4rem; line-height: 1; color: var(--ciel); }
+.site-footer { border-top: 0; }
