@@ -156,7 +156,6 @@ section { padding: 72px 0; }
 /* ---------- Don ---------- */
 .mpesa { background: var(--navy); color: #fff; border-radius: 4px; padding: 32px; position: relative; overflow: hidden; }
 .mpesa::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: var(--motif) 0 0 / 20px 10px repeat-x; }
-.mpesa .matondo { margin: 18px 0 6px; font: italic 400 1.15rem var(--serif); color: var(--jaune); }
 .mpesa h2, .mpesa h3 { color: #fff; }
 .mpesa .numero { font: 400 clamp(2.2rem, 5vw, 3rem) var(--serif); letter-spacing: .02em; margin: 6px 0 2px; color: var(--ocre); }
 .mpesa p { color: rgba(255,255,255,.85); }
@@ -305,7 +304,6 @@ form textarea { min-height: 150px; resize: vertical; }
 /* ---------- Touche congolaise ---------- */
 /* Bandeau aux couleurs du drapeau de la RD Congo : bleu ciel, jaune et rouge */
 .drapeau { height: 6px; background: linear-gradient(100deg, var(--ciel) 0 44%, var(--jaune) 44% 46%, var(--rouge) 46% 54%, var(--jaune) 54% 56%, var(--ciel) 56%); }
-.hero-sur span { color: #fff; font-weight: 400; margin-left: 6px; }
 .ruban { background: var(--ciel); border-top: 4px solid var(--jaune); border-bottom: 4px solid var(--rouge); }
 .ruban-piste i { color: var(--jaune); font-size: .7em; }
 .sur-titre::before { content: "★"; color: var(--ciel); margin-right: 8px; }

@@ -234,7 +234,6 @@ def bloc_mpesa(titre_niveau="h3"):
   <p class="numero">{SITE["mpesa"]}</p>
   <p>{SITE["mpesa_titulaire"]}</p>
   <button class="btn btn-blanc" type="button" data-copy="{SITE["mpesa"].replace(" ", "")}">Copier le numéro</button>
-  <p class="matondo">Matondo mingi ! Merci beaucoup pour votre soutien.</p>
 </div>"""
 
 
@@ -277,7 +276,7 @@ def accueil():
   {imgs}
   <div class="hero-content">
     <div class="wrap">
-      <p class="hero-sur">Mbote ! <span>Kinshasa · RD Congo</span></p>
+      <p class="hero-sur">Kinshasa · RD Congo</p>
       {legendes}
       <div class="boutons">
         <a class="btn btn-don" href="don.html">Faire un don</a>
@@ -301,7 +300,7 @@ def accueil():
       <img class="m3" src="assets/img/solidarite.webp" alt="" loading="lazy">
     </div>
     <div>
-      <p class="sur-titre">Boyei malamu · Bienvenue</p>
+      <p class="sur-titre">Bienvenue</p>
       <h2 class="grand">Agir pour les plus vulnérables</h2>
       <p class="intro">Nous sommes une organisation humanitaire engagée dans le soutien aux plus vulnérables : veuves, orphelins, personnes vulnérables. À travers des dons en nature et en espèces, nous renforçons les actions de structures existantes tout en préparant la création de notre propre espace d’accueil.</p>
       <p>Explorez nos projets, découvrez notre mission, et rejoignez-nous dans cette aventure humaine où chaque geste compte.</p>
