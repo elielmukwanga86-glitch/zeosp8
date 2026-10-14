@@ -1,45 +1,156 @@
-/* Généré par generer.py — liste des photos de la galerie */
+/* Généré par generer.py — photos de la galerie (f : fichier, c : légende, v : en hauteur) */
 window.FLEJOM_PHOTOS = [
- "photo-01.webp",
- "photo-02.webp",
- "photo-03.webp",
- "photo-04.webp",
- "photo-05.webp",
- "photo-06.webp",
- "photo-07.webp",
- "photo-08.webp",
- "photo-09.webp",
- "photo-10.webp",
- "photo-11.webp",
- "photo-12.webp",
- "photo-13.webp",
- "photo-14.webp",
- "photo-15.webp",
- "photo-16.webp",
- "photo-17.webp",
- "photo-18.webp",
- "photo-19.webp",
- "photo-20.webp",
- "photo-21.webp",
- "photo-22.webp",
- "photo-23.webp",
- "photo-24.webp",
- "photo-25.webp",
- "photo-26.webp",
- "photo-27.webp",
- "photo-28.webp",
- "photo-29.webp",
- "photo-30.webp",
- "photo-31.webp",
- "photo-32.webp",
- "photo-33.webp",
- "photo-34.webp",
- "photo-35.webp",
- "photo-36.webp",
- "photo-37.webp",
- "photo-38.webp",
- "photo-39.webp",
- "photo-40.webp",
- "photo-41.webp"
+ {
+  "f": "fl-cadeaux-enfants.webp",
+  "c": "Distribution de cadeaux et fournitures aux enfants"
+ },
+ {
+  "f": "fl-cite-victoire-1.webp",
+  "c": "Visite à l’orphelinat Cité de Victoire"
+ },
+ {
+  "f": "fl-cite-victoire-2.webp",
+  "c": "Visite à l’orphelinat Cité de Victoire"
+ },
+ {
+  "f": "fl-mamans-maraicheres.webp",
+  "c": "Photo de groupe avec les mamans maraîchères"
+ },
+ {
+  "f": "fl-veuves-bassines-1.webp",
+  "c": "Distribution de bassines et matériel aux veuves"
+ },
+ {
+  "f": "fl-veuves-bassines-2.webp",
+  "c": "Distribution de bassines et matériel aux veuves"
+ },
+ {
+  "f": "photo-01.webp"
+ },
+ {
+  "f": "photo-02.webp"
+ },
+ {
+  "f": "photo-03.webp"
+ },
+ {
+  "f": "photo-04.webp"
+ },
+ {
+  "f": "photo-05.webp"
+ },
+ {
+  "f": "photo-06.webp"
+ },
+ {
+  "f": "photo-07.webp"
+ },
+ {
+  "f": "photo-08.webp",
+  "v": 1
+ },
+ {
+  "f": "photo-09.webp"
+ },
+ {
+  "f": "photo-10.webp"
+ },
+ {
+  "f": "photo-11.webp"
+ },
+ {
+  "f": "photo-12.webp"
+ },
+ {
+  "f": "photo-13.webp"
+ },
+ {
+  "f": "photo-14.webp"
+ },
+ {
+  "f": "photo-15.webp"
+ },
+ {
+  "f": "photo-16.webp"
+ },
+ {
+  "f": "photo-17.webp"
+ },
+ {
+  "f": "photo-18.webp"
+ },
+ {
+  "f": "photo-19.webp"
+ },
+ {
+  "f": "photo-20.webp"
+ },
+ {
+  "f": "photo-21.webp"
+ },
+ {
+  "f": "photo-22.webp"
+ },
+ {
+  "f": "photo-23.webp"
+ },
+ {
+  "f": "photo-24.webp"
+ },
+ {
+  "f": "photo-25.webp"
+ },
+ {
+  "f": "photo-26.webp"
+ },
+ {
+  "f": "photo-27.webp"
+ },
+ {
+  "f": "photo-28.webp"
+ },
+ {
+  "f": "photo-29.webp"
+ },
+ {
+  "f": "photo-30.webp",
+  "v": 1
+ },
+ {
+  "f": "photo-31.webp"
+ },
+ {
+  "f": "photo-32.webp"
+ },
+ {
+  "f": "photo-33.webp"
+ },
+ {
+  "f": "photo-34.webp",
+  "v": 1
+ },
+ {
+  "f": "photo-35.webp"
+ },
+ {
+  "f": "photo-36.webp",
+  "v": 1
+ },
+ {
+  "f": "photo-37.webp"
+ },
+ {
+  "f": "photo-38.webp"
+ },
+ {
+  "f": "photo-39.webp",
+  "v": 1
+ },
+ {
+  "f": "photo-40.webp"
+ },
+ {
+  "f": "photo-41.webp",
+  "v": 1
+ }
 ];
-window.FLEJOM_PORTRAITS = ["photo-08.webp", "photo-30.webp", "photo-34.webp", "photo-36.webp", "photo-39.webp", "photo-41.webp"];
