@@ -42,3 +42,4 @@ window.FLEJOM_PHOTOS = [
  "photo-40.webp",
  "photo-41.webp"
 ];
+window.FLEJOM_PORTRAITS = ["photo-08.webp", "photo-30.webp", "photo-34.webp", "photo-36.webp", "photo-39.webp", "photo-41.webp"];

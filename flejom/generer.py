@@ -66,6 +66,7 @@ def icon(name):
         "close": '<path d="M6 6l12 12M18 6L6 18"/>',
         "expand": '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
         "menu": '<path d="M4 7h16M4 12h16M4 17h16"/>',
+        "up": '<path d="M12 19V5M5 12l7-7 7 7"/>',
         "star": '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
         "handshake": '<path d="M2 12l4-4 4 2 4-3 4 3 4 2"/><path d="M6 8l-4 4 6 6 2-2M18 10l4 2-6 6-2-2M10 16l2 2M12 14l2 2"/>',
     }
@@ -79,6 +80,17 @@ SOCIAL_SVG = {
 }
 
 e = html.escape
+
+WA_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.3z"/></svg>'
+
+JSONLD = json.dumps({
+    "@context": "https://schema.org", "@type": "NGO", "name": SITE["nom"],
+    "alternateName": "Fondation Léon Joséphine Mukwanga", "url": "https://flejom.org/",
+    "logo": "https://flejom.org/assets/img/logo.jpg", "email": SITE["email"], "telephone": SITE["tel"],
+    "address": {"@type": "PostalAddress", "streetAddress": "Ave Caniveau n°4286B, Q. Beau Marché, Com. Barumbu",
+                "addressLocality": "Kinshasa", "addressCountry": "CD"},
+    "sameAs": [SITE["instagram"], SITE["tiktok"]],
+}, ensure_ascii=False)
 
 
 def socials():
@@ -112,9 +124,11 @@ def layout(page, title, description, body, extra_scripts=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">{JSONLD}</script>
 </head>
 <body>
 <a class="sr-only" href="#contenu">Aller au contenu</a>
+<div class="scroll-progress" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="assets/img/logo.webp" alt="" width="46" height="46">Fondation FLEJOM</a>
@@ -166,6 +180,8 @@ def layout(page, title, description, body, extra_scripts=""):
     </div>
   </div>
 </footer>
+<a class="float-wa" href="https://wa.me/{SITE["tel_lien"].lstrip("+")}" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp">{WA_SVG}</a>
+<button class="to-top" type="button" aria-label="Revenir en haut">{icon("up")}</button>
 <div class="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse de photos">
   <span class="lb-count"></span>
   <button class="ss-btn lb-close" type="button" aria-label="Fermer">{icon("close")}</button>
@@ -197,6 +213,18 @@ def cta_band():
 </section>"""
 
 
+def carousel3d(label):
+    return f"""<div class="c3d reveal" role="region" aria-roledescription="carrousel 3D" aria-label="{e(label)}">
+    <div class="c3d-scene"><div class="c3d-ring"></div></div>
+    <div class="c3d-floor" aria-hidden="true"></div>
+    <div class="c3d-controls">
+      <button class="round-btn" type="button" data-c3d-prev aria-label="Tourner vers la gauche">{icon("left")}</button>
+      <span class="c3d-hint">Faites glisser pour tourner · cliquez pour agrandir</span>
+      <button class="round-btn" type="button" data-c3d-next aria-label="Tourner vers la droite">{icon("right")}</button>
+    </div>
+  </div>"""
+
+
 def gallery_teaser():
     return f"""<section class="section-alt" id="galerie">
   <div class="wrap section-head reveal">
@@ -204,6 +232,7 @@ def gallery_teaser():
     <h2>Notre action en images</h2>
     <p>Découvrez le quotidien de notre fondation et l’impact de nos programmes sur les communautés.</p>
   </div>
+  <div class="wrap">{carousel3d("Carrousel 3D des photos de la fondation")}</div>
   <div class="marquee" aria-label="Photos de la fondation (défilement)"><div class="marquee-track"></div></div>
   <div class="marquee" aria-label="Photos de la fondation (défilement)"><div class="marquee-track"></div></div>
   <div class="wrap" style="text-align:center;margin-top:36px"><a class="btn btn-blue" href="galerie.html">Voir toute la galerie</a></div>
@@ -244,7 +273,7 @@ def accueil():
 <section class="hero" aria-label="Présentation">
   {imgs}
   <div class="hero-content wrap">
-    <div class="hero-text">
+    <div class="hero-text" data-depth="18">
       <span class="kicker">Kinshasa · RD Congo</span>
       <div class="hero-caption">{caps}</div>
       <div class="actions-row">
@@ -274,9 +303,9 @@ def accueil():
       <p>La Fondation FLEJOM s’engage à transformer la vie des plus vulnérables à travers des actions concrètes et durables.</p>
     </div>
     <div class="grid grid-3">
-      <div class="card reveal"><div class="icon">{icon("heart")}</div><h3>Soutien aux veuves</h3><p>Accompagnement et aide matérielle pour les veuves en situation de vulnérabilité.</p></div>
-      <div class="card reveal"><div class="icon o">{icon("child")}</div><h3>Protection des orphelins</h3><p>Éducation, santé et hébergement pour offrir un avenir meilleur aux enfants.</p></div>
-      <div class="card reveal"><div class="icon">{icon("rise")}</div><h3>Autonomisation</h3><p>Formations professionnelles et micro-crédits pour favoriser l’indépendance.</p></div>
+      <div class="card tilt reveal"><div class="icon">{icon("heart")}</div><h3>Soutien aux veuves</h3><p>Accompagnement et aide matérielle pour les veuves en situation de vulnérabilité.</p></div>
+      <div class="card tilt reveal"><div class="icon o">{icon("child")}</div><h3>Protection des orphelins</h3><p>Éducation, santé et hébergement pour offrir un avenir meilleur aux enfants.</p></div>
+      <div class="card tilt reveal"><div class="icon">{icon("rise")}</div><h3>Autonomisation</h3><p>Formations professionnelles et micro-crédits pour favoriser l’indépendance.</p></div>
     </div>
   </div>
 </section>
@@ -289,7 +318,7 @@ def accueil():
       <p>Chaque jour, nous changeons des vies grâce à votre générosité.</p>
     </div>
     <div class="split reveal" style="margin-bottom:64px">
-      <div class="split-img"><img src="assets/img/veuves.webp" alt="Rencontre avec des veuves accompagnées par la fondation" loading="lazy"></div>
+      <div class="split-img tilt"><img src="assets/img/veuves.webp" alt="Rencontre avec des veuves accompagnées par la fondation" loading="lazy"></div>
       <div>
         <h3 style="font-size:1.6rem">Soutien aux veuves</h3>
         <p class="lead">Nous accompagnons les veuves dans leur reconstruction, en leur offrant un soutien psychologique, matériel et financier pour retrouver dignité et autonomie.</p>
@@ -297,7 +326,7 @@ def accueil():
       </div>
     </div>
     <div class="split rev reveal">
-      <div class="split-img"><img src="assets/img/enfants.webp" alt="Enfants soutenus par la fondation" loading="lazy"></div>
+      <div class="split-img tilt"><img src="assets/img/enfants.webp" alt="Enfants soutenus par la fondation" loading="lazy"></div>
       <div>
         <h3 style="font-size:1.6rem">Protection des orphelins</h3>
         <p class="lead">Nous garantissons l’accès à l’éducation, aux soins de santé et à un environnement sécurisé pour tous les orphelins sous notre protection.</p>
@@ -360,23 +389,23 @@ def a_propos():
       <h2>Agir avec compassion, rigueur et engagement</h2>
       <p class="lead">La Fondation FLEJOM est née d’un profond désir de venir en aide aux plus vulnérables de notre société — en particulier les veuves, les orphelins et les personnes en situation de précarité. Face aux réalités du terrain, nous avons choisi d’agir avec compassion, rigueur et engagement.</p>
     </div>
-    <div class="split-img"><img src="assets/img/orphelinat.webp" alt="Visite d’un orphelinat soutenu par la fondation" loading="lazy"></div>
+    <div class="split-img tilt"><img src="assets/img/orphelinat.webp" alt="Visite d’un orphelinat soutenu par la fondation" loading="lazy"></div>
   </div>
 </section>
 <section class="section-alt">
   <div class="wrap grid grid-2">
-    <div class="card reveal"><div class="icon">{icon("flag")}</div><h3>Notre mission</h3><p>Nous soutenons des structures existantes (orphelinats, centres d’accueil, foyers) en leur apportant des dons en nature et en espèces. Ces appuis permettent de renforcer leurs actions et d’améliorer les conditions de vie des bénéficiaires.</p></div>
-    <div class="card reveal"><div class="icon o">{icon("eye")}</div><h3>Notre vision</h3><p>Nous aspirons à créer, dans un avenir proche, notre propre espace d’accueil et d’accompagnement. Un lieu de dignité, de sécurité et d’espoir, où chaque personne accueillie pourra retrouver un chemin vers l’autonomie et la sérénité.</p></div>
+    <div class="card tilt reveal"><div class="icon">{icon("flag")}</div><h3>Notre mission</h3><p>Nous soutenons des structures existantes (orphelinats, centres d’accueil, foyers) en leur apportant des dons en nature et en espèces. Ces appuis permettent de renforcer leurs actions et d’améliorer les conditions de vie des bénéficiaires.</p></div>
+    <div class="card tilt reveal"><div class="icon o">{icon("eye")}</div><h3>Notre vision</h3><p>Nous aspirons à créer, dans un avenir proche, notre propre espace d’accueil et d’accompagnement. Un lieu de dignité, de sécurité et d’espoir, où chaque personne accueillie pourra retrouver un chemin vers l’autonomie et la sérénité.</p></div>
   </div>
 </section>
 <section>
   <div class="wrap">
     <div class="section-head reveal"><span class="eyebrow">Nos valeurs</span><h2>Les principes qui guident notre action au quotidien</h2></div>
     <div class="grid grid-4">
-      <div class="card reveal"><div class="icon">{icon("hands")}</div><h3>Solidarité</h3><p>Chaque geste compte. Ensemble, nous pouvons alléger les souffrances.</p></div>
-      <div class="card reveal"><div class="icon o">{icon("heart")}</div><h3>Respect de la dignité humaine</h3><p>Chaque bénéficiaire est accueilli avec bienveillance et considération.</p></div>
-      <div class="card reveal"><div class="icon">{icon("shield")}</div><h3>Transparence</h3><p>Nous veillons à une gestion rigoureuse et responsable des ressources confiées.</p></div>
-      <div class="card reveal"><div class="icon o">{icon("star")}</div><h3>Engagement</h3><p>Notre action est constante, portée par la foi en un avenir meilleur pour tous.</p></div>
+      <div class="card tilt reveal"><div class="icon">{icon("hands")}</div><h3>Solidarité</h3><p>Chaque geste compte. Ensemble, nous pouvons alléger les souffrances.</p></div>
+      <div class="card tilt reveal"><div class="icon o">{icon("heart")}</div><h3>Respect de la dignité humaine</h3><p>Chaque bénéficiaire est accueilli avec bienveillance et considération.</p></div>
+      <div class="card tilt reveal"><div class="icon">{icon("shield")}</div><h3>Transparence</h3><p>Nous veillons à une gestion rigoureuse et responsable des ressources confiées.</p></div>
+      <div class="card tilt reveal"><div class="icon o">{icon("star")}</div><h3>Engagement</h3><p>Notre action est constante, portée par la foi en un avenir meilleur pour tous.</p></div>
     </div>
   </div>
 </section>
@@ -406,14 +435,14 @@ def actions():
       <h2>Soutenir les structures existantes</h2>
       <p class="lead">Depuis sa création, la Fondation FLEJOM concentre ses efforts sur le soutien direct aux structures déjà engagées auprès des veuves, orphelins et personnes vulnérables. Nous collaborons avec des orphelinats, des centres d’accueil et des foyers communautaires pour renforcer leur impact sur le terrain.</p>
     </div>
-    <div class="split-img"><img src="assets/img/education.webp" alt="Distribution de matériel par la fondation" loading="lazy"></div>
+    <div class="split-img tilt"><img src="assets/img/education.webp" alt="Distribution de matériel par la fondation" loading="lazy"></div>
   </div>
 </section>
 <section class="section-alt">
   <div class="wrap grid grid-3">
-    <div class="card reveal"><div class="icon">{icon("box")}</div><h3>Dons en nature</h3><p>Vivres, vêtements, matériel scolaire, produits d’hygiène pour répondre aux besoins essentiels.</p></div>
-    <div class="card reveal"><div class="icon o">{icon("coins")}</div><h3>Dons en espèces</h3><p>Appuis financiers ponctuels pour les besoins urgents des structures partenaires.</p></div>
-    <div class="card reveal"><div class="icon">{icon("chat")}</div><h3>Accompagnement</h3><p>Visites régulières, écoute attentive et conseils pour un soutien moral et logistique.</p></div>
+    <div class="card tilt reveal"><div class="icon">{icon("box")}</div><h3>Dons en nature</h3><p>Vivres, vêtements, matériel scolaire, produits d’hygiène pour répondre aux besoins essentiels.</p></div>
+    <div class="card tilt reveal"><div class="icon o">{icon("coins")}</div><h3>Dons en espèces</h3><p>Appuis financiers ponctuels pour les besoins urgents des structures partenaires.</p></div>
+    <div class="card tilt reveal"><div class="icon">{icon("chat")}</div><h3>Accompagnement</h3><p>Visites régulières, écoute attentive et conseils pour un soutien moral et logistique.</p></div>
   </div>
 </section>
 <section>
@@ -433,6 +462,17 @@ def actions():
     </div>
   </div>
 </section>
+<section class="section-alt">
+  <div class="wrap">
+    <div class="section-head reveal"><span class="eyebrow">Sur le terrain</span><h2>Les structures que nous avons visitées</h2><p>Orphelinats et groupes de mamans auprès desquels la fondation est intervenue.</p></div>
+    <div class="grid grid-4">
+      <div class="card tilt reveal"><div class="icon">{icon("home")}</div><h3>Orphelinat Cité de Victoire</h3><p>Accompagnement et soutien aux enfants orphelins.</p></div>
+      <div class="card tilt reveal"><div class="icon o">{icon("home")}</div><h3>Orphelinat Dieu Mon Refuge</h3><p>Remise de dons et distribution de fournitures scolaires aux enfants.</p></div>
+      <div class="card tilt reveal"><div class="icon">{icon("home")}</div><h3>Orphelinat CHERO</h3><p>Visite de fin d’année pour partager des moments avec les enfants.</p></div>
+      <div class="card tilt reveal"><div class="icon o">{icon("rise")}</div><h3>Les Mamans Maraîchères</h3><p>Autonomisation des mères vulnérables par le maraîchage.</p></div>
+    </div>
+  </div>
+</section>
 <section class="founder">
   <div class="wrap split reveal">
     <div>
@@ -441,7 +481,7 @@ def actions():
       <p class="lead">Notre vision est claire : disposer d’un espace dédié à l’accueil, à l’écoute et à l’accompagnement des personnes en détresse. Ce lieu permettra d’organiser des activités éducatives et sociales, d’offrir un hébergement temporaire aux plus fragiles, et de centraliser nos opérations pour plus d’efficacité.</p>
       <a class="btn btn-orange" href="don.html">Soutenir ce projet</a>
     </div>
-    <div class="split-img"><img src="assets/img/maraichage.webp" alt="Les Mamans Maraîchères" loading="lazy"></div>
+    <div class="split-img tilt"><img src="assets/img/maraichage.webp" alt="Les Mamans Maraîchères" loading="lazy"></div>
   </div>
 </section>
 {gallery_teaser()}
@@ -457,7 +497,14 @@ def galerie():
     )
     body = f"""
 {page_hero("Galerie photos", "Découvrez le quotidien de notre fondation et l’impact de nos programmes sur les communautés.")}
+<section class="section-dark">
+  <div class="wrap">
+    <div class="section-head reveal"><span class="eyebrow">En 3D</span><h2>Faites tourner nos souvenirs</h2><p>Faites glisser le carrousel avec la souris ou le doigt, puis cliquez sur une photo pour l’agrandir.</p></div>
+    {carousel3d("Carrousel 3D des photos de la fondation")}
+  </div>
+</section>
 <section>
+  <div class="wrap section-head reveal" style="margin-bottom:28px"><span class="eyebrow">Diaporama</span><h2>Toutes nos photos, une à une</h2></div>
   <div class="wrap">
     <div class="slideshow" tabindex="0" aria-roledescription="carrousel" aria-label="Diaporama des photos de la fondation">
       <div class="ss-stage"></div>
@@ -502,9 +549,9 @@ def partenaires():
   <div class="wrap">
     <div class="section-head reveal"><span class="eyebrow">Partenariat</span><h2>Pourquoi devenir partenaire ?</h2></div>
     <div class="grid grid-3">
-      <div class="card reveal"><div class="icon">{icon("rise")}</div><h3>Renforcer l’impact social</h3><p>Amplifiez vos actions en rejoignant un réseau de solidarité éprouvé.</p></div>
-      <div class="card reveal"><div class="icon o">{icon("shield")}</div><h3>Projets concrets et transparents</h3><p>Participez à des initiatives mesurables avec une gestion rigoureuse.</p></div>
-      <div class="card reveal"><div class="icon">{icon("handshake")}</div><h3>Valoriser votre engagement</h3><p>Faites reconnaître votre contribution auprès des communautés locales.</p></div>
+      <div class="card tilt reveal"><div class="icon">{icon("rise")}</div><h3>Renforcer l’impact social</h3><p>Amplifiez vos actions en rejoignant un réseau de solidarité éprouvé.</p></div>
+      <div class="card tilt reveal"><div class="icon o">{icon("shield")}</div><h3>Projets concrets et transparents</h3><p>Participez à des initiatives mesurables avec une gestion rigoureuse.</p></div>
+      <div class="card tilt reveal"><div class="icon">{icon("handshake")}</div><h3>Valoriser votre engagement</h3><p>Faites reconnaître votre contribution auprès des communautés locales.</p></div>
     </div>
   </div>
 </section>
@@ -530,10 +577,10 @@ def don():
       <p class="lead">En soutenant la Fondation FLEJOM, vous participez à une chaîne de solidarité qui apporte réconfort, dignité et espoir aux veuves, orphelins et personnes vulnérables.</p>
     </div>
     <div class="grid grid-2">
-      <div class="card"><div class="icon">{icon("food")}</div><h3>Nourrir et vêtir</h3><p>Offrir des repas et des vêtements à ceux qui en ont besoin.</p></div>
-      <div class="card"><div class="icon o">{icon("hands")}</div><h3>Soutenir les structures</h3><p>Renforcer les structures d’accueil existantes pour plus d’impact.</p></div>
-      <div class="card"><div class="icon o">{icon("home")}</div><h3>Préparer notre espace</h3><p>Contribuer à la création de notre propre espace d’accueil (objectif 2026).</p></div>
-      <div class="card"><div class="icon">{icon("book")}</div><h3>Activités éducatives</h3><p>Organiser des activités éducatives et sociales pour les bénéficiaires.</p></div>
+      <div class="card tilt"><div class="icon">{icon("food")}</div><h3>Nourrir et vêtir</h3><p>Offrir des repas et des vêtements à ceux qui en ont besoin.</p></div>
+      <div class="card tilt"><div class="icon o">{icon("hands")}</div><h3>Soutenir les structures</h3><p>Renforcer les structures d’accueil existantes pour plus d’impact.</p></div>
+      <div class="card tilt"><div class="icon o">{icon("home")}</div><h3>Préparer notre espace</h3><p>Contribuer à la création de notre propre espace d’accueil (objectif 2026).</p></div>
+      <div class="card tilt"><div class="icon">{icon("book")}</div><h3>Activités éducatives</h3><p>Organiser des activités éducatives et sociales pour les bénéficiaires.</p></div>
     </div>
   </div>
 </section>
@@ -582,7 +629,7 @@ def contact():
       <h3>Réseaux sociaux</h3>
       {socials()}
     </div>
-    <div class="card reveal">
+    <div class="card tilt reveal">
       <h2 style="font-size:1.6rem">Envoyez-nous un message</h2>
       <form id="contact-form">
         <div class="field"><label for="sujet">Sujet</label>
@@ -621,9 +668,19 @@ def page_404():
 def main():
     photos = sorted(p.name for p in (ROOT / "galerie").iterdir()
                     if p.suffix.lower() in {".webp", ".jpg", ".jpeg", ".png"})
+    portraits = []
+    try:
+        from PIL import Image
+        for name in photos:
+            with Image.open(ROOT / "galerie" / name) as im:
+                if im.height > im.width:
+                    portraits.append(name)
+    except ImportError:
+        pass
     (ROOT / "galerie" / "galerie-photos.js").write_text(
         "/* Généré par generer.py — liste des photos de la galerie */\nwindow.FLEJOM_PHOTOS = "
-        + json.dumps(photos, indent=1) + ";\n", encoding="utf-8")
+        + json.dumps(photos, indent=1) + ";\nwindow.FLEJOM_PORTRAITS = "
+        + json.dumps(portraits) + ";\n", encoding="utf-8")
     pages = {
         "index.html": accueil, "a-propos.html": a_propos, "actions.html": actions,
         "galerie.html": galerie, "partenaires.html": partenaires, "don.html": don,
