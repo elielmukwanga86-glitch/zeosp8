@@ -424,3 +424,58 @@ form input, form textarea, form select { border-radius: 14px; border-color: rgba
   .site-header { top: 12px; }
   .mosaique img { border-radius: 12px; }
 }
+
+/* =========================================================
+   Effets avancés
+   ========================================================= */
+/* Transition douce entre les pages (navigateurs récents) */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: .35s var(--doux) both vt-sort; }
+::view-transition-new(root) { animation: .55s var(--doux) both vt-entre; }
+@keyframes vt-sort { to { opacity: 0; transform: translateY(-12px); } }
+@keyframes vt-entre { from { opacity: 0; transform: translateY(18px); } }
+.site-header .wrap { view-transition-name: entete; }
+
+/* Accueil : titres qui montent mot par mot + barre de progression */
+.hero-slide img { translate: 0 var(--parallaxe, 0); }
+.hero .mot { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .06em; margin-bottom: -.06em; }
+.hero .mot > span { display: inline-block; transform: translateY(108%); }
+.hero .joue .mot > span { animation: monte 1s var(--doux) forwards; animation-delay: calc(var(--i) * 70ms + 150ms); }
+.hero .joue > p { animation: apparait .9s var(--doux) both .55s; }
+@keyframes monte { to { transform: none; } }
+@keyframes apparait { from { opacity: 0; transform: translateY(14px); } }
+.hero-barre { position: absolute; z-index: 3; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--jaune); transform-origin: left; transform: scaleX(0); }
+.hero-barre.court { animation: barre 7s linear forwards; }
+@keyframes barre { to { transform: scaleX(1); } }
+
+/* Photos qui se dévoilent */
+.rv-img { clip-path: inset(14% 10% 14% 10% round 22px); scale: 1.12; transition: clip-path 1.3s var(--doux), scale 1.6s var(--doux); }
+.rv-img.vu { clip-path: inset(0 0 0 0 round 22px); scale: 1; }
+.mosaique .rv-img.vu { clip-path: inset(0 0 0 0 round 18px); }
+
+/* Citation du fondateur qui s'illumine */
+.mot-lumiere { opacity: .16; transition: opacity .5s var(--doux), color .5s var(--doux); }
+.mot-lumiere.on { opacity: 1; }
+.mot-lumiere > span { display: inline; }
+
+/* Curseur bulle */
+.curseur { position: fixed; left: 0; top: 0; z-index: 90; width: 88px; height: 88px; margin: -44px 0 0 -44px; border-radius: 50%; pointer-events: none;
+  display: grid; place-items: center; background: var(--orange); color: #fff; font: 600 .9rem var(--sans); letter-spacing: .04em;
+  scale: 0; transition: scale .45s var(--doux); }
+.curseur.on { scale: 1; }
+.mosaique, .une-photo { cursor: pointer; }
+
+/* Boutons aimantés */
+.btn { transition: background .3s var(--doux), transform .2s var(--doux), translate .5s var(--doux); }
+.btn:hover { transition: background .3s var(--doux), transform .2s var(--doux), translate .12s linear; }
+
+/* Mosaïque : relief */
+.mosaique img { transition: clip-path 1.3s var(--doux), scale 1.6s var(--doux), translate .2s linear; }
+.c3d-scene { transition: perspective-origin .6s var(--doux); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .mot > span { transform: none; animation: none; }
+  .rv-img { clip-path: none; scale: 1; }
+  .mot-lumiere { opacity: 1; }
+  .hero-barre { display: none; }
+}
