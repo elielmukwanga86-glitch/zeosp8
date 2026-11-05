@@ -33,6 +33,21 @@ Les hooks d’ECC eux-mêmes n’ont pas été repris : ils dépendent de tout l
 - `commands/build-fix.md` : `/build-fix`, corriger pas à pas une erreur de génération.
 - `rules/web/` : règles web d’ECC, chargées seulement quand on touche des fichiers CSS/HTML.
 
+## Skill `unslop` (`skills/unslop/`)
+
+Reprise de https://github.com/heydamir/unslop (commit `a6f121e` du 1ᵉʳ novembre 2026),
+créée par Damir Sokolovsky (@heydamir), licence **CC BY 4.0** (`skills/unslop/LICENSE`) :
+le crédit doit rester dans toute copie ou adaptation. Elle repère les marques d’une interface
+« générée par IA » (dégradés violets, lueurs, émojis, espacements irréguliers, textes tape-à-l’œil)
+puis corrige l’écran en neuf passes. Appel : `/unslop` ou en le demandant simplement.
+
+Pour ce portfolio : l’identité visuelle de `CLAUDE.md` est une vraie charte, donc unslop doit
+travailler en mode « polish » (corriger seulement ce que l’audit trouve, garder palette, polices
+et mise en page) et ne jamais inventer de contenu. Les fichiers de travail (`unslop/`,
+`unslop-story/`, vidéo) sont ignorés par `.gitignore`. Les scripts (`scripts/snapshot.mjs`,
+`scripts/story.mjs`) utilisent Playwright, et ffmpeg pour la vidéo.
+Non repris : la fiche Codex (`agents/openai.yaml`) et les deux écrans d’exemple.
+
 ## Écarté volontairement
 
 Règles générales d’ECC (TDD obligatoire, 80 % de couverture de tests : inadapté à un site statique),
