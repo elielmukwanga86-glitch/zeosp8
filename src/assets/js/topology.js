@@ -12,7 +12,7 @@
   var OK = '61, 190, 139';
   var LABELS = ['srv', 'lan', 'wifi', 'voip', 'cam', 'print', 'mgmt', 'école'];
 
-  var W = 0, H = 0, DPR = 1;
+  var W = 0, H = 0, DPR = 1, narrow = false;
   var core, hubs = [], leaves = [], packets = [], flashes = [];
   var pointer = { x: -9999, y: -9999 };
   var visible = true, raf = 0, lastT = 0, spawnIn = 0, clock = 0;
@@ -32,7 +32,7 @@
 
     seed = 11;
     var wide = W >= 1100;
-    var narrow = W < 768;
+    narrow = W < 768;
     core = node(wide ? W * 0.72 : narrow ? W * 0.7 : W * 0.68, wide ? H * 0.34 : narrow ? H * 0.12 : H * 0.24);
     var R = Math.min(W, H) * (wide ? 0.3 : narrow ? 0.36 : 0.32);
     var count = wide ? 8 : 6;
@@ -159,6 +159,8 @@
       ctx.strokeStyle = 'rgba(214,220,227,0.85)';
       ctx.lineWidth = 1.3;
       ctx.beginPath(); ctx.arc(h.x, h.y, 5.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      // On phones the text sits over the network, so labels are left out there.
+      if (narrow) continue;
       var tw = ctx.measureText(h.label).width;
       ctx.fillStyle = 'rgba(14,18,23,0.85)';
       ctx.fillRect(h.x + 9, h.y - 21, tw + 8, 15);
@@ -176,7 +178,7 @@
     ctx.beginPath(); ctx.arc(core.x, core.y, 3.6, 0, Math.PI * 2); ctx.fill();
     ctx.font = '600 10.5px "IBM Plex Mono", ui-monospace, monospace';
     ctx.fillStyle = 'rgba(245,154,117,0.95)';
-    ctx.fillText('SUPERVISION', core.x + 18, core.y + 30);
+    if (!narrow) ctx.fillText('SUPERVISION', core.x + 18, core.y + 30);
   }
 
   function frame(t) {

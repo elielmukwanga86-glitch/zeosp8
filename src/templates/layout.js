@@ -36,6 +36,23 @@ function navHref(item, ctx) {
   return ctx.base + item.href;
 }
 
+/** Structured data (schema.org) for the home page, built only from site.js. */
+function jsonLd(site) {
+  const f = site.formation;
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.nom,
+    url: site.url,
+    description: site.description,
+    jobTitle: `Étudiant en ${f.diplome} option ${f.option}`,
+    affiliation: { '@type': 'EducationalOrganization', name: f.ecole },
+    knowsAbout: site.competences.flatMap((d) => d.items.map((i) => i.nom)).slice(0, 20),
+    sameAs: [site.contact.linkedin.url, site.contact.github.url],
+  };
+  return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
+}
+
 function layout(ctx) {
   const { site, base, titre, description, page, courant, contenu, scripts = ['main'], lightbox = false, image } = ctx;
   const items = navItems(site);
@@ -65,12 +82,15 @@ function layout(ctx) {
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:image" content="${esc(ogImage)}">
   <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="${esc(`Portfolio · ${site.nom}`)}">
+  ${canonical ? `<meta property="og:url" content="${esc(canonical)}">` : ''}
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="${FONTS}" rel="stylesheet">
   <link rel="stylesheet" href="${base}assets/css/style.css">
   <script>document.documentElement.classList.add('js')</script>
+  ${page === 'home' && site.url ? jsonLd(site) : ''}
 </head>
 <body class="page-${page}">
   <a class="skip-link" href="#contenu">Aller au contenu</a>

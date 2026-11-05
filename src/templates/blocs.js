@@ -64,7 +64,7 @@ function renderBloc(b, ctx) {
     const cell = (v, i, tag) => `<${tag}${cls(i) ? ` class="${cls(i)}"` : ''}>${inline(v)}</${tag}>`;
     return `<div class="table-wrap" tabindex="0" role="region" aria-label="${esc(t.entetes.filter(Boolean).join(', '))}">
               <table class="table">
-                <thead><tr>${t.entetes.map((h, i) => `<th scope="col"${droite.includes(i) ? ' class="r"' : ''}>${text(h)}</th>`).join('')}</tr></thead>
+                <thead><tr>${t.entetes.map((h, i) => `<th scope="col"${droite.includes(i) ? ' class="r"' : ''}>${h ? text(h) : '<span class="sr-only">Élément</span>'}</th>`).join('')}</tr></thead>
                 <tbody>
 ${t.lignes.map((row) => `                  <tr>${row.map((v, i) => cell(v, i, i === 0 ? 'th' : 'td').replace(/^<th/, '<th scope="row"')).join('')}</tr>`).join('\n')}
                 </tbody>${t.pied ? `

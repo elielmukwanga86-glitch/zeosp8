@@ -288,6 +288,8 @@ sup { font-size: .62em; line-height: 0; vertical-align: .55em; }
 .paper { background: var(--paper); color: var(--t); color-scheme: light; }
 .paper-2 { background: var(--paper-2); color: var(--t); color-scheme: light; }
 .dark { background: var(--ink); color: var(--td); }
+/* Two sections on the same paper: no double padding, which read as an empty band. */
+.section.paper + .section.paper { padding-top: clamp(16px, 2vw, 32px); }
 
 .section-head { display: grid; gap: 20px; margin-bottom: clamp(44px, 6vw, 88px); }
 .section-head__index { display: flex; align-items: center; gap: 14px; }
@@ -455,12 +457,14 @@ sup { font-size: .62em; line-height: 0; vertical-align: .55em; }
   .about { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
   .about__statement { grid-column: 1 / 9; }
   .about__text { grid-column: 1 / 8; }
-  .fiche { grid-column: 9 / 13; grid-row: 1 / span 2; align-self: end; }
+  .fiche { grid-column: 9 / 13; grid-row: 1 / span 2; align-self: start; margin-top: 12px; }
 }
 
 /* ---------- Contact ---------- */
 .contact { padding-block: clamp(56px, 7vw, 96px) clamp(64px, 8vw, 104px); border-top: 1px solid var(--line-d); }
 .contact__title { margin-top: 32px; font-family: var(--f-cond); font-weight: 700; letter-spacing: -.02em; line-height: 1; font-size: clamp(1.9rem, 7.2vw, 7rem); overflow-wrap: anywhere; }
+/* Phones: small enough for the address to stay on one line at 360 px and up. */
+@media (max-width: 767px) { .contact__title { font-size: max(1.25rem, 6.4vw); } }
 .contact__address { background: linear-gradient(var(--acc), var(--acc)) 0 100% / 100% 3px no-repeat; padding-bottom: .06em; transition: color .2s var(--ease-out); }
 @media (hover: hover) and (pointer: fine) { .contact__address:hover { color: var(--acc-soft); } }
 .contact__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-top: 32px; }
@@ -699,7 +703,7 @@ html:has(.lightbox[open]) { overflow: hidden; }
 .synth--3 thead th:not(:first-child), .synth--3 td { width: 15%; }
 .synth thead th:nth-child(2), .synth .synth__per { width: 12%; }
 .synth .synth__per { font-size: 13px; color: var(--t-2); vertical-align: middle; }
-.synth thead th.synth__zero { color: var(--t-mut); opacity: .75; }
+.synth thead th.synth__zero { color: var(--t-mut); }
 .synth td { vertical-align: middle; }
 .synth tbody th[scope="row"] { font-weight: 500; }
 .synth__group th { padding: 22px 0 10px !important; text-align: left; font-family: var(--f-mono); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--acc-ink) !important; border-bottom: 1px solid var(--line-strong) !important; }
