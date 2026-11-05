@@ -33,6 +33,7 @@ module.exports = {
     email: 'elielmukwanga86@gmail.com',
     linkedin: { url: 'https://www.linkedin.com/in/eliel-mukwanga-505169388', libelle: 'in/eliel-mukwanga-505169388' },
     github: { url: 'https://github.com/elielmukwanga86-glitch', libelle: 'elielmukwanga86-glitch' },
+    cv: { fichier: 'assets/docs/CV_Eliel_Mukwanga.pdf', libelle: 'PDF · 1 page' },
     phrase: 'Pour une question sur un projet ou une proposition de stage, vous pouvez m’écrire par e-mail.',
   },
 

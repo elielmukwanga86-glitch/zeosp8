@@ -224,6 +224,10 @@ function contact(index, site) {
           <button class="copy-btn" type="button" data-copy="${esc(c.email)}">Copier l’adresse</button>
         </div>
         <div class="socials" data-reveal>
+          ${c.cv ? `<a class="social" href="${esc(c.cv.fichier)}" target="_blank" rel="noopener">
+            <span><span class="social__name">Mon CV<span class="sr-only"> (PDF, nouvel onglet)</span></span><span class="social__handle mono">${esc(c.cv.libelle)}</span></span>
+            <span class="social__arrow" aria-hidden="true">${ICON.arrowRight}</span>
+          </a>` : ''}
           <a class="social" href="${esc(c.linkedin.url)}" target="_blank" rel="noopener">
             <span><span class="social__name">LinkedIn<span class="sr-only"> (nouvel onglet)</span></span><span class="social__handle mono">${esc(c.linkedin.libelle)}</span></span>
             <span class="social__arrow" aria-hidden="true">${ICON.arrowRight}</span>

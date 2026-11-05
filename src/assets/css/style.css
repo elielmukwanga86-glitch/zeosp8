@@ -475,7 +475,7 @@ sup { font-size: .62em; line-height: 0; vertical-align: .55em; }
 .social__arrow { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-d); display: grid; place-items: center; transition: background-color .25s var(--ease-out), border-color .25s var(--ease-out), transform .25s var(--ease-out); }
 @media (hover: hover) and (pointer: fine) { .social:hover .social__arrow { background: var(--acc); border-color: var(--acc); color: var(--ink); transform: rotate(-45deg); } }
 @media (min-width: 900px) {
-  .socials { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+  .socials { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 32px; }
   .social, .social:last-child { border-bottom: 0; border-top: 1px solid rgba(255, 255, 255, .7); }
 }
 

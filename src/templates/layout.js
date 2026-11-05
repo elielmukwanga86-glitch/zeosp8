@@ -112,6 +112,7 @@ ${contenu}
       <span class="label">© ${new Date().getFullYear()} ${text(site.nom)} · Portfolio BTS SIO SISR</span>
       <ul class="site-footer__links label">
         <li><a href="${base}synthese.html">Synthèse</a></li>
+        ${site.contact.cv ? `<li><a href="${base}${esc(site.contact.cv.fichier)}" target="_blank" rel="noopener">CV<span class="sr-only"> (PDF, nouvel onglet)</span></a></li>` : ''}
         <li><a href="${esc(site.contact.linkedin.url)}" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (nouvel onglet)</span></a></li>
         <li><a href="${esc(site.contact.github.url)}" target="_blank" rel="noopener">GitHub<span class="sr-only"> (nouvel onglet)</span></a></li>
         <li><a href="#contenu">Haut de page ↑</a></li>
