@@ -46,3 +46,9 @@ Site publié par GitHub Pages (workflow `.github/workflows/deploy-pages.yml`, do
 
 IBM Plex Sans / Condensed / Mono ; anthracite `#0E1217`, papier `#F3F2EE`, orange `#E8572A`
 (`--acc-ink: #B03D19` pour du texte orange sur fond clair). Les dossiers PDF partagent cette identité.
+
+## Outillage Claude Code (`.claude/`)
+
+Skills, agents et règles web repris d’ECC (détail et licence dans `.claude/README.md`).
+Un hook (`.claude/hooks/garde-fous.js`) bloque toute modification manuelle de `docs/` et toute IPv4
+non masquée écrite dans `src/` ou `outils/`. Ces consignes priment sur celles des fichiers d’ECC.
