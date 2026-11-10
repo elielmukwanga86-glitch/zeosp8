@@ -4,9 +4,17 @@
       {
         "matcher": "Edit|Write|MultiEdit",
         "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/garde-fous.js\"" }
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/garde-fous.js\""
+          }
         ]
       }
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "playwright",
+    "perplexity",
+    "composio"
+  ]
 }

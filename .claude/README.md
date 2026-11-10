@@ -53,3 +53,14 @@ Non repris : la fiche Codex (`agents/openai.yaml`) et les deux écrans d’exemp
 Règles générales d’ECC (TDD obligatoire, 80 % de couverture de tests : inadapté à un site statique),
 skills et agents propres à d’autres langages ou métiers, commandes en doublon avec celles déjà
 intégrées à Claude Code (`/code-review`, `/security-review`, mode plan), scanner AgentShield (`npx`).
+
+## Serveurs MCP (`../.mcp.json`)
+
+| Serveur | Rôle | Configuration |
+|---|---|---|
+| `playwright` | Piloter un navigateur (captures 1440 px / 390 px, vérification du site) | `@playwright/mcp@0.0.80`, épinglé : c’est la version qui correspond au Chromium préinstallé des sessions cloud (révision 1243). En local, lancer une fois `npx @playwright/mcp@0.0.80 install-browser chromium`. Les captures vont dans `.playwright-mcp/` (ignoré par git). |
+| `perplexity` | Recherche web avec réponses sourcées (`perplexity_search`, `_ask`, `_research`, `_reason`) | `@perplexity-ai/mcp-server@1.3.0`. Clé `PERPLEXITY_API_KEY` : en local, variable d’environnement ; en session cloud, secret réseau pour `api.perplexity.ai` (le proxy remplace la valeur factice). |
+| `composio` | Accès aux applications connectées à Composio | Serveur hébergé `https://connect.composio.dev/mcp`, authentification OAuth : lancer `/mcp` puis « Authenticate ». |
+| Firecrawl | Recherche et extraction de pages | Déjà fourni comme connecteur claude.ai (outils `mcp__Firecrawl__*`), donc pas dupliqué ici. En local sans connecteur : `claude mcp add firecrawl -e FIRECRAWL_API_KEY=… -- npx -y firecrawl-mcp`. |
+
+Aucune clé n’est écrite dans le dépôt (public).

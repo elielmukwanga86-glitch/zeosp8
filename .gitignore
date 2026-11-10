@@ -3,3 +3,6 @@
 /unslop-story/
 /unslop-story.mp4
 .story-frames/
+
+# Captures et instantanés du serveur MCP Playwright
+.playwright-mcp/
