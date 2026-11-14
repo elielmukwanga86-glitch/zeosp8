@@ -1,0 +1,31 @@
+@import 'tailwindcss';
+
+/* Identité Vacatio : bleu profond (confiance), vert propreté (accent). */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: #f5f7fa;
+  --color-foreground: #0f172a;
+  --color-card: #ffffff;
+  --color-card-foreground: #0f172a;
+  --color-primary: #0f2f57;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #1f9d63;
+  --color-accent-foreground: #ffffff;
+  --color-accent-ink: #146c43;      /* vert lisible sur fond clair (AA) */
+  --color-muted: #eef2f6;
+  --color-muted-foreground: #526075;
+  --color-border: #dbe2ea;
+  --color-input: #c9d3de;
+  --color-ring: #2563eb;
+  --color-destructive: #c62828;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  :focus-visible { outline-color: var(--color-ring); }
+}
