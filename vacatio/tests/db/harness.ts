@@ -27,6 +27,8 @@ create table auth.users (
 );
 create function auth.uid() returns uuid language sql stable as
   $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
+create function auth.role() returns text language sql stable as
+  $$ select nullif(current_setting('request.jwt.claim.role', true), '') $$;
 grant usage on schema auth to anon, authenticated, service_role;
 grant select on auth.users to service_role;
 

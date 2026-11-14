@@ -32,7 +32,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="lg:flex">
-      <Sidebar role={ctx.role} plan={plan} orgSwitcher={orgSwitcher} />
+      <div className="contents print:hidden"><Sidebar role={ctx.role} plan={plan} orgSwitcher={orgSwitcher} /></div>
       <div className="min-w-0 flex-1">
         {ctx.org.is_demo && (
           <p className="bg-amber-100 px-4 py-2 text-center text-sm font-medium text-amber-900">Compte de démonstration : données fictives.</p>
@@ -43,7 +43,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             {ctx.role === 'gerant' && <> <Link href="/app/entreprise" className="font-semibold underline">Choisir un forfait</Link></>}
           </p>
         )}
-        <header className="flex items-center justify-end gap-3 border-b border-border bg-card px-4 py-2 sm:px-8">
+        <header className="flex items-center justify-end print:hidden gap-3 border-b border-border bg-card px-4 py-2 sm:px-8">
           <span className="truncate text-sm text-muted-foreground">{ctx.email}</span>
           <form action="/auth/deconnexion" method="post">
             <button className="rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-muted">Déconnexion</button>

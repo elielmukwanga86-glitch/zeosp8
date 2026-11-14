@@ -15,7 +15,7 @@ Supabase (Auth, PostgreSQL, Storage, RLS) · Stripe · Resend · Brevo · Vercel
 | Phase | Contenu | État |
 |---|---|---|
 | 1 | Architecture, schéma complet, RLS, auth, multi-entreprises | **livrée** |
-| 2 | Module A (opérations) | à faire |
+| 2 | Module A (opérations) | **livrée** |
 | 3 | Modules B et E + compte de démo | à faire |
 | 4 | Modules C et D | à faire |
 | 5 | Prêt à vendre (F1-F5, F7-F10) | à faire |
@@ -80,8 +80,25 @@ plusieurs entreprises ; l'appartenance est revérifiée à chaque requête).
 | `0007_donnees_reference` | jours fériés 2026-2027, code `FONDATEUR` (-40 %, 10 utilisations) |
 | `0008_rpc_publiques` | `is_platform_admin`, `effective_plan`, `set_my_locale` |
 
-Les règles de conformité IDCC 3043 (A6) seront dans `src/config/conformite/` (fichier séparé et
-modifiable, phase 2), avec surcharges possibles par entreprise (`organizations.compliance_overrides`).
+| `0009_operations_fonctions` | génération des récurrences (heure de Paris, changement d'heure), duplication de semaine, publication, suivi des changements, pointage `clock()`, remplacements, alertes de non-pointage et de documents |
+
+Les règles de conformité (A6) sont dans `src/config/conformite/regles.ts` (fichier séparé, source
+de chaque valeur indiquée), surchargeables par entreprise depuis `/app/conformite`.
+
+### Module A (phase 2)
+
+| Besoin | Où |
+|---|---|
+| A1 Clients, sites, consignes, codes d'accès, cahier des charges, contrats (heures vendues, prix), créneaux récurrents | `/app/clients`, `/app/sites/[id]` |
+| A2 Agents, contrat, ancienneté, disponibilités, documents RH avec alerte d'expiration, sites habituels, lien SMS | `/app/agents`, `/app/agents/[id]` |
+| A3 Planning jour / semaine / mois, par agent ou par site, glisser-déposer, génération depuis les contrats, copie de semaine, publication + SMS | `/app/planning` |
+| A4 Pointage QR / NFC (même lien), position lue une seule fois, borne partagée, saisie par le chef, alerte à +15 min | `/agent/pointer`, `/borne/[jeton]`, `/app/pointages`, cron |
+| A5 Déclaration d'absence (agent ou gérant), libération des vacations, suggestions classées, proposition SMS acceptée en un clic, traçabilité, heures facturables | `/agent/absence`, `/app/absences`, `/r/[jeton]` |
+| A6 Repos 11 h, 10 h/jour, amplitude, 48 h et moyenne 44 h, repos hebdo 35 h, coupures selon le contrat, heures complémentaires, temps plein interdit au temps partiel | `src/lib/planning/conformite.ts`, `/app/conformite` |
+
+Tâches planifiées (Vercel Cron, `vercel.json`) : `/api/cron/frequent` toutes les 5 min
+(non-pointages, SMS de changement de planning, file d'envoi) et `/api/cron/quotidien`
+(documents qui expirent, purge). Protégées par `CRON_SECRET`.
 
 ### Arborescence
 
@@ -118,7 +135,7 @@ vacatio/
 cd vacatio
 npm install
 cp .env.example .env.local        # puis remplir les clés
-npm test                          # 34 tests (dont 25 sur la base réelle, sans Docker)
+npm test                          # 61 tests (dont 40 sur une vraie base PostgreSQL, sans Docker)
 npm run dev                       # http://localhost:3000
 ```
 
@@ -126,7 +143,7 @@ npm run dev                       # http://localhost:3000
 
 1. Créer un projet sur supabase.com, **région Europe West (Paris)**.
 2. `npx supabase login` puis `npx supabase link --project-ref <ref>`.
-3. `npm run db:push` (applique les 8 migrations).
+3. `npm run db:push` (applique les 9 migrations).
 4. Authentication → URL Configuration : *Site URL* = `NEXT_PUBLIC_APP_URL` ; *Redirect URLs* :
    `https://<domaine>/auth/confirm**` et `http://localhost:3000/auth/confirm**`.
 5. Authentication → Email Templates (liens compatibles serveur, sans PKCE) :
@@ -149,11 +166,24 @@ Développement 100 % local possible avec `npx supabase start` (nécessite Docker
 | `RESEND_API_KEY`, `EMAIL_FROM` | serveur | e-mails (vide = affichage console) |
 | `BREVO_API_KEY`, `SMS_SENDER` | serveur | SMS (vide = affichage console) |
 | `AGENT_EMAIL_DOMAIN` | serveur | domaine technique des comptes agents |
+| `CRON_SECRET` | serveur | protège les tâches planifiées |
 
 ### Déploiement Vercel
 
-Importer le dépôt, *Root Directory* = `vacatio`, renseigner les variables ci-dessus. La région
-des fonctions est fixée à Paris (`vercel.json`).
+1. vercel.com → *Add New… → Project* → importer le dépôt GitHub.
+2. *Root Directory* : `vacatio` (le framework Next.js est détecté).
+3. *Settings → Git → Production Branch* : la branche qui porte Vacatio (aujourd'hui
+   `claude/focused-faraday-gcx4ay`). Activer « Skip deployments when there are no changes to the
+   root directory » pour ne pas redéployer à chaque modification du portfolio.
+4. *Settings → Environment Variables* : toutes les variables ci-dessus + `CRON_SECRET`
+   (`openssl rand -hex 32`). `NEXT_PUBLIC_APP_URL` = l'URL Vercel (puis le domaine personnalisé).
+5. Supabase → Authentication → URL Configuration : ajouter `https://<projet>.vercel.app/auth/confirm**`.
+6. Domaine personnalisé : *Settings → Domains*, puis mettre à jour `NEXT_PUBLIC_APP_URL` et Supabase.
+
+**Tâches planifiées** : la tâche toutes les 5 minutes exige **Vercel Pro**. Sur l'offre gratuite
+(Hobby), une tâche plus fréquente qu'une fois par jour fait échouer le déploiement : retirer
+temporairement la ligne `/api/cron/frequent` de `vercel.json` (les alertes de non-pointage et les
+SMS de changement de planning ne partiront alors plus automatiquement).
 
 ---
 
@@ -178,9 +208,16 @@ Les tarifs sont indicatifs : à vérifier sur le site de chaque fournisseur avan
 
 - **Types générés** : `src/types/database.ts` n'existe pas encore (nécessite un projet Supabase lié :
   `npm run db:types`). Les requêtes de la phase 1 sont typées à la main.
-- **Pointage agent** : aucune insertion directe autorisée ; la RPC `clock_in/clock_out`
-  (vérification QR + distance) arrive en phase 2.
-- **Écrans « bientôt »** dans le menu : modules des phases 2 à 5 (affichés grisés, non cliquables).
+- **Règles de conformité à valider** (fichier `regles.ts`, mention « À VALIDER ») : nombre et durée
+  des coupures pour les temps partiels, plafond des heures complémentaires (1/10 légal par défaut,
+  la CCN peut aller au 1/3), plage des heures de nuit. Elles doivent être confirmées avec le texte
+  de la convention ou un expert-comptable avant de vendre.
+- **Géocodage** : adresse des sites et code postal des agents via la Base Adresse Nationale
+  (service public gratuit). Domicile = centre de la commune, pas l'adresse exacte (minimisation RGPD).
+- **NFC** : programmer une étiquette NFC avec le même lien que le QR code (indiqué sur l'affiche).
+  Le lecteur NFC du téléphone ouvre le lien ; aucune lecture NFC « native » n'est faite par l'appli.
+- **Stock et messages** côté agent : boutons grisés, livrés avec le module D (phase 4).
+- **Écrans « bientôt »** dans le menu : modules des phases 3 à 5.
 - **Pages légales** `/cgu` et `/confidentialite` : liées depuis l'inscription, rédigées en phase 5.
 - **Super-admin** : liste des entreprises seulement ; MRR, utilisation, connexion « en tant que » en phase 5.
 - **Jours fériés** : 2026-2027 en dur ; génération automatique annuelle en phase 4.

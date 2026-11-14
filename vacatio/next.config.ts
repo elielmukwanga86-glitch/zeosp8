@@ -12,6 +12,8 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  // Envoi de documents RH et de photos par les actions serveur (10 Mo + marge).
+  experimental: { serverActions: { bodySizeLimit: '11mb' } },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },

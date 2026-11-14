@@ -72,7 +72,7 @@ export async function requestAgentLinkByPhone(phone: string): Promise<void> {
     .select('id, org_id, user_id, first_name, last_name, phone, status, organization:organizations!inner(name, deleted_at)')
     .eq('phone', phone)
     .eq('status', 'active')
-    .is('organizations.deleted_at', null)
+    .is('organization.deleted_at', null)
     .limit(3);
   if (error) throw new Error(error.message);
   for (const row of data ?? []) {

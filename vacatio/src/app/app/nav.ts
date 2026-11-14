@@ -16,7 +16,7 @@ export interface NavItem {
   phase: number;
 }
 
-export const DELIVERED_PHASE = 1;
+export const DELIVERED_PHASE = 2;
 
 export const NAV: { title: string; items: NavItem[] }[] = [
   { title: 'Pilotage', items: [

@@ -20,20 +20,22 @@ returns public.app_role language sql stable security definer set search_path = '
    where m.org_id = p_org and m.user_id = auth.uid() and m.status = 'active';
 $$;
 
+-- Les fonctions booléennes renvoient toujours true/false (jamais null) : un « if not »
+-- sur null laisserait passer un contrôle dans le code PL/pgSQL.
 create or replace function app.is_member(p_org uuid)
 returns boolean language sql stable security definer set search_path = '' as $$
-  select app.org_role(p_org) is not null;
+  select coalesce(app.org_role(p_org) is not null, false);
 $$;
 
 create or replace function app.is_gerant(p_org uuid)
 returns boolean language sql stable security definer set search_path = '' as $$
-  select app.org_role(p_org) = 'gerant';
+  select coalesce(app.org_role(p_org) = 'gerant', false);
 $$;
 
 -- Gérant ou chef d'équipe.
 create or replace function app.is_staff(p_org uuid)
 returns boolean language sql stable security definer set search_path = '' as $$
-  select app.org_role(p_org) in ('gerant', 'chef_equipe');
+  select coalesce(app.org_role(p_org) in ('gerant', 'chef_equipe'), false);
 $$;
 
 -- Fiche agent liée à l'utilisateur courant dans l'entreprise.

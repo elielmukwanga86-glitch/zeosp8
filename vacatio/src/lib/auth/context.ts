@@ -27,7 +27,7 @@ export const getMemberships = cache(async (): Promise<MembershipWithOrg[]> => {
     .select('id, role, is_owner, organization:organizations!inner(id, name, slug, plan, subscription_status, trial_ends_at, is_demo, onboarding)')
     .eq('user_id', user.id)
     .eq('status', 'active')
-    .is('organizations.deleted_at', null)
+    .is('organization.deleted_at', null)
     .order('created_at');
   if (error) throw new Error(`Lecture des appartenances impossible : ${error.message}`);
   return (data ?? []).map((m) => ({
