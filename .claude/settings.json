@@ -4,9 +4,16 @@
       {
         "matcher": "Edit|Write|MultiEdit",
         "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/garde-fous.js\"" }
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/garde-fous.js\""
+          }
         ]
       }
     ]
+  },
+  "env": {
+    "DO_NOT_TRACK": "1",
+    "HYPERFRAMES_NO_TELEMETRY": "1"
   }
 }

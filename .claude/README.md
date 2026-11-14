@@ -53,3 +53,24 @@ Non repris : la fiche Codex (`agents/openai.yaml`) et les deux écrans d’exemp
 Règles générales d’ECC (TDD obligatoire, 80 % de couverture de tests : inadapté à un site statique),
 skills et agents propres à d’autres langages ou métiers, commandes en doublon avec celles déjà
 intégrées à Claude Code (`/code-review`, `/security-review`, mode plan), scanner AgentShield (`npx`).
+
+## Skills montage vidéo et motion design
+
+Copiés tels quels le 14 novembre 2026 depuis leurs dépôts GitHub (licences dans `licences-video/`) :
+
+| Source (commit) | Licence | Skills |
+|---|---|---|
+| https://github.com/remotion-dev/skills (`7e541aa`), officiel Remotion | licence Remotion (gratuite pour un particulier ou un étudiant, voir le skill `remotion-license`) | `remotion-best-practices` (point d’entrée), `remotion-create`, `remotion-markup`, `remotion-captions`, `remotion-render`, `remotion-studio`, `remotion-interactivity`, `remotion-multimedia`, `remotion-maps`, `remotion-saas`, `remotion-docs`, `remotion-upgrade`, `remotion-license` |
+| https://github.com/greensock/gsap-skills (`aed9cfd`), officiel GSAP | MIT | `gsap-core`, `gsap-timeline`, `gsap-scrolltrigger`, `gsap-plugins`, `gsap-utils`, `gsap-react`, `gsap-frameworks`, `gsap-performance` |
+| https://github.com/heygen-com/hyperframes (`2f0ade1`), vidéo en HTML | Apache 2.0 | `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`, `remotion-to-hyperframes`, `reverse-any-video`, `style-sampling`, `slideshow`, `figma` |
+| https://github.com/iart-ai/motion-design-skills (`b85e50c`) | MIT | `animation-principles`, `motion-art-direction`, `shot-composition`, `color-motion`, `logo-animation`, `motion-background`, `beat-sync-editing`, `remotion-video`, `after-effects` |
+| https://github.com/haidrrrry/claude-remotion-skill (`1dcbe5e`) | MIT | `remotion-motion-graphics` |
+| https://github.com/digitalsamba/claude-code-video-toolkit (`9b0c90d`) | MIT | `ffmpeg`, `moviepy`, `playwright-recording` |
+
+Écartés : les skills du video-toolkit qui exigent ses scripts `tools/` ou une API payante
+(Blender, ElevenLabs, RunPod, LTX-2, Ideogram…), les doublons Remotion non officiels.
+
+**Télémétrie HyperFrames** : ces skills demandent d’envoyer un « usage beacon » et des retours
+(`npx hyperframes events`, `feedback`). `settings.json` définit `DO_NOT_TRACK=1` et
+`HYPERFRAMES_NO_TELEMETRY=1` : ne pas lancer ces commandes de télémétrie ni se connecter à un
+compte HeyGen sans l’accord de l’étudiant. Outils nécessaires selon le skill : Node 20+, ffmpeg, Python (moviepy).
