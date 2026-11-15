@@ -28,3 +28,4 @@ jobs:
         with:
           name: rapports-lighthouse
           path: .lighthouseci
+          include-hidden-files: true

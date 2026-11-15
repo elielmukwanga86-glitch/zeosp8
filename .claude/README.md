@@ -100,8 +100,8 @@ par défaut : `pip install playwright`, puis lancer Chromium avec `executable_pa
   directement pour vérifier le site.
 - `.github/workflows/lighthouse.yml` + `lighthouserc.json` : audit **Lighthouse CI** (https://github.com/GoogleChrome/lighthouse-ci)
   des quatre pages à chaque push qui modifie `docs/`. Contrôle séparé : il ne bloque jamais la publication.
-  Seuils visés : accessibilité 0,95, référencement 0,9, bonnes pratiques 0,9, performance 0,85, pour l’instant en
-  avertissement ; une fois les premiers scores connus, passer accessibilité et référencement en `"error"`.
+  Seuils : accessibilité 0,95 et référencement 0,9 (bloquants : le contrôle échoue en dessous),
+  bonnes pratiques 0,9 et performance 0,85 (simple avertissement). Le premier audit (15/11/2026) passait tous les seuils.
   Rapports HTML dans les artefacts du run (dossier local `.lighthouseci/`, ignoré par git).
 
 ## Écarté volontairement
