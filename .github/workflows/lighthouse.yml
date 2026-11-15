@@ -1,0 +1,30 @@
+# Audit Lighthouse (performance, accessibilité, bonnes pratiques, référencement) du site généré.
+# Ne bloque pas la publication : c'est un contrôle séparé de deploy-pages.yml.
+# Seuils dans lighthouserc.json ; le rapport HTML est téléchargeable dans les artefacts du run.
+name: Audit Lighthouse
+
+on:
+  push:
+    paths: ["docs/**", "lighthouserc.json", ".github/workflows/lighthouse.yml"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Lighthouse CI
+        run: npx -y @lhci/cli@0.15.1 autorun
+      - name: Rapports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapports-lighthouse
+          path: .lighthouseci

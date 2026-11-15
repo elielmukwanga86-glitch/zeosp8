@@ -1,7 +1,7 @@
 # Configuration Claude Code du portfolio
 
-Deux sources, toutes deux sous licence MIT : **ECC** (ci-dessous) et **agent-skills** d’Addy Osmani
-(section dédiée plus bas).
+Sources : **ECC** (ci-dessous), **agent-skills** d’Addy Osmani, les agents de **VoltAgent** (MIT)
+et la skill `webapp-testing` d’**Anthropic** (Apache 2.0), chacune dans sa section plus bas.
 
 Éléments repris d’**ECC** (https://github.com/affaan-m/ECC, licence MIT, voir `LICENSE-ECC`),
 commit `b38be6a` du 29 octobre 2026. Seul ce qui sert au portfolio (site statique, dossiers PDF)
@@ -76,8 +76,36 @@ d’ECC ou des commandes intégrées `/code-review`, `/simplify`, `/security-rev
 (`session-start`, cache SDD), `/ship` (dépend des agents non repris) et la configuration des autres outils
 (Gemini, Codex, Cursor…).
 
+## Agents VoltAgent (Windows Server, PowerShell, relecture)
+
+Repris de https://github.com/VoltAgent/awesome-claude-code-subagents (licence MIT, voir `LICENSE-VoltAgent`),
+commit `ed74d11`. Fichiers copiés tels quels dans `agents/`. Ils complètent ECC, qui ne couvre ni Windows Server ni PowerShell.
+
+- SISR : `windows-infra-admin` (Active Directory, DNS, DHCP, GPO), `ad-security-reviewer` (audit de sécurité AD et GPO),
+  `powershell-5.1-expert`, `powershell-7-expert`, `powershell-security-hardening`, `network-engineer`, `it-ops-orchestrator`
+- Site : `accessibility-tester` (WCAG), `ai-writing-auditor` (repère les tournures « écrites par une IA » ;
+  il réécrit sans rien ajouter, et les règles de contenu de `CLAUDE.md` s’appliquent)
+
+## Skill `webapp-testing` (Anthropic)
+
+Reprise de https://github.com/anthropics/skills (licence Apache 2.0, `skills/webapp-testing/LICENSE.txt`), commit `1780c5e`.
+Scripts Playwright en **Python** pour tester les pages et faire des captures. Le module Python n’est pas installé
+par défaut : `pip install playwright`, puis lancer Chromium avec `executable_path='/opt/pw-browsers/chromium-1243/chrome-linux64/chrome'`
+(ne pas lancer `playwright install`). Le Playwright Node déjà présent reste la solution la plus simple pour les captures du site.
+
+## Hors de `.claude/`
+
+- `.mcp.json` : serveur MCP **Playwright** (https://github.com/microsoft/playwright-mcp, Apache 2.0), sans affichage
+  et sans profil persistant ; Claude Code demande l’autorisation au premier lancement. Il permet de piloter le navigateur
+  directement pour vérifier le site.
+- `.github/workflows/lighthouse.yml` + `lighthouserc.json` : audit **Lighthouse CI** (https://github.com/GoogleChrome/lighthouse-ci)
+  des quatre pages à chaque push qui modifie `docs/`. Contrôle séparé : il ne bloque jamais la publication.
+  Seuils visés : accessibilité 0,95, référencement 0,9, bonnes pratiques 0,9, performance 0,85, pour l’instant en
+  avertissement ; une fois les premiers scores connus, passer accessibilité et référencement en `"error"`.
+  Rapports HTML dans les artefacts du run (dossier local `.lighthouseci/`, ignoré par git).
+
 ## Écarté volontairement
 
 Règles générales d’ECC (TDD obligatoire, 80 % de couverture de tests : inadapté à un site statique),
-skills et agents propres à d’autres langages ou métiers, commandes en doublon avec celles déjà
+skills et agents propres à d’autres langages ou métiers, `doc-coauthoring` d’Anthropic (pas de fichier de licence dans son dossier), commandes en doublon avec celles déjà
 intégrées à Claude Code (`/code-review`, `/security-review`, mode plan), scanner AgentShield (`npx`).

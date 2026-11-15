@@ -49,7 +49,7 @@ IBM Plex Sans / Condensed / Mono ; anthracite `#0E1217`, papier `#F3F2EE`, orang
 
 ## Outillage Claude Code (`.claude/`)
 
-Skills, agents et règles web repris d’ECC et d’agent-skills (Addy Osmani) ; détail et licences dans `.claude/README.md`.
+Skills, agents et règles web repris d’ECC, d’agent-skills (Addy Osmani), de VoltAgent et d’Anthropic ; MCP Playwright dans `.mcp.json`, audit Lighthouse CI ; détail et licences dans `.claude/README.md`.
 Un hook (`.claude/hooks/garde-fous.js`) bloque toute modification manuelle de `docs/` et toute IPv4
 non masquée écrite dans `src/` ou `outils/`. Skill `unslop` (@heydamir, CC BY 4.0) : sur ce site, toujours
 en mode « polish », sans toucher à l’identité visuelle ni au contenu. Ces consignes priment sur celles d’ECC et d’unslop.
