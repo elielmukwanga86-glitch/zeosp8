@@ -1,5 +1,8 @@
 # Configuration Claude Code du portfolio
 
+Deux sources, toutes deux sous licence MIT : **ECC** (ci-dessous) et **agent-skills** d’Addy Osmani
+(section dédiée plus bas).
+
 Éléments repris d’**ECC** (https://github.com/affaan-m/ECC, licence MIT, voir `LICENSE-ECC`),
 commit `b38be6a` du 29 octobre 2026. Seul ce qui sert au portfolio (site statique, dossiers PDF)
 ou à l’option SISR a été gardé ; les fichiers sont copiés tels quels, sauf les renvois vers des
@@ -20,6 +23,7 @@ Les hooks d’ECC eux-mêmes n’ont pas été repris : ils dépendent de tout l
 |---|---|
 | Site web | `accessibility`, `frontend-a11y`, `seo`, `design-system`, `make-interfaces-feel-better`, `browser-qa`, `click-path-audit` |
 | Qualité, sécurité, git | `verification-loop`, `web-security-review`, `coding-standards`, `search-first`, `git-workflow` |
+| Présentation | `frontend-slides` (diaporama HTML, utile pour préparer les oraux E4 / E5 ; export PDF par `scripts/export-pdf.sh`) |
 | Réseau / SISR | `cisco-ios-patterns`, `network-config-validation`, `network-interface-health`, `network-bgp-diagnostics`, `netmiko-ssh-automation`, `homelab-network-setup`, `homelab-network-readiness`, `homelab-vlan-segmentation`, `homelab-wireguard-vpn`, `homelab-pihole-dns` |
 
 ## Agents (`agents/`)
@@ -47,6 +51,30 @@ et mise en page) et ne jamais inventer de contenu. Les fichiers de travail (`uns
 `unslop-story/`, vidéo) sont ignorés par `.gitignore`. Les scripts (`scripts/snapshot.mjs`,
 `scripts/story.mjs`) utilisent Playwright, et ffmpeg pour la vidéo.
 Non repris : la fiche Codex (`agents/openai.yaml`) et les deux écrans d’exemple.
+
+## agent-skills (Addy Osmani)
+
+Repris de https://github.com/addyosmani/agent-skills (licence MIT, voir `LICENSE-agent-skills`),
+commit `39b723c` (version 0.6.16). Fichiers copiés tels quels.
+
+| Usage | Éléments |
+|---|---|
+| Site et génération | skills `frontend-ui-engineering`, `performance-optimization`, `debugging-and-error-recovery`, `incremental-implementation` ; agent `web-performance-auditor` ; commande `/webperf` (audit de performance, Lighthouse possible avec le Chromium installé) |
+| Publication | `shipping-and-launch` (liste avant mise en ligne), `ci-cd-and-automation` (workflow GitHub Pages) |
+| Documentation | `documentation-and-adrs` (trace des choix, documentation qui ne suit plus le code), `source-driven-development` (vérifier dans la documentation officielle avant d’écrire, utile aussi pour les procédures SISR), `context-engineering` (tenir `CLAUDE.md` à jour) |
+| Échanges | `interview-me` : questions une par une quand une demande ou une documentation est floue (au lieu de deviner, ce qui respecte « ne rien inventer ») |
+
+Listes de contrôle dans `references/` (accessibilité, performance, sécurité, définition de « terminé »),
+appelées par ces skills avec des chemins relatifs.
+
+Non repris : TDD, conception d’API, observabilité, migrations (sans objet pour un site statique) ;
+`code-review-and-quality`, `code-simplification`, `planning-and-task-breakdown`, `git-workflow-and-versioning`,
+`security-and-hardening` et les agents `code-reviewer`, `security-auditor`, `test-engineer` (doublons
+d’ECC ou des commandes intégrées `/code-review`, `/simplify`, `/security-review`) ; `browser-testing-with-devtools`
+(exige le MCP Chrome DevTools, on utilise Playwright via `browser-qa`) ; `idea-refine`, `spec-driven-development`,
+`doubt-driven-development`, `constraint-driven-development`, la méta-skill `using-agent-skills`, les hooks
+(`session-start`, cache SDD), `/ship` (dépend des agents non repris) et la configuration des autres outils
+(Gemini, Codex, Cursor…).
 
 ## Écarté volontairement
 
