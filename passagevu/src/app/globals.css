@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/* Identité PassageVu : sobre, très lisible en extérieur, gros contrastes. */
+@theme {
+  --color-encre: #12201c;
+  --color-papier: #f6f5f1;
+  --color-carte: #ffffff;
+  --color-trait: #d9d6cc;
+  --color-sourd: #5b6661;
+  --color-marque: #0f6b55;
+  --color-marque-fonce: #0a4d3d;
+  --color-marque-clair: #e3f1ec;
+  --color-alerte: #b42318;
+  --color-alerte-clair: #fdecea;
+  --color-attention: #9a5b00;
+  --color-attention-clair: #fff4e0;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-papier);
+  color: var(--color-encre);
+  font-family: var(--font-sans);
+}
+
+/* Pas de flash gris au toucher sur mobile ; focus clavier bien visible. */
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+:focus-visible {
+  outline: 3px solid var(--color-marque);
+  outline-offset: 2px;
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
