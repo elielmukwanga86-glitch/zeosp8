@@ -14,6 +14,7 @@
  *   { lettre: ['paragraphe', …] }
  *   { tags: ['…'] }
  *   { referentiel: true }                   BTS competencies of the project (from referentiel.js)
+ *   { missions: [[n, 'intitulé', 'fait'|'cours'|'avenir', 'note?'], …] }   progress of a multi-mission project
  */
 const { esc, inline, text } = require('../lib/html');
 
@@ -79,6 +80,16 @@ ${t.lignes.map((row) => `                  <tr>${row.map((v, i) => cell(v, i, i 
   if (b.chiffres) return chiffres(b.chiffres === 'projet' ? ctx.projet.chiffres : b.chiffres);
   if (b.lettre) return `<div class="letter">\n${b.lettre.map((p) => `              <p>${inline(p)}</p>`).join('\n')}\n            </div>`;
   if (b.tags) return `<ul class="tags">${b.tags.map((t) => `<li class="tag">${text(t)}</li>`).join('')}</ul>`;
+  if (b.missions) {
+    const ETAT = { fait: 'Réalisée', cours: 'En cours', avenir: 'À venir' };
+    const n = (e) => b.missions.filter((m) => m[2] === e).length;
+    return `<div class="missions">
+              <p class="missions__sum label"><span class="missions__k missions__k--fait">${n('fait')} réalisée${n('fait') > 1 ? 's' : ''}</span><span class="missions__k missions__k--cours">${n('cours')} en cours</span><span class="missions__k">${n('avenir')} à venir</span></p>
+              <ol class="missions__list">
+${b.missions.map(([num, t, e, note]) => `                <li class="mission mission--${e}"><span class="mission__n mono">${String(num).padStart(2, '0')}</span><span class="mission__t">${inline(t)}${note ? `<small>${inline(note)}</small>` : ''}</span><span class="mission__e label">${ETAT[e]}</span></li>`).join('\n')}
+              </ol>
+            </div>`;
+  }
   if (b.referentiel) {
     const comps = ctx.referentiel.flatMap((bloc) => bloc.competences.map((c) => ({ ...c, bloc: bloc.titre })))
       .filter((c) => (ctx.projet.competencesBts || []).includes(c.id));

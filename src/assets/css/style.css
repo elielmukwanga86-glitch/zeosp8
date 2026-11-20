@@ -719,3 +719,23 @@ html:has(.lightbox[open]) { overflow: hidden; }
 .synth__detail li { font-size: 14px; color: var(--t-2); padding-left: 14px; position: relative; margin-top: 4px; }
 .synth__detail li::before { content: "▸"; position: absolute; left: 0; color: var(--acc-ink); }
 @media print { .synth__detail[open] dl, .synth__detail dl { display: grid !important; } }
+
+/* ---------- Missions tracker (multi-mission projects) ---------- */
+.missions { margin-top: 20px; }
+.missions__sum { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--t-mut); margin-bottom: 12px; }
+.missions__k::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border: 1px solid var(--t-mut); border-radius: 50%; vertical-align: 1px; }
+.missions__k--fait::before { background: var(--ok-ink); border-color: var(--ok-ink); }
+.missions__k--cours::before { background: var(--acc); border-color: var(--acc); }
+.missions__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-strong); display: grid; }
+.mission { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.mission__n { font-size: 13px; font-weight: 600; color: var(--t-mut); }
+.mission__t { color: var(--t-2); font-size: 15px; line-height: 1.4; }
+.mission__t small { display: block; margin-top: 2px; font-size: 13px; color: var(--t-mut); }
+.mission__e { color: var(--t-mut); white-space: nowrap; }
+.mission--fait .mission__n, .mission--fait .mission__e { color: var(--ok-ink); }
+.mission--fait .mission__t, .mission--cours .mission__t { color: var(--t); font-weight: 600; }
+.mission--cours .mission__n, .mission--cours .mission__e { color: var(--acc-ink); }
+.mission--avenir { opacity: .72; }
+@media (min-width: 900px) {
+  .missions__list { grid-template-columns: 1fr 1fr; column-gap: 32px; }
+}

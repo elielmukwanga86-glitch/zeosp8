@@ -2,7 +2,7 @@
 /** Réalisation : supervision Zabbix à la mairie des Clayes-sous-Bois (stage, juillet–août 2026). */
 module.exports = {
   slug: 'projet-mairie',
-  ordre: 1,
+  ordre: 2,
   page: true,
 
   nom: 'Projet Mairie',

@@ -23,10 +23,13 @@ module.exports = {
     promotion: '2025–2027',
   },
 
+  // Affiché dans le bandeau de l’accueil (laisser vide pour afficher le statut).
+  projetAnnuel: 'StadiumCompany · mission 2 validée',
+
   statut: { court: 'En formation initiale', detail: 'Ouvert à une proposition de stage' },
 
-  accroche: 'Systèmes, réseaux et supervision.',
-  intro: 'Étudiant en deuxième année de BTS SIO option SISR à ENSITECH (Montigny-le-Bretonneux). Ce portfolio regroupe mes réalisations en stage et en formation, mon parcours et mon tableau de synthèse.',
+  accroche: 'Systèmes, réseaux, annuaire et supervision.',
+  intro: 'Étudiant en deuxième année de BTS SIO option SISR à ENSITECH (Montigny-le-Bretonneux). Ce portfolio regroupe mes réalisations en stage et en formation, dont mon projet annuel StadiumCompany, mon parcours et mon tableau de synthèse.',
   description: 'Portfolio d’Eliel Mukwanga, en 2e année de BTS SIO option SISR à ENSITECH : réalisations, stages, compétences et tableau de synthèse.',
 
   contact: {
@@ -41,7 +44,7 @@ module.exports = {
     phrase: 'Je suis Eliel Mukwanga. Ce qui m’intéresse : déployer, superviser et **documenter** des infrastructures réseau.',
     paragraphes: [
       'Actuellement en **deuxième année de BTS SIO option SISR** à l’école ENSITECH, à Montigny-le-Bretonneux, je suis passionné par l’informatique, les innovations technologiques et les infrastructures réseau.',
-      'Mes stages et mes projets m’ont permis d’acquérir des compétences en administration des systèmes et des réseaux, en support informatique, en virtualisation et en supervision avec Zabbix.',
+      'Mes stages et mes projets m’ont permis d’acquérir des compétences en administration des systèmes et des réseaux, en support informatique, en virtualisation et en supervision avec Zabbix. Cette année, mon projet annuel StadiumCompany m’a fait déployer une infrastructure Windows Server complète : Active Directory sur deux contrôleurs, DNS, DHCP redondant, GPO et pare-feu pfSense.',
       'Rigoureux, autonome et curieux, je souhaite contribuer au bon fonctionnement et à l’évolution d’une infrastructure informatique.',
     ],
     fiche: [
@@ -59,6 +62,11 @@ module.exports = {
       titre: 'BTS SIO option SISR — 2e année',
       lieu: 'ENSITECH, Montigny-le-Bretonneux',
       description: 'Services informatiques aux organisations, option Solutions d’infrastructure, systèmes et réseaux.',
+      missions: [
+        'Projet annuel StadiumCompany (épreuve E5) : 14 missions de septembre à mai, menées seul.',
+        'Mission 2 réalisée : Active Directory sur deux contrôleurs, DNS, DHCP en basculement, partages et GPO, 11 tests validés.',
+      ],
+      projet: 'stadiumcompany',
     },
     {
       periode: 'juil. – août 2026', type: 'stage',
@@ -98,11 +106,16 @@ module.exports = {
       domaine: 'Systèmes',
       items: [
         { nom: 'Windows 10 / 11', contextes: ['support-postes'] },
-        { nom: 'Windows Server' },
+        { nom: 'Windows Server 2022', contextes: ['stadiumcompany'] },
+        { nom: 'Windows 11 Entreprise', contextes: ['stadiumcompany'] },
         { nom: 'Debian 13', contextes: ['projet-mairie'] },
         { nom: 'Linux (Ubuntu)' },
-        { nom: 'Active Directory', contextes: ['projet-mairie'] },
+        { nom: 'Active Directory', contextes: ['projet-mairie', 'stadiumcompany'] },
+        { nom: 'GPO', contextes: ['stadiumcompany'] },
+        { nom: 'Partages et droits NTFS (AGDLP)', contextes: ['stadiumcompany'] },
+        { nom: 'PowerShell', contextes: ['stadiumcompany'] },
         { nom: 'VMware ESXi', contextes: ['projet-mairie'] },
+        { nom: 'VMware Workstation', contextes: ['stadiumcompany'] },
         { nom: 'VirtualBox' },
       ],
     },
@@ -111,12 +124,14 @@ module.exports = {
       items: [
         { nom: 'TCP/IP', contextes: ['cisco-packet-tracer', 'projet-cloison'] },
         { nom: 'LAN / WAN', contextes: ['cisco-packet-tracer'] },
-        { nom: 'VLAN', contextes: ['projet-mairie', 'projet-cloison'] },
-        { nom: 'Adressage IPv4', contextes: ['cisco-packet-tracer', 'projet-cloison', 'projet-mairie'] },
+        { nom: 'VLAN', contextes: ['projet-mairie', 'projet-cloison', 'stadiumcompany'] },
+        { nom: 'Adressage IPv4 · VLSM', contextes: ['cisco-packet-tracer', 'projet-cloison', 'projet-mairie', 'stadiumcompany'] },
         { nom: 'Routage statique', contextes: ['cisco-packet-tracer'] },
         { nom: 'RIP', contextes: ['cisco-packet-tracer'] },
         { nom: 'Switching', contextes: ['cisco-packet-tracer'] },
-        { nom: 'DHCP', contextes: ['projet-cloison'] },
+        { nom: 'DHCP (relais, basculement)', contextes: ['projet-cloison', 'stadiumcompany'] },
+        { nom: 'DNS', contextes: ['stadiumcompany'] },
+        { nom: 'pfSense', contextes: ['stadiumcompany'] },
         { nom: 'Wi-Fi', contextes: ['projet-cloison'] },
         { nom: 'SNMP', contextes: ['projet-mairie'] },
         { nom: 'SSH', contextes: ['projet-mairie'] },
@@ -149,7 +164,8 @@ module.exports = {
         { nom: 'Audit réseau en ligne de commande', contextes: ['projet-cloison'] },
         { nom: 'Devis', contextes: ['projet-cloison'] },
         { nom: 'Compte rendu client', contextes: ['projet-cloison'] },
-        { nom: 'Documentation technique', contextes: ['projet-mairie', 'projet-cloison'] },
+        { nom: 'Plan de tests et recette', contextes: ['stadiumcompany'] },
+        { nom: 'Documentation technique', contextes: ['projet-mairie', 'projet-cloison', 'stadiumcompany'] },
       ],
     },
     {

@@ -15,7 +15,7 @@ function hero(site, projets) {
     ['Formation', `${site.formation.diplome} ${site.formation.option} · ${site.formation.ecole}`],
     ['Stages', lieux.length === 1 ? `${lieux[0]} (${stages.length})` : `${stages.length} stages`],
     ['Dossiers', docs.length ? `${docs.length} PDF · ${pages} pages` : 'À venir'],
-    ['Statut', site.statut.court],
+    site.projetAnnuel ? ['Projet annuel', site.projetAnnuel] : ['Statut', site.statut.court],
   ];
   return `    <section class="hero" id="top" aria-labelledby="hero-title">
       <canvas class="hero__canvas" aria-hidden="true"></canvas>

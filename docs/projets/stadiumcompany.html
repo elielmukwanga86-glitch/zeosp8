@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Annuaire, DNS et DHCP redondants pour StadiumCompany · Eliel Mukwanga</title>
+  <meta name="description" content="Étude de cas : projet annuel StadiumCompany (BTS SIO SISR) — pfSense, Active Directory sur deux contrôleurs, DNS, DHCP en basculement, partages AGDLP et GPO, 11 tests validés.">
+  <meta name="theme-color" content="#0E1217">
+  <meta name="author" content="Eliel Mukwanga">
+  <link rel="canonical" href="https://elielmukwanga86-glitch.github.io/zeosp8/projets/stadiumcompany.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Annuaire, DNS et DHCP redondants pour StadiumCompany · Eliel Mukwanga">
+  <meta property="og:description" content="Étude de cas : projet annuel StadiumCompany (BTS SIO SISR) — pfSense, Active Directory sur deux contrôleurs, DNS, DHCP en basculement, partages AGDLP et GPO, 11 tests validés.">
+  <meta property="og:image" content="https://elielmukwanga86-glitch.github.io/zeosp8/assets/img/og.jpg">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Portfolio · Eliel Mukwanga">
+  <meta property="og:url" content="https://elielmukwanga86-glitch.github.io/zeosp8/projets/stadiumcompany.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script>document.documentElement.classList.add('js')</script>
+  
+</head>
+<body class="page-projet">
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html" aria-label="Eliel Mukwanga, accueil du portfolio">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1C222B"/><path d="M9 22 16 10 23 22" stroke="#848E99" stroke-width="1.6" fill="none"/><circle cx="16" cy="10" r="3.2" fill="#E8572A"/><circle cx="9" cy="22" r="2.2" fill="#E8EBEE"/><circle cx="23" cy="22" r="2.2" fill="#E8EBEE"/></svg>
+        <span class="brand__name">Eliel Mukwanga <span class="brand__meta label">BTS SIO SISR</span></span>
+      </a>
+      <nav class="nav" aria-label="Navigation principale">
+        <ul>
+          <li><a href="../index.html#realisations" aria-current="page">Réalisations</a></li>
+          <li><a href="../index.html#parcours">Parcours</a></li>
+          <li><a href="../index.html#competences">Compétences</a></li>
+          <li><a href="../synthese.html">Synthèse</a></li>
+          <li><a href="../index.html#a-propos">À propos</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu <span class="menu-btn__icon" aria-hidden="true"></span></button>
+    </div>
+    <div class="progress" aria-hidden="true"></div>
+  </header>
+
+  <div class="menu" id="menu">
+    <nav aria-label="Navigation mobile">
+      <ul>
+        <li><a href="../index.html#realisations">Réalisations</a></li>
+        <li><a href="../index.html#parcours">Parcours</a></li>
+        <li><a href="../index.html#competences">Compétences</a></li>
+        <li><a href="../synthese.html">Synthèse</a></li>
+        <li><a href="../index.html#a-propos">À propos</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="menu__foot">
+      <span class="label">BTS SIO option SISR · ENSITECH</span>
+      <a class="menu__mail" href="mailto:elielmukwanga86@gmail.com">elielmukwanga86@gmail.com</a>
+    </div>
+  </div>
+
+  <main id="contenu">
+    <section class="case-hero dark" aria-labelledby="case-title">
+      <div class="wrap case-hero__grid">
+        <a class="case-hero__back label" href="../index.html#realisations"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3M7 4 3 8l4 4"/></svg>Toutes les réalisations</a>
+        <p class="case-hero__meta label"><span>01 · Projet StadiumCompany</span><span>En formation · Projet annuel (épreuve E5)</span><span>ENSITECH</span><span>octobre – novembre 2026</span></p>
+        <h1 class="case-hero__title display" id="case-title" data-lines><span class="mask"><span>Annuaire, DNS et DHCP redondants pour StadiumCompany</span></span></h1>
+        <p class="case-hero__text">StadiumCompany est une organisation fictive qui exploite un stade, une billetterie et un magasin. Ce projet annuel suit 14 missions, de septembre à mai. Pour la mission 2, j’ai construit seul, à partir de zéro, l’infrastructure Windows de l’entreprise dans un laboratoire VMware : routage et filtrage avec pfSense, annuaire Active Directory sur deux serveurs, DNS, DHCP redondant, partages et stratégies de groupe. J’ai ensuite validé le tout avec onze scénarios de test.</p>
+        
+        <dl class="spec">
+          <div><dt class="label">Domaine</dt><dd>stadiumcompany.com</dd></div>
+          <div><dt class="label">Serveurs</dt><dd>Windows Server 2022</dd></div>
+          <div><dt class="label">Pare-feu</dt><dd>pfSense CE 2.9</dd></div>
+          <div><dt class="label">Tests</dt><dd>11 sur 11 validés</dd></div>
+        </dl>
+      </div>
+      <div class="case-hero__visual"><img src="../assets/img/stadium-visuel.webp" width="1600" height="1000" alt="Illustration : pfSense au centre relie le WAN et les VLAN Serveurs, Admin et Équipes ; SRV-DC01 et SRV-DC02 sont reliés par la réplication et le basculement."></div>
+    </section>
+
+    <section class="section paper">
+      <div class="wrap case">
+        <nav class="toc" aria-label="Sommaire de l’étude de cas">
+          <p class="label toc__label">Sommaire</p>
+          <ol>
+            <li><a href="#contexte"><span class="mono">01</span>Contexte</a></li>
+            <li><a href="#adressage"><span class="mono">02</span>Plan d’adressage</a></li>
+            <li><a href="#architecture"><span class="mono">03</span>Architecture</a></li>
+            <li><a href="#deploiement"><span class="mono">04</span>Déploiement</a></li>
+            <li><a href="#annuaire"><span class="mono">05</span>Annuaire et droits</a></li>
+            <li><a href="#tests"><span class="mono">06</span>Tests</a></li>
+            <li><a href="#difficultes"><span class="mono">07</span>Difficultés</a></li>
+            <li><a href="#limites"><span class="mono">08</span>Limites</a></li>
+            <li><a href="#competences"><span class="mono">09</span>Compétences</a></li>
+          </ol>
+        </nav>
+        <div class="prose">
+          <section id="contexte" aria-labelledby="contexte-titre">
+            <h2 id="contexte-titre" data-reveal><span class="label">01 — Contexte</span>Un projet fil rouge sur toute l’année</h2>
+            <p>StadiumCompany exploite trois sites : le stade, la billetterie et le magasin. Le cahier des charges de l’école découpe le projet en <strong>14 missions progressives</strong>, qui servent de réalisations pour l’épreuve E5. Je le mène <strong>seul</strong>, et je suis reparti de zéro en octobre avec un nouveau plan d’adressage.</p>
+            <p>La mission 2 demande de déployer les services d’infrastructure : annuaire Active Directory pour le domaine <code>stadiumcompany.com</code>, DNS primaire et secondaire, DHCP par VLAN, structure de l’annuaire, partages, profils et GPO, puis de tout tester.</p>
+            <h3>Avancement du projet</h3>
+            <div class="missions">
+              <p class="missions__sum label"><span class="missions__k missions__k--fait">1 réalisée</span><span class="missions__k missions__k--cours">1 en cours</span><span class="missions__k">12 à venir</span></p>
+              <ol class="missions__list">
+                <li class="mission mission--cours"><span class="mission__n mono">01</span><span class="mission__t">Restructuration de l’infrastructure réseau<small>Plan VLSM conçu, maquette Packet Tracer en cours</small></span><span class="mission__e label">En cours</span></li>
+                <li class="mission mission--fait"><span class="mission__n mono">02</span><span class="mission__t">Services d’infrastructure (AD, DNS, DHCP, GPO)<small>11 tests sur 11 validés</small></span><span class="mission__e label">Réalisée</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">03</span><span class="mission__t">Administration à distance et VPN entre sites</span><span class="mission__e label">À venir</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">04</span><span class="mission__t">Redondance et tolérance de panne</span><span class="mission__e label">À venir</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">05</span><span class="mission__t">Accès Internet sécurisé et DMZ</span><span class="mission__e label">À venir</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">06</span><span class="mission__t">Wi‑Fi employés et visiteurs</span><span class="mission__e label">À venir</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">07</span><span class="mission__t">Gestion de parc et helpdesk (GLPI)</span><span class="mission__e label">À venir</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">08</span><span class="mission__t">Supervision open source</span><span class="mission__e label">À venir</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">09</span><span class="mission__t">Supervision et annuaire LDAP</span><span class="mission__e label">À venir</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">10</span><span class="mission__t">SIEM et détection des incidents</span><span class="mission__e label">À venir</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">11</span><span class="mission__t">Sauvegarde et restauration (Bacula)</span><span class="mission__e label">À venir</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">12</span><span class="mission__t">Site Web de l’entreprise</span><span class="mission__e label">À venir</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">13</span><span class="mission__t">Référencement du site</span><span class="mission__e label">À venir</span></li>
+                <li class="mission mission--avenir"><span class="mission__n mono">14</span><span class="mission__t">Veille et projet professionnel</span><span class="mission__e label">À venir</span></li>
+              </ol>
+            </div>
+          </section>
+
+          <section id="adressage" aria-labelledby="adressage-titre">
+            <h2 id="adressage-titre" data-reveal><span class="label">02 — Plan d’adressage</span>Un /22 découpé au plus juste</h2>
+            <p>Le cahier des charges impose la plage <code>172.20.0.0/22</code> et la méthode VLSM. Comme il ne donne pas les effectifs, j’ai fixé des hypothèses par service, puis attribué les sous-réseaux du plus grand au plus petit. Il reste 172 adresses libres pour la suite (la future DMZ ira en <code>172.20.3.128/25</code>).</p>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="VLAN, Service, Réseau, Passerelle, Hôtes">
+              <table class="table">
+                <thead><tr><th scope="col">VLAN</th><th scope="col">Service</th><th scope="col">Réseau</th><th scope="col">Passerelle</th><th scope="col" class="r">Hôtes</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">30</th><td>Wi‑Fi</td><td class="mono">172.20.0.0/24</td><td class="mono">172.20.0.1</td><td class="r">254</td></tr>
+                  <tr><th scope="row">20</th><td>Équipes</td><td class="mono">172.20.1.0/25</td><td class="mono">172.20.1.1</td><td class="r">126</td></tr>
+                  <tr><th scope="row">40</th><td>Caméras</td><td class="mono">172.20.1.128/25</td><td class="mono">172.20.1.129</td><td class="r">126</td></tr>
+                  <tr><th scope="row">10</th><td>Administration</td><td class="mono">172.20.2.0/26</td><td class="mono">172.20.2.1</td><td class="r">62</td></tr>
+                  <tr><th scope="row">50</th><td>VIP / Presse</td><td class="mono">172.20.2.64/26</td><td class="mono">172.20.2.65</td><td class="r">62</td></tr>
+                  <tr><th scope="row">80</th><td>Serveurs</td><td class="mono">172.20.2.128/27</td><td class="mono">172.20.2.129</td><td class="r">30</td></tr>
+                  <tr><th scope="row">70</th><td>Restaurant</td><td class="mono">172.20.2.160/27</td><td class="mono">172.20.2.161</td><td class="r">30</td></tr>
+                  <tr><th scope="row">60</th><td>Fournisseurs</td><td class="mono">172.20.2.192/27</td><td class="mono">172.20.2.193</td><td class="r">30</td></tr>
+                  <tr><th scope="row">110</th><td>Billetterie</td><td class="mono">172.20.2.224/27</td><td class="mono">172.20.2.225</td><td class="r">30</td></tr>
+                  <tr><th scope="row">120</th><td>Magasin</td><td class="mono">172.20.3.0/27</td><td class="mono">172.20.3.1</td><td class="r">30</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Les petits réseaux (gestion des équipements en /28 et /29, liaisons entre sites en /30) complètent le plan. Les adresses .2 et .3 de chaque VLAN du stade sont réservées pour la redondance de passerelle de la mission 4.</p>
+          </section>
+
+          <section id="architecture" aria-labelledby="architecture-titre">
+            <h2 id="architecture-titre" data-reveal><span class="label">03 — Architecture</span>Le laboratoire sous VMware</h2>
+            <p>Toutes les machines tournent sur ma tour, dans VMware Workstation. Chaque VLAN est simulé par un <strong>segment LAN</strong> isolé. pfSense joue le rôle du routeur : il relie les segments, filtre les flux et relaie les demandes DHCP vers les deux serveurs.</p>
+            <figure class="figure" data-reveal>
+              <button class="figure__btn" type="button" data-caption="Figure 1 — Architecture du laboratoire de la mission 2" aria-label="Agrandir la figure 1"><img src="../assets/img/stadium-architecture.webp" width="2000" height="1200" alt="Schéma : pfSense relié à Internet par le NAT de VMware et à trois segments (Serveurs, Admin, Équipes). SRV-DC01 et SRV-DC02 sont sur le segment Serveurs, reliés par la réplication et le basculement DHCP. CLI-01 est sur le segment Équipes et reçoit son adresse par le relais DHCP." loading="lazy" decoding="async"></button>
+              <figcaption><b>Figure 1</b><span class="sr-only"> — </span>Architecture du laboratoire de la mission 2</figcaption>
+            </figure>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Machine, Système, Adresse, Rôle">
+              <table class="table">
+                <thead><tr><th scope="col">Machine</th><th scope="col">Système</th><th scope="col">Adresse</th><th scope="col">Rôle</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">pfSense</th><td>pfSense CE 2.9</td><td class="mono">172.20.2.129 · .2.1 · .1.1</td><td>Routage, filtrage, relais DHCP</td></tr>
+                  <tr><th scope="row">SRV-DC01</th><td>Windows Server 2022</td><td class="mono">172.20.2.132</td><td>AD DS, DNS, DHCP actif, partages</td></tr>
+                  <tr><th scope="row">SRV-DC02</th><td>Windows Server 2022</td><td class="mono">172.20.2.133</td><td>AD DS, DNS répliqué, DHCP de secours</td></tr>
+                  <tr><th scope="row">CLI-01</th><td>Windows 11 Entreprise</td><td class="mono">DHCP</td><td>Poste de test joint au domaine</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="deploiement" aria-labelledby="deploiement-titre">
+            <h2 id="deploiement-titre" data-reveal><span class="label">04 — Déploiement</span>Du pare-feu au poste client</h2>
+            <ol class="steps">
+              <li><div><b>Installer et configurer pfSense</b><span>Quatre cartes réseau (WAN en NAT, puis Serveurs, Admin, Équipes), adresses des interfaces, règles de pare-feu par segment et relais DHCP vers les deux serveurs.</span></div></li>
+              <li><div><b>Créer la forêt stadiumcompany.com</b><span>SRV-DC01 sous Windows Server 2022 : adresse fixe, rôle AD DS et DNS, création de la forêt en PowerShell.</span></div></li>
+              <li><div><b>Configurer le DNS</b><span>Quatre zones de recherche inversée, redirecteurs vers Internet, enregistrements des équipements réseau.</span></div></li>
+              <li><div><b>Configurer le DHCP</b><span>Neuf étendues, une par VLAN, avec plages d’exclusion, passerelle, DNS, suffixe et une réservation.</span></div></li>
+              <li><div><b>Ajouter un second contrôleur</b><span>SRV-DC02 promu dans le domaine existant ; DNS répliqué par Active Directory et basculement DHCP en mode Hot Standby.</span></div></li>
+              <li><div><b>Structurer l’annuaire et les partages</b><span>Unités d’organisation, groupes, 14 comptes, dossiers des services, dossiers personnels et profils itinérants.</span></div></li>
+              <li><div><b>Appliquer les GPO</b><span>Politique de mots de passe et de verrouillage, restrictions des postes, sécurité et lecteurs réseau.</span></div></li>
+              <li><div><b>Joindre un poste et tester</b><span>CLI-01 sous Windows 11 Entreprise rejoint le domaine, puis je déroule les onze scénarios de test.</span></div></li>
+            </ol>
+            <pre class="code" tabindex="0"><span class="code__label">Extrait — création d’une étendue DHCP (PowerShell)</span><span class="k">Add-DhcpServerv4Scope</span> -Name &quot;V20-EQUIPES&quot; -StartRange 172.20.1.1 -EndRange 172.20.1.126 -SubnetMask 255.255.255.128
+<span class="k">Add-DhcpServerv4ExclusionRange</span> -ScopeId 172.20.1.0 -StartRange 172.20.1.1 -EndRange 172.20.1.10
+<span class="k">Set-DhcpServerv4OptionValue</span> -ScopeId 172.20.1.0 -Router 172.20.1.1
+<span class="k">Add-DhcpServerv4Failover</span> -Name &quot;FO-DC01-DC02&quot; -PartnerServer &quot;srv-dc02.stadiumcompany.com&quot; -ServerRole Active</pre>
+          </section>
+
+          <section id="annuaire" aria-labelledby="annuaire-titre">
+            <h2 id="annuaire-titre" data-reveal><span class="label">05 — Annuaire et droits</span>Des droits qui passent par les groupes</h2>
+            <p>J’ai appliqué la méthode <strong>AGDLP</strong> : les comptes vont dans un groupe global par service (<code>GG_Equipes</code>…), ces groupes entrent dans des groupes de domaine local (<code>DL_Partage-Equipes_RW</code>…), et seuls ces derniers reçoivent des droits NTFS. Aucun droit n’est donné à un compte individuel.</p>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Élément, Contenu">
+              <table class="table">
+                <thead><tr><th scope="col">Élément</th><th scope="col">Contenu</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Unités d’organisation</th><td>Utilisateurs (7 services), Ordinateurs (Stade, Billetterie, Magasin), Groupes, Serveurs, Comptes-Admin</td></tr>
+                  <tr><th scope="row">Comptes</th><td>14 comptes <code>prenom.nom</code>, mot de passe à changer à la première connexion</td></tr>
+                  <tr><th scope="row">Partage Services (S:)</th><td>Un dossier par service ; énumération basée sur l’accès : chacun ne voit que le sien</td></tr>
+                  <tr><th scope="row">Partage Commun (P:)</th><td>Lecteur distribué à tous sauf aux prestataires et à la presse (ciblage GPO)</td></tr>
+                  <tr><th scope="row">Dossier personnel (H:)</th><td>Un dossier par compte, droits pour son seul propriétaire</td></tr>
+                  <tr><th scope="row">Profils</th><td>Profils itinérants stockés sur le serveur</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h3>Stratégies de groupe</h3>
+            <ul class="bullets">
+              <li><strong>Mots de passe</strong> : 12 caractères minimum, complexité, historique de 24, verrouillage après 5 échecs pendant 15 minutes.</li>
+              <li><strong>Restrictions utilisateurs</strong> : panneau de configuration, invite de commandes et éditeur du Registre bloqués ; écran de veille verrouillé après 10 minutes.</li>
+              <li><strong>Sécurité des postes</strong> : stockage USB bloqué, message d’avertissement à l’ouverture de session, pare-feu forcé sur tous les profils.</li>
+              <li><strong>Lecteurs réseau</strong> : S: et P: distribués par les préférences de GPO, avec ciblage par groupe.</li>
+            </ul>
+          </section>
+
+          <section id="tests" aria-labelledby="tests-titre">
+            <h2 id="tests-titre" data-reveal><span class="label">06 — Tests</span>Onze scénarios, onze réussites</h2>
+            <p>J’ai réalisé chaque test avec une capture d’écran datée. Le cahier des charges fixe un indicateur clé : un poste branché sur n’importe quel VLAN doit obtenir une configuration complète sans intervention manuelle.</p>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="N°, Test, Résultat obtenu">
+              <table class="table">
+                <thead><tr><th scope="col">N°</th><th scope="col">Test</th><th scope="col">Résultat obtenu</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">1</th><td>DHCP par le relais (VLAN Équipes)</td><td>Adresse 172.20.1.11/25, passerelle, DNS et suffixe reçus</td></tr>
+                  <tr><th scope="row">2</th><td>DHCP sur un autre VLAN (Admin)</td><td>Adresse 172.20.2.12/26 ; la .11 est bien réservée</td></tr>
+                  <tr><th scope="row">3</th><td>Première connexion d’un utilisateur</td><td>Changement de mot de passe imposé</td></tr>
+                  <tr><th scope="row">4</th><td>Lecteurs H:, S: et P:</td><td>Présents ; seul le dossier Équipes est visible dans S:</td></tr>
+                  <tr><th scope="row">5</th><td>Accès au dossier d’un autre service</td><td>Refusé</td></tr>
+                  <tr><th scope="row">6</th><td>Invite de commandes</td><td>Bloquée par la GPO</td></tr>
+                  <tr><th scope="row">7</th><td>GPO appliquées (<code>gpresult /r</code>)</td><td>Les deux GPO utilisateur sont listées</td></tr>
+                  <tr><th scope="row">8</th><td>DNS direct et inverse</td><td>Les deux résolutions répondent</td></tr>
+                  <tr><th scope="row">9</th><td>Verrouillage du compte</td><td>Verrouillé après 5 échecs, puis déverrouillé</td></tr>
+                  <tr><th scope="row">10</th><td>Arrêt du DHCP de SRV-DC01</td><td>Adresse attribuée par SRV-DC02</td></tr>
+                  <tr><th scope="row">11</th><td>SRV-DC01 éteint</td><td>Ouverture de session authentifiée par <code>\\SRV-DC02</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="kpis kpis--4">
+              <div class="kpi"><div class="kpi__n">11 / 11</div><div class="kpi__l">tests validés</div></div>
+              <div class="kpi"><div class="kpi__n">2</div><div class="kpi__l">contrôleurs de domaine</div></div>
+              <div class="kpi"><div class="kpi__n">9</div><div class="kpi__l">étendues DHCP, une par VLAN</div></div>
+              <div class="kpi"><div class="kpi__n">14</div><div class="kpi__l">comptes utilisateurs dans 7 services</div></div>
+            </div>
+          </section>
+
+          <section id="difficultes" aria-labelledby="difficultes-titre">
+            <h2 id="difficultes-titre" data-reveal><span class="label">07 — Difficultés</span>Ce qui n’a pas marché du premier coup</h2>
+            <div class="callout callout--warn"><span class="label">Le premier ping échouait</span><p>Le serveur répondait « hôte de destination injoignable ». La VM pfSense était simplement éteinte : depuis, je démarre toujours le routeur avant les serveurs.</p></div>
+            <div class="callout callout--warn"><span class="label">Commande introuvable sur SRV-DC02</span><p><code>Install-WindowsFeature</code> n’était pas reconnue. J’avais ouvert PowerShell ISE en version x86 (32 bits), où le module ServerManager n’existe pas. La version 64 bits a réglé le problème.</p></div>
+            <div class="callout callout--warn"><span class="label">Le lecteur P: n’apparaissait pas</span><p>Le ciblage de la GPO indiquait « est membre de GG_Fournisseurs ET de GG_VIP-Presse » : personne ne recevait le lecteur. Il fallait « n’est pas membre ». Le <code>gpresult /r</code> m’a aidé à le voir.</p></div>
+            <div class="callout callout--note"><span class="label">Le basculement DHCP n’est pas instantané</span><p>Juste après l’arrêt du service sur SRV-DC01, le poste a d’abord pris une adresse en 169.254 : SRV-DC02 n’avait pas encore constaté la panne. Quelques instants plus tard, il a répondu et le poste a retrouvé la même adresse.</p></div>
+          </section>
+
+          <section id="limites" aria-labelledby="limites-titre">
+            <h2 id="limites-titre" data-reveal><span class="label">08 — Limites</span>Ce que j’améliorerais</h2>
+            <ul class="bullets">
+              <li>Les partages sont hébergés sur SRV-DC01 : si ce serveur tombe, l’authentification continue grâce à SRV-DC02, mais plus les fichiers. Un serveur de fichiers dédié ou une réplication DFS réglerait ce point.</li>
+              <li>La GPO bloque l’invite de commandes, mais pas PowerShell.</li>
+              <li>Le compte Administrateur est encore générique : la mission 3 prévoit des comptes d’administration nominatifs.</li>
+              <li>Le laboratoire VMware ne simule que trois VLAN ; les dix VLAN, les commutateurs Cisco et les trois sites sont traités dans Packet Tracer (missions 1, 3 et 4).</li>
+            </ul>
+          </section>
+
+          <section id="competences" aria-labelledby="competences-titre">
+            <h2 id="competences-titre" data-reveal><span class="label">09 — Compétences</span>Ce que le projet m’a fait pratiquer</h2>
+            <ul class="tags"><li class="tag">Windows Server 2022</li><li class="tag">Active Directory</li><li class="tag">DNS</li><li class="tag">DHCP · basculement</li><li class="tag">GPO</li><li class="tag">AGDLP · droits NTFS</li><li class="tag">pfSense</li><li class="tag">VLSM</li><li class="tag">VMware Workstation</li><li class="tag">PowerShell</li><li class="tag">Plan de tests</li><li class="tag">Diagnostic</li></ul>
+            <h3>Compétences du référentiel BTS SIO</h3>
+            <ul class="bts-list">
+              <li><span class="label">Bloc 1</span>Gérer le patrimoine informatique</li>
+              <li><span class="label">Bloc 1</span>Répondre aux incidents et aux demandes d’assistance et d’évolution</li>
+              <li><span class="label">Bloc 1</span>Mettre à disposition des utilisateurs un service informatique</li>
+              <li><span class="label">Bloc 2 · SISR</span>Concevoir une solution d’infrastructure réseau</li>
+              <li><span class="label">Bloc 2 · SISR</span>Installer, tester et déployer une solution d’infrastructure réseau</li>
+              <li><span class="label">Bloc 2 · SISR</span>Exploiter, dépanner et superviser une solution d’infrastructure réseau</li>
+            </ul>
+            <p class="small"><a class="link-arrow" href="../synthese.html">Voir le tableau de synthèse <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></a></p>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <nav class="dark case-nav" aria-label="Autres réalisations">
+      <div class="wrap next">
+        <a class="next__link next__link--next" href="projet-mairie.html">
+          <span class="label">Projet suivant</span>
+          <span class="next__title">Supervision Zabbix en mairie<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17M14 5l7 7-7 7"/></svg></span>
+        </a>
+      </div>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span class="label">© 2026 Eliel Mukwanga · Portfolio BTS SIO SISR</span>
+      <ul class="site-footer__links label">
+        <li><a href="../synthese.html">Synthèse</a></li>
+        <li><a href="../assets/docs/CV_Eliel_Mukwanga.pdf" target="_blank" rel="noopener">CV<span class="sr-only"> (PDF, nouvel onglet)</span></a></li>
+        <li><a href="https://www.linkedin.com/in/eliel-mukwanga-505169388" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (nouvel onglet)</span></a></li>
+        <li><a href="https://github.com/elielmukwanga86-glitch" target="_blank" rel="noopener">GitHub<span class="sr-only"> (nouvel onglet)</span></a></li>
+        <li><a href="#contenu">Haut de page ↑</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <dialog class="lightbox" aria-label="Figure agrandie">
+    <div class="lightbox__bar"><button class="lightbox__close" type="button">Fermer</button></div>
+    <div class="lightbox__inner">
+      <img alt="">
+    </div>
+    <p class="lightbox__cap"></p>
+  </dialog>
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>
