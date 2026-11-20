@@ -18,9 +18,9 @@
 const { esc, inline, text } = require('../lib/html');
 
 function chiffres(items) {
-  return `<div class="kpis kpis--${items.length}">
-${items.map(([n, l]) => `              <div class="kpi"><div class="kpi__n">${text(n)}</div><div class="kpi__l">${text(l)}</div></div>`).join('\n')}
-            </div>`;
+  return `<dl class="kpis kpis--${items.length}">
+${items.map(([n, l]) => `              <div class="kpi"><dt class="kpi__l">${text(l)}</dt><dd class="kpi__n">${text(n)}</dd></div>`).join('\n')}
+            </dl>`;
 }
 
 function codeLine(line, type) {
@@ -50,8 +50,8 @@ function renderBloc(b, ctx) {
     const f = b.figure;
     const cap = `Figure ${ctx.figure} — ${f.legende}`;
     return `<figure class="figure" data-reveal>
-              <button class="figure__btn" type="button" data-caption="${esc(cap)}" aria-label="Agrandir la figure ${ctx.figure}"><img src="${ctx.base}assets/${esc(f.src)}" width="${f.largeur}" height="${f.hauteur}" alt="${esc(f.alt)}" loading="lazy" decoding="async"></button>
-              <figcaption><b>Figure ${ctx.figure}</b><span class="sr-only"> — </span>${text(f.legende)}</figcaption>
+              <button class="figure__btn" type="button" data-caption="${esc(cap)}" aria-label="Agrandir la figure ${ctx.figure}"><span class="figure__zoom" aria-hidden="true">Agrandir</span><img src="${ctx.base}assets/${esc(f.src)}" width="${f.largeur}" height="${f.hauteur}" alt="${esc(f.alt)}" loading="lazy" decoding="async"></button>
+              <figcaption><b>Fig. ${ctx.figure}</b> — ${text(f.legende)}</figcaption>
             </figure>`;
   }
   if (b.code) {
@@ -74,7 +74,7 @@ ${t.lignes.map((row) => `                  <tr>${row.map((v, i) => cell(v, i, i 
   }
   if (b.encadre) {
     const e = b.encadre;
-    return `<div class="callout callout--${e.type || 'note'}"><span class="label">${text(e.titre)}</span><p>${inline(e.texte)}</p></div>`;
+    return `<aside class="callout callout--${e.type || 'note'}"><p class="callout__title">${text(e.titre)}</p><p>${inline(e.texte)}</p></aside>`;
   }
   if (b.chiffres) return chiffres(b.chiffres === 'projet' ? ctx.projet.chiffres : b.chiffres);
   if (b.lettre) return `<div class="letter">\n${b.lettre.map((p) => `              <p>${inline(p)}</p>`).join('\n')}\n            </div>`;
@@ -85,7 +85,7 @@ ${t.lignes.map((row) => `                  <tr>${row.map((v, i) => cell(v, i, i 
     if (!comps.length) return '';
     return `<h3>Compétences du référentiel BTS SIO</h3>
             <ul class="bts-list">
-${comps.map((c) => `              <li><span class="label">${text(c.bloc)}</span>${text(c.nom)}</li>`).join('\n')}
+${comps.map((c) => `              <li><span class="bts-list__bloc">${text(c.bloc)}</span>${text(c.nom)}</li>`).join('\n')}
             </ul>
             <p class="small"><a class="link-arrow" href="${ctx.base}synthese.html">Voir le tableau de synthèse <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></a></p>`;
   }

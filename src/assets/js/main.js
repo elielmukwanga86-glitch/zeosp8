@@ -77,7 +77,7 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && root.classList.contains('menu-open')) setMenu(false, true);
     });
-    var desktop = window.matchMedia('(min-width: 1180px)');
+    var desktop = window.matchMedia('(min-width: 1100px)');
     var onDesktop = function (m) { if (m.matches) setMenu(false, false); };
     if (desktop.addEventListener) desktop.addEventListener('change', onDesktop);
   }
