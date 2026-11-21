@@ -433,7 +433,6 @@ sup { font-size: .65em; line-height: 0; }
 .site-footer__links { display: flex; flex-wrap: wrap; gap: 4px 20px; font-family: var(--f-mono); font-size: 13px; align-items: center; }
 .site-footer__links a { display: inline-block; padding: 10px 0; }
 @media (hover: hover) { .site-footer__links a:hover { color: var(--on-dark); text-decoration: underline; text-decoration-color: var(--acc); } }
-.site-footer__colophon { font-family: var(--f-mono); font-size: 12px; color: #8C9298; grid-column: 1 / -1; border-top: 1px solid var(--rule-d); padding-top: 14px; }
 
 /* ---------- Case study: document head ---------- */
 .dochead { padding: 12px 0 0; }

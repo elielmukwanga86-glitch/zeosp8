@@ -140,7 +140,6 @@ ${contenu}
         <li><a href="${esc(site.contact.github.url)}" target="_blank" rel="noopener">GitHub<span class="sr-only"> (nouvel onglet)</span></a></li>
         <li><a href="#contenu">Haut de page ↑</a></li>
       </ul>
-      <p class="site-footer__colophon">Composé en IBM Plex Serif, Sans et Mono · site statique généré depuis ses sources.</p>
     </div>
   </footer>
 ${lightbox ? `

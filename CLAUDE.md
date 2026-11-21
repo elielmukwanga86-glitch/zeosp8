@@ -44,8 +44,12 @@ Site publié par GitHub Pages (workflow `.github/workflows/deploy-pages.yml`, do
 
 ## Identité visuelle
 
-IBM Plex Sans / Condensed / Mono ; anthracite `#0E1217`, papier `#F3F2EE`, orange `#E8572A`
-(`--acc-ink: #B03D19` pour du texte orange sur fond clair). Les dossiers PDF partagent cette identité.
+Direction « dossier technique éditorial » (refonte de novembre 2026) : le site se lit comme un rapport technique
+imprimé — fond papier clair, titres en IBM Plex Serif, texte en IBM Plex Sans, métadonnées en IBM Plex Mono,
+sections numérotées (01–05, « Annexe A » pour la synthèse), notes en marge, figures et tableaux numérotés,
+sommaire de l’accueil dessiné comme une topologie en étoile. Encre `#0E1217`, papier `#F3F2EE`,
+orange `#E8572A` comme seul accent (`#B03D19` pour du texte orange sur fond clair). Les dossiers PDF partagent
+cette identité (IBM Plex, orange).
 
 ## Outillage Claude Code (`.claude/`)
 
