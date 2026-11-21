@@ -3,11 +3,12 @@
 // Inspiré des hooks « garde-fous » d’ECC (https://github.com/affaan-m/ECC), réécrit pour ce dépôt.
 //  1. Refuse toute modification manuelle de docs/ : ce dossier est généré par `node src/build.js`.
 //  2. Refuse d’écrire une adresse IPv4 non masquée dans src/ ou outils/ (dépôt public).
-//     Même liste blanche que src/build.js (plan fictif du cas Cloison, 1.1.1.1…).
+//     Même liste blanche que src/build.js (plan fictif du cas Cloison, plan fictif 172.20.0.0/22
+//     de StadiumCompany, masques 255.255.255.x, 1.1.1.1…).
 // Code de sortie 2 = l’outil est bloqué et le message est renvoyé à Claude.
 const path = require('path');
 
-const ALLOWED_IP = /^(192\.168\.(10|20)\.\d+|192\.168\.1\.[12]|192\.0\.0\.\d|1\.1\.1\.1)$/;
+const ALLOWED_IP = /^(192\.168\.(10|20)\.\d+|192\.168\.1\.[12]|192\.0\.0\.\d|1\.1\.1\.1|172\.20\.[0-3]\.\d+|255\.255\.255\.\d+)$/;
 
 let brut = '';
 process.stdin.on('data', (c) => (brut += c));
