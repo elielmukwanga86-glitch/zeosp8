@@ -180,7 +180,7 @@ sup { font-size: .65em; line-height: 0; }
 @media (min-width: 1000px) { .cover__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: var(--col-gap); align-items: center; } }
 .cover__title {
   font-family: var(--f-serif); font-weight: 500;
-  font-size: clamp(60px, 10.5vw, 148px); line-height: .92; letter-spacing: -.035em;
+  font-size: clamp(60px, 9.4vw, 132px); line-height: .92; letter-spacing: -.035em;
 }
 .cover__deck {
   margin-top: clamp(20px, 3vw, 32px);
@@ -655,3 +655,21 @@ html:not(.js) .brand__meta { display: none; }
   .figure, .table-wrap, .code, .callout, .story { break-inside: avoid; }
   .synth__detail dl { display: grid !important; }
 }
+
+/* ---------- Avancement des missions (projet annuel, bloc « missions ») ---------- */
+.missions { margin-top: 24px; }
+.missions__sum { display: flex; flex-wrap: wrap; gap: 8px 20px; font-family: var(--f-mono); font-size: 13px; color: var(--mut); margin-bottom: 12px; }
+.missions__k::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border: 1px solid var(--mut); vertical-align: 1px; }
+.missions__k--fait::before { background: var(--ok-ink); border-color: var(--ok-ink); }
+.missions__k--cours::before { background: var(--acc); border-color: var(--acc); }
+.missions__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); display: grid; }
+.mission { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--rule); }
+.mission__n { font-family: var(--f-mono); font-size: 13px; color: var(--mut); }
+.mission__t { color: var(--ink-2); font-size: 15px; line-height: 1.45; }
+.mission__t small { display: block; margin-top: 2px; font-size: 13px; color: var(--mut); }
+.mission__e { font-family: var(--f-mono); font-size: 12.5px; color: var(--mut); white-space: nowrap; }
+.mission--fait .mission__n, .mission--fait .mission__e { color: var(--ok-ink); }
+.mission--fait .mission__t, .mission--cours .mission__t { color: var(--ink); font-weight: 600; }
+.mission--cours .mission__n, .mission--cours .mission__e { color: var(--acc-ink); }
+.mission--avenir .mission__t { color: var(--mut); }
+@media (min-width: 900px) { .missions__list { grid-template-columns: 1fr 1fr; column-gap: 32px; } }

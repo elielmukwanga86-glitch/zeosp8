@@ -22,7 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <script>document.documentElement.classList.add('js')</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Eliel Mukwanga","url":"https://elielmukwanga86-glitch.github.io/zeosp8/","description":"Portfolio d’Eliel Mukwanga, en 2e année de BTS SIO option SISR à ENSITECH : réalisations, stages, compétences et tableau de synthèse.","jobTitle":"Étudiant en BTS SIO option SISR","affiliation":{"@type":"EducationalOrganization","name":"ENSITECH"},"knowsAbout":["Windows 10 / 11","Windows Server","Debian 13","Linux (Ubuntu)","Active Directory","VMware ESXi","VirtualBox","TCP/IP","LAN / WAN","VLAN","Adressage IPv4","Routage statique","RIP","Switching","DHCP","Wi-Fi","SNMP","SSH","Zabbix","MariaDB"],"sameAs":["https://www.linkedin.com/in/eliel-mukwanga-505169388","https://github.com/elielmukwanga86-glitch"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Eliel Mukwanga","url":"https://elielmukwanga86-glitch.github.io/zeosp8/","description":"Portfolio d’Eliel Mukwanga, en 2e année de BTS SIO option SISR à ENSITECH : réalisations, stages, compétences et tableau de synthèse.","jobTitle":"Étudiant en BTS SIO option SISR","affiliation":{"@type":"EducationalOrganization","name":"ENSITECH"},"knowsAbout":["Windows 10 / 11","Windows Server 2022","Windows 11 Entreprise","Debian 13","Linux (Ubuntu)","Active Directory","GPO","Partages et droits NTFS (AGDLP)","PowerShell","VMware ESXi","VMware Workstation","VirtualBox","TCP/IP","LAN / WAN","VLAN","Adressage IPv4 · VLSM","Routage statique","RIP","Switching","DHCP (relais, basculement)"],"sameAs":["https://www.linkedin.com/in/eliel-mukwanga-505169388","https://github.com/elielmukwanga86-glitch"]}</script>
 </head>
 <body class="page-home">
   <a class="skip-link" href="#contenu">Aller au contenu</a>
@@ -72,8 +72,8 @@
         <div class="cover__grid">
           <div class="cover__main">
             <h1 class="cover__title" id="hero-title" data-hero style="--d:.1s">Eliel<br>Mukwanga</h1>
-            <p class="cover__deck" data-hero style="--d:.2s">Systèmes, réseaux et supervision.</p>
-            <p class="cover__intro" data-hero style="--d:.28s">Étudiant en deuxième année de BTS SIO option SISR à ENSITECH (Montigny‑le‑Bretonneux). Ce portfolio regroupe mes réalisations en stage et en formation, mon parcours et mon tableau de synthèse.</p>
+            <p class="cover__deck" data-hero style="--d:.2s">Systèmes, réseaux, annuaire et supervision.</p>
+            <p class="cover__intro" data-hero style="--d:.28s">Étudiant en deuxième année de BTS SIO option SISR à ENSITECH (Montigny‑le‑Bretonneux). Ce portfolio regroupe mes réalisations en stage et en formation, dont mon projet annuel StadiumCompany, mon parcours et mon tableau de synthèse.</p>
             <div class="cover__actions" data-hero style="--d:.36s">
               <a class="btn btn--primary" href="#realisations">Lire les réalisations <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3.5 8.5 8 13l4.5-4.5"/></svg></span></a>
               <a class="btn btn--line" href="#contact">Me contacter <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
@@ -142,7 +142,7 @@
           <div><dt>Formation</dt><dd>BTS SIO SISR · ENSITECH</dd></div>
           <div><dt>Stages</dt><dd>Mairie des Clayes‑sous‑Bois (2)</dd></div>
           <div><dt>Dossiers</dt><dd>2 PDF · 32 pages</dd></div>
-          <div><dt>Statut</dt><dd>En formation initiale</dd></div>
+          <div><dt>Projet annuel</dt><dd>StadiumCompany · mission 2 validée</dd></div>
         </dl>
       </div>
     </section>
@@ -153,13 +153,50 @@
           <p class="shead__num" aria-hidden="true">01</p>
           <div class="shead__body">
             <h2 class="shead__title" id="realisations-title" data-reveal><span class="sr-only">01. </span>Réalisations</h2>
-            <p class="shead__intro" data-reveal>Mes réalisations en milieu professionnel (stages) et en formation. Les deux premières sont documentées en détail, avec un dossier PDF à télécharger.</p>
+            <p class="shead__intro" data-reveal>Mes réalisations en milieu professionnel (stages) et en formation. Les trois premières sont documentées en détail, avec un dossier PDF à télécharger.</p>
           </div>
         </header>
         <div class="stories">
-        <article class="story" aria-labelledby="p-projet-mairie">
+        <article class="story" aria-labelledby="p-stadiumcompany">
           <aside class="story__margin" data-reveal>
             <p class="story__num" aria-hidden="true">01</p>
+            <dl class="notes">
+              <div><dt>Réalisation</dt><dd>Projet StadiumCompany</dd></div>
+              <div><dt>Cadre</dt><dd>En formation · Projet annuel (épreuve E5)</dd></div>
+              <div><dt>Organisation</dt><dd>ENSITECH</dd></div>
+              <div><dt>Période</dt><dd>octobre – novembre 2026</dd></div>
+            </dl>
+          </aside>
+          <div class="story__main">
+            <h3 class="story__title" id="p-stadiumcompany" data-reveal><a href="projets/stadiumcompany.html">Annuaire, DNS et DHCP redondants pour StadiumCompany</a></h3>
+            <p class="story__deck" data-reveal>Deux contrôleurs de domaine, un DHCP qui bascule et des droits qui passent par les groupes : la mission 2 du projet annuel, testée de bout en bout.</p>
+            <figure class="story__fig" data-reveal>
+              <a href="projets/stadiumcompany.html" tabindex="-1" aria-hidden="true"><img src="assets/img/stadium-visuel.webp" width="1600" height="1000" alt="" loading="lazy" decoding="async"></a>
+              <figcaption><b>Fig. 1</b> — PfSense au centre relie le WAN et les VLAN Serveurs, Admin et Équipes ; SRV-DC01 et SRV-DC02 sont reliés par la réplication et le basculement.</figcaption>
+            </figure>
+            <div class="story__body" data-reveal>
+              <div class="story__text">
+                <p>Projet fil rouge de 2<sup>e</sup> année. J’ai monté le laboratoire sous VMware : pfSense entre trois VLAN, deux contrôleurs de domaine Windows Server 2022, neuf étendues DHCP en basculement, annuaire, partages et GPO. Onze tests sur onze validés.</p>
+                <p class="story__tech"><span>Technologies</span> Windows Server 2022 · Active Directory · DNS · DHCP · GPO · pfSense · VMware Workstation · PowerShell</p>
+                <div class="story__actions">
+                  <a class="btn btn--primary" href="projets/stadiumcompany.html">Lire l’étude de cas <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+                  
+                </div>
+              </div>
+              <div class="story__data">
+                <p class="tab-cap"><b>Tableau 1</b> — En chiffres</p>
+                <dl class="kpis kpis--3">
+              <div class="kpi"><dt class="kpi__l">tests validés</dt><dd class="kpi__n">11 / 11</dd></div>
+              <div class="kpi"><dt class="kpi__l">contrôleurs de domaine</dt><dd class="kpi__n">2</dd></div>
+              <div class="kpi"><dt class="kpi__l">étendues DHCP, une par VLAN</dt><dd class="kpi__n">9</dd></div>
+            </dl>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="story story--alt" aria-labelledby="p-projet-mairie">
+          <aside class="story__margin" data-reveal>
+            <p class="story__num" aria-hidden="true">02</p>
             <dl class="notes">
               <div><dt>Réalisation</dt><dd>Projet Mairie</dd></div>
               <div><dt>Cadre</dt><dd>En milieu professionnel · Stage</dd></div>
@@ -172,7 +209,7 @@
             <p class="story__deck" data-reveal>Un serveur Zabbix qui découvre les équipements de la mairie et commence à les classer par type.</p>
             <figure class="story__fig" data-reveal>
               <a href="projets/projet-mairie.html" tabindex="-1" aria-hidden="true"><img src="assets/img/mairie-visuel.webp" width="1600" height="999" alt="" loading="lazy" decoding="async"></a>
-              <figcaption><b>Fig. 1</b> — Le serveur Zabbix au centre et les neuf VLAN recensés de la mairie.</figcaption>
+              <figcaption><b>Fig. 2</b> — Le serveur Zabbix au centre et les neuf VLAN recensés de la mairie.</figcaption>
             </figure>
             <div class="story__body" data-reveal>
               <div class="story__text">
@@ -184,7 +221,7 @@
                 </div>
               </div>
               <div class="story__data">
-                <p class="tab-cap"><b>Tableau 1</b> — En chiffres</p>
+                <p class="tab-cap"><b>Tableau 2</b> — En chiffres</p>
                 <dl class="kpis kpis--3">
               <div class="kpi"><dt class="kpi__l">hôtes découverts lors des essais</dt><dd class="kpi__n">≈ 169</dd></div>
               <div class="kpi"><dt class="kpi__l">VLAN recensés</dt><dd class="kpi__n">9</dd></div>
@@ -194,9 +231,9 @@
             </div>
           </div>
         </article>
-        <article class="story story--alt" aria-labelledby="p-projet-cloison">
+        <article class="story" aria-labelledby="p-projet-cloison">
           <aside class="story__margin" data-reveal>
-            <p class="story__num" aria-hidden="true">02</p>
+            <p class="story__num" aria-hidden="true">03</p>
             <dl class="notes">
               <div><dt>Réalisation</dt><dd>Projet Cloison</dd></div>
               <div><dt>Cadre</dt><dd>En formation · Atelier de professionnalisation</dd></div>
@@ -209,7 +246,7 @@
             <p class="story__deck" data-reveal>Un Wi‑Fi pour le cabinet, un autre pour les patients : audit, VLAN, devis et compte rendu.</p>
             <figure class="story__fig" data-reveal>
               <a href="projets/projet-cloison.html" tabindex="-1" aria-hidden="true"><img src="assets/img/cloison-visuel.webp" width="1600" height="999" alt="" loading="lazy" decoding="async"></a>
-              <figcaption><b>Fig. 2</b> — Une borne Wi‑Fi diffuse deux réseaux séparés par une règle d’isolation, le cabinet en vert et les patients en orange.</figcaption>
+              <figcaption><b>Fig. 3</b> — Une borne Wi‑Fi diffuse deux réseaux séparés par une règle d’isolation, le cabinet en vert et les patients en orange.</figcaption>
             </figure>
             <div class="story__body" data-reveal>
               <div class="story__text">
@@ -221,7 +258,7 @@
                 </div>
               </div>
               <div class="story__data">
-                <p class="tab-cap"><b>Tableau 2</b> — En chiffres</p>
+                <p class="tab-cap"><b>Tableau 3</b> — En chiffres</p>
                 <dl class="kpis kpis--3">
               <div class="kpi"><dt class="kpi__l">VLAN isolés</dt><dd class="kpi__n">2</dd></div>
               <div class="kpi"><dt class="kpi__l">problèmes qualifiés</dt><dd class="kpi__n">4</dd></div>
@@ -238,7 +275,7 @@
           <div class="row">
             <h4 class="row__heading">
               <button class="row__btn" type="button" aria-expanded="false" aria-controls="row-cisco-packet-tracer">
-                <span class="row__idx">03</span>
+                <span class="row__idx">04</span>
                 <span class="row__txt"><span class="row__title">Administration réseau sous Cisco Packet Tracer</span><span class="row__ctx">En formation · Projet de formation · BTS SIO</span></span>
                 <span class="row__plus" aria-hidden="true"></span>
               </button>
@@ -272,7 +309,7 @@
           <div class="row">
             <h4 class="row__heading">
               <button class="row__btn" type="button" aria-expanded="false" aria-controls="row-support-postes">
-                <span class="row__idx">04</span>
+                <span class="row__idx">05</span>
                 <span class="row__txt"><span class="row__title">Déploiement de postes et support utilisateurs</span><span class="row__ctx">En milieu professionnel · Stages (Bac Pro et BTS) · Mairie des Clayes‑sous‑Bois · 2024–2026</span></span>
                 <span class="row__plus" aria-hidden="true"></span>
               </button>
@@ -310,6 +347,11 @@
               <h3 class="log__title">BTS SIO option SISR — 2<sup>e</sup> année</h3>
               <p class="log__place">ENSITECH, Montigny‑le‑Bretonneux</p>
               <p class="log__desc">Services informatiques aux organisations, option Solutions d’infrastructure, systèmes et réseaux.</p>
+              <ul class="bullets log__list">
+                <li>Projet annuel StadiumCompany (épreuve E5) : 14 missions de septembre à mai, menées seul.</li>
+                <li>Mission 2 réalisée : Active Directory sur deux contrôleurs, DNS, DHCP en basculement, partages et GPO, 11 tests validés.</li>
+              </ul>
+              <p class="log__more"><a class="link-arrow" href="projets/stadiumcompany.html">Voir le Projet StadiumCompany <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></p>
             </div>
           </li>
           <li class="log__item" data-reveal>
@@ -363,74 +405,83 @@
         </header>
         <div class="cols">
           <div class="cols__margin">
-            <p class="margin-note" data-reveal>Présenté comme un index : les numéros en face de chaque compétence renvoient aux réalisations (01 à 04).</p>
+            <p class="margin-note" data-reveal>Présenté comme un index : les numéros en face de chaque compétence renvoient aux réalisations (01 à 05).</p>
           </div>
           <div>
             <div class="filter" role="group" aria-label="Filtrer les compétences par réalisation" data-reveal>
               <p class="filter__label">Mises en pratique dans</p>
               <button class="chip-btn" type="button" aria-pressed="true" data-filter="">Tout</button>
-              <button class="chip-btn" type="button" aria-pressed="false" data-filter="projet-mairie"><span class="chip-btn__n" aria-hidden="true">01</span>Projet Mairie</button>
-              <button class="chip-btn" type="button" aria-pressed="false" data-filter="projet-cloison"><span class="chip-btn__n" aria-hidden="true">02</span>Projet Cloison</button>
-              <button class="chip-btn" type="button" aria-pressed="false" data-filter="cisco-packet-tracer"><span class="chip-btn__n" aria-hidden="true">03</span>Cisco Packet Tracer</button>
-              <button class="chip-btn" type="button" aria-pressed="false" data-filter="support-postes"><span class="chip-btn__n" aria-hidden="true">04</span>Stages en mairie</button>
+              <button class="chip-btn" type="button" aria-pressed="false" data-filter="stadiumcompany"><span class="chip-btn__n" aria-hidden="true">01</span>Projet StadiumCompany</button>
+              <button class="chip-btn" type="button" aria-pressed="false" data-filter="projet-mairie"><span class="chip-btn__n" aria-hidden="true">02</span>Projet Mairie</button>
+              <button class="chip-btn" type="button" aria-pressed="false" data-filter="projet-cloison"><span class="chip-btn__n" aria-hidden="true">03</span>Projet Cloison</button>
+              <button class="chip-btn" type="button" aria-pressed="false" data-filter="cisco-packet-tracer"><span class="chip-btn__n" aria-hidden="true">04</span>Cisco Packet Tracer</button>
+              <button class="chip-btn" type="button" aria-pressed="false" data-filter="support-postes"><span class="chip-btn__n" aria-hidden="true">05</span>Stages en mairie</button>
             </div>
             <div class="domains" data-domains>
               <div class="domain" data-reveal>
                 <h3 class="domain__title">Systèmes</h3>
                 <ul class="skills">
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Windows 10 / 11</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
-                  <li class="skill"><span class="skill__name">Windows Server</span></li>
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Debian 13</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Windows 10 / 11</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
+                  <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">Windows Server 2022</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">Windows 11 Entreprise</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Debian 13</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
                   <li class="skill"><span class="skill__name">Linux (Ubuntu)</span></li>
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Active Directory</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">VMware ESXi</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="projet-mairie stadiumcompany"><span class="skill__name">Active Directory</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 02</span></li>
+                  <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">GPO</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">Partages et droits NTFS (AGDLP)</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">PowerShell</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">VMware ESXi</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
+                  <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">VMware Workstation</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
                   <li class="skill"><span class="skill__name">VirtualBox</span></li>
                 </ul>
               </div>
               <div class="domain" data-reveal>
                 <h3 class="domain__title">Réseaux</h3>
                 <ul class="skills">
-                  <li class="skill" data-ctx="cisco-packet-tracer projet-cloison"><span class="skill__name">TCP/IP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02, 03</span></li>
-                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">LAN / WAN</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03</span></li>
-                  <li class="skill" data-ctx="projet-mairie projet-cloison"><span class="skill__name">VLAN</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 02</span></li>
-                  <li class="skill" data-ctx="cisco-packet-tracer projet-cloison projet-mairie"><span class="skill__name">Adressage IPv4</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 02, 03</span></li>
-                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">Routage statique</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03</span></li>
-                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">RIP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03</span></li>
-                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">Switching</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03</span></li>
-                  <li class="skill" data-ctx="projet-cloison"><span class="skill__name">DHCP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
-                  <li class="skill" data-ctx="projet-cloison"><span class="skill__name">Wi‑Fi</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">SNMP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">SSH</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer projet-cloison"><span class="skill__name">TCP/IP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03, 04</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">LAN / WAN</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
+                  <li class="skill" data-ctx="projet-mairie projet-cloison stadiumcompany"><span class="skill__name">VLAN</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 02, 03</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer projet-cloison projet-mairie stadiumcompany"><span class="skill__name">Adressage IPv4 · VLSM</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 02, 03, 04</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">Routage statique</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">RIP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">Switching</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
+                  <li class="skill" data-ctx="projet-cloison stadiumcompany"><span class="skill__name">DHCP (relais, basculement)</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 03</span></li>
+                  <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">DNS</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">pfSense</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="projet-cloison"><span class="skill__name">Wi‑Fi</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03</span></li>
+                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">SNMP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
+                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">SSH</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
                 </ul>
               </div>
               <div class="domain" data-reveal>
                 <h3 class="domain__title">Supervision</h3>
                 <ul class="skills">
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Zabbix</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">MariaDB</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Apache + PHP (interface web Zabbix)</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Découverte automatique des équipements</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Supervision d’infrastructures</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Zabbix</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
+                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">MariaDB</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
+                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Apache + PHP (interface web Zabbix)</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
+                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Découverte automatique des équipements</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
+                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Supervision d’infrastructures</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
                 </ul>
               </div>
               <div class="domain" data-reveal>
                 <h3 class="domain__title">Support informatique</h3>
                 <ul class="skills">
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Préparation et déploiement de postes</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Installation et configuration de logiciels</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Diagnostic et résolution d’incidents</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Assistance utilisateurs</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Imprimantes réseau</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Préparation et déploiement de postes</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Installation et configuration de logiciels</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Diagnostic et résolution d’incidents</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Assistance utilisateurs</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Imprimantes réseau</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
                 </ul>
               </div>
               <div class="domain" data-reveal>
                 <h3 class="domain__title">Méthode</h3>
                 <ul class="skills">
-                  <li class="skill" data-ctx="projet-cloison"><span class="skill__name">Qualifier une demande</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
-                  <li class="skill" data-ctx="projet-cloison"><span class="skill__name">Audit réseau en ligne de commande</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
-                  <li class="skill" data-ctx="projet-cloison"><span class="skill__name">Devis</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
-                  <li class="skill" data-ctx="projet-cloison"><span class="skill__name">Compte rendu client</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
-                  <li class="skill" data-ctx="projet-mairie projet-cloison"><span class="skill__name">Documentation technique</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 02</span></li>
+                  <li class="skill" data-ctx="projet-cloison"><span class="skill__name">Qualifier une demande</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03</span></li>
+                  <li class="skill" data-ctx="projet-cloison"><span class="skill__name">Audit réseau en ligne de commande</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03</span></li>
+                  <li class="skill" data-ctx="projet-cloison"><span class="skill__name">Devis</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03</span></li>
+                  <li class="skill" data-ctx="projet-cloison"><span class="skill__name">Compte rendu client</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03</span></li>
+                  <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">Plan de tests et recette</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
+                  <li class="skill" data-ctx="projet-mairie projet-cloison stadiumcompany"><span class="skill__name">Documentation technique</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 02, 03</span></li>
                 </ul>
               </div>
               <div class="domain" data-reveal>
@@ -451,7 +502,7 @@
             <span class="annex__text">Au format de l’annexe de l’épreuve E4 : mes réalisations et les compétences des blocs 1 et 2 mises en œuvre.</span>
             <span class="annex__go">Ouvrir le tableau <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </span>
-          <span class="annex__fig"><svg class="matrix" viewBox="0 0 176 71" aria-hidden="true" focusable="false"><rect x="0" y="0" width="14" height="14" class="on"/><rect x="19" y="0" width="14" height="14" class="on"/><rect x="38" y="0" width="14" height="14"/><rect x="57" y="0" width="14" height="14"/><rect x="76" y="0" width="14" height="14" class="on"/><rect x="95" y="0" width="14" height="14"/><rect x="124" y="0" width="14" height="14"/><rect x="143" y="0" width="14" height="14" class="on"/><rect x="162" y="0" width="14" height="14" class="on"/><rect x="0" y="19" width="14" height="14" class="on"/><rect x="19" y="19" width="14" height="14" class="on"/><rect x="38" y="19" width="14" height="14"/><rect x="57" y="19" width="14" height="14" class="on"/><rect x="76" y="19" width="14" height="14" class="on"/><rect x="95" y="19" width="14" height="14"/><rect x="124" y="19" width="14" height="14"/><rect x="143" y="19" width="14" height="14"/><rect x="162" y="19" width="14" height="14"/><rect x="0" y="38" width="14" height="14"/><rect x="19" y="38" width="14" height="14"/><rect x="38" y="38" width="14" height="14"/><rect x="57" y="38" width="14" height="14"/><rect x="76" y="38" width="14" height="14"/><rect x="95" y="38" width="14" height="14"/><rect x="124" y="38" width="14" height="14" class="on"/><rect x="143" y="38" width="14" height="14" class="on"/><rect x="162" y="38" width="14" height="14"/><rect x="0" y="57" width="14" height="14" class="on"/><rect x="19" y="57" width="14" height="14" class="on"/><rect x="38" y="57" width="14" height="14"/><rect x="57" y="57" width="14" height="14"/><rect x="76" y="57" width="14" height="14" class="on"/><rect x="95" y="57" width="14" height="14"/><rect x="124" y="57" width="14" height="14"/><rect x="143" y="57" width="14" height="14"/><rect x="162" y="57" width="14" height="14"/></svg></span>
+          <span class="annex__fig"><svg class="matrix" viewBox="0 0 176 90" aria-hidden="true" focusable="false"><rect x="0" y="0" width="14" height="14" class="on"/><rect x="19" y="0" width="14" height="14" class="on"/><rect x="38" y="0" width="14" height="14"/><rect x="57" y="0" width="14" height="14"/><rect x="76" y="0" width="14" height="14" class="on"/><rect x="95" y="0" width="14" height="14"/><rect x="124" y="0" width="14" height="14" class="on"/><rect x="143" y="0" width="14" height="14" class="on"/><rect x="162" y="0" width="14" height="14" class="on"/><rect x="0" y="19" width="14" height="14" class="on"/><rect x="19" y="19" width="14" height="14" class="on"/><rect x="38" y="19" width="14" height="14"/><rect x="57" y="19" width="14" height="14"/><rect x="76" y="19" width="14" height="14" class="on"/><rect x="95" y="19" width="14" height="14"/><rect x="124" y="19" width="14" height="14"/><rect x="143" y="19" width="14" height="14" class="on"/><rect x="162" y="19" width="14" height="14" class="on"/><rect x="0" y="38" width="14" height="14" class="on"/><rect x="19" y="38" width="14" height="14" class="on"/><rect x="38" y="38" width="14" height="14"/><rect x="57" y="38" width="14" height="14" class="on"/><rect x="76" y="38" width="14" height="14" class="on"/><rect x="95" y="38" width="14" height="14"/><rect x="124" y="38" width="14" height="14"/><rect x="143" y="38" width="14" height="14"/><rect x="162" y="38" width="14" height="14"/><rect x="0" y="57" width="14" height="14"/><rect x="19" y="57" width="14" height="14"/><rect x="38" y="57" width="14" height="14"/><rect x="57" y="57" width="14" height="14"/><rect x="76" y="57" width="14" height="14"/><rect x="95" y="57" width="14" height="14"/><rect x="124" y="57" width="14" height="14" class="on"/><rect x="143" y="57" width="14" height="14" class="on"/><rect x="162" y="57" width="14" height="14"/><rect x="0" y="76" width="14" height="14" class="on"/><rect x="19" y="76" width="14" height="14" class="on"/><rect x="38" y="76" width="14" height="14"/><rect x="57" y="76" width="14" height="14"/><rect x="76" y="76" width="14" height="14" class="on"/><rect x="95" y="76" width="14" height="14"/><rect x="124" y="76" width="14" height="14"/><rect x="143" y="76" width="14" height="14"/><rect x="162" y="76" width="14" height="14"/></svg></span>
         </a>
       </div>
     </section>
@@ -472,7 +523,7 @@
             <div class="about__grid">
               <div class="about__text" data-reveal>
                 <p>Actuellement en <strong>deuxième année de BTS SIO option SISR</strong> à l’école ENSITECH, à Montigny‑le‑Bretonneux, je suis passionné par l’informatique, les innovations technologiques et les infrastructures réseau.</p>
-                <p>Mes stages et mes projets m’ont permis d’acquérir des compétences en administration des systèmes et des réseaux, en support informatique, en virtualisation et en supervision avec Zabbix.</p>
+                <p>Mes stages et mes projets m’ont permis d’acquérir des compétences en administration des systèmes et des réseaux, en support informatique, en virtualisation et en supervision avec Zabbix. Cette année, mon projet annuel StadiumCompany m’a fait déployer une infrastructure Windows Server complète : Active Directory sur deux contrôleurs, DNS, DHCP redondant, GPO et pare-feu pfSense.</p>
                 <p>Rigoureux, autonome et curieux, je souhaite contribuer au bon fonctionnement et à l’évolution d’une infrastructure informatique.</p>
               </div>
               <dl class="fiche" data-reveal>

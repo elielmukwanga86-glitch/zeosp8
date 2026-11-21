@@ -2,7 +2,7 @@
 /** Réalisation : réseau Wi-Fi à deux VLAN pour un cabinet de kinésithérapie (cas d’école ENSITECH, septembre 2026). */
 module.exports = {
   slug: 'projet-cloison',
-  ordre: 2,
+  ordre: 3,
   page: true,
 
   nom: 'Projet Cloison',

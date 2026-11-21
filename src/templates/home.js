@@ -52,7 +52,7 @@ function hero(site, projets, entries) {
     ['Formation', `${site.formation.diplome} ${site.formation.option} · ${site.formation.ecole}`],
     ['Stages', lieux.length === 1 ? `${lieux[0]} (${stages.length})` : `${stages.length} stages`],
     ['Dossiers', docs.length ? `${docs.length} PDF · ${pages} pages` : 'À venir'],
-    ['Statut', site.statut.court],
+    site.projetAnnuel ? ['Projet annuel', site.projetAnnuel] : ['Statut', site.statut.court],
   ];
   return `    <section class="cover" id="top" aria-labelledby="hero-title">
       <div class="wrap">

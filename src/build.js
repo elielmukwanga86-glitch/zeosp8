@@ -58,7 +58,8 @@ for (const d of site.competences) for (const it of d.items) for (const c of it.c
   if (!slugs.has(c)) errors.push(`compétence « ${it.nom} » : réalisation inconnue « ${c} ».`);
 }
 // Never publish internal addresses: only fictitious/public ones or masked ones (x.x) are allowed in content.
-const ALLOWED_IP = /^(192\.168\.(10|20)\.\d+|192\.168\.1\.[12]|192\.0\.0\.\d|1\.1\.1\.1)$/;
+// 172.20.0.0/22 is the plan of StadiumCompany, the fictitious company of the school's annual project.
+const ALLOWED_IP = /^(192\.168\.(10|20)\.\d+|192\.168\.1\.[12]|192\.0\.0\.\d|1\.1\.1\.1|172\.20\.[0-3]\.\d+|255\.255\.255\.\d+)$/;
 const contentText = JSON.stringify(projets) + JSON.stringify(site);
 for (const m of contentText.matchAll(/(?<![\d.])(\d{1,3}(?:\.\d{1,3}){3})(?![\d.])/g)) {
   if (!ALLOWED_IP.test(m[1].replace(/\/\d+$/, ''))) errors.push(`adresse IP non masquée dans le contenu : ${m[1]} (écrire par ex. 192.168.x.x)`);
