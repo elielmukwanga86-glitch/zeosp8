@@ -28,6 +28,14 @@ module.exports = {
     'Rapport de tests de la mission 2 (11 scénarios)',
   ],
 
+  documents: [{
+    titre: 'Dossier Redondance',
+    fichier: 'docs/StadiumCompany_Redondance.pdf',
+    pages: 9,
+    phrase: 'Deux contrôleurs, un DNS répliqué, un DHCP qui bascule.',
+    description: 'Second contrôleur de domaine, DNS intégré à Active Directory, basculement DHCP Hot Standby, relais pfSense et tests de panne.',
+  }],
+
   visuel: {
     src: 'img/stadium-visuel.webp', largeur: 1600, hauteur: 1000,
     alt: 'Illustration : pfSense au centre relie le WAN et les VLAN Serveurs, Admin et Équipes ; SRV-DC01 et SRV-DC02 sont reliés par la réplication et le basculement.',
