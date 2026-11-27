@@ -26,6 +26,10 @@ Site publié par GitHub Pages (workflow `.github/workflows/deploy-pages.yml`, do
 5. `node src/build.js`, vérifier en capture (bureau 1440 px et mobile 390 px, aucun défilement horizontal),
    puis commit et push. Le tableau de synthèse se met à jour tout seul ; régénérer l’Excel (`npm run synthese`)
    et l’envoyer à l’étudiant. Une réalisation en stage doit avoir `anneeBts` (1 ou 2).
+6. Épreuve E5 (support ENSITECH : bloc 1 = épreuve E5, compétences C1–C6) : chaque compétence du bloc 1
+   cochée a son champ `preuves` (activité + où la voir) ; une étude de cas a son `analyse` en seize points
+   (situer, cadrer, réaliser, valider, en distinguant ce que l’étudiant a fait lui-même). Retirer l’entrée de
+   `site.aCouvrir` dès qu’une réalisation couvre C3 (présence en ligne) ou C6 (développement professionnel).
 
 ## Règles de contenu (impératives)
 

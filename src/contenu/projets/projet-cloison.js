@@ -29,6 +29,39 @@ module.exports = {
   fiche: [['Réseaux', 'VLAN 10 · VLAN 20'], ['Matériel', 'TP-Link Omada'], ['Schéma', 'diagrams.net'], ['Devis', '600 € HT']],
 
   // Compétences indiquées dans le livret de l’atelier.
+
+  // Analyse de la réalisation (grille en seize points du support de préparation à l’épreuve E5).
+  analyse: {
+    situer: {
+      contexte: 'Atelier de professionnalisation ENSITECH, en septembre 2026 : cas d’école d’un cabinet de kinésithérapie fictif.',
+      organisation: 'Je réponds, comme prestataire, à une offre d’audit réseau commandée par le kinésithérapeute.',
+      problematique: 'Coupures en fin de journée, imprimante qui disparaît, patients connectés au même Wi-Fi que le cabinet et ses données de santé.',
+      objectifs: 'Qualifier la demande, mesurer, concevoir un réseau à deux VLAN isolés, chiffrer la solution et rendre compte au client.',
+    },
+    cadrer: {
+      besoins: 'Une connexion stable, une imprimante toujours joignable, et un Wi-Fi patients séparé du réseau du cabinet.',
+      contraintes: 'Budget d’environ 1 000 €, intervention un samedi matin, murs en béton, données de santé protégées par le RGPD.',
+      solution: 'Routeur, switch PoE+ et borne Wi-Fi TP-Link Omada, deux VLAN isolés, réservations DHCP et borne au plafond du couloir.',
+      technologies: 'VLAN, DHCP, Wi-Fi, TP-Link Omada, commandes d’audit réseau, diagrams.net.',
+    },
+    realiser: {
+      etapes: 'Qualification de la demande, audit, conception du réseau, devis, compte rendu au client.',
+      actions: 'J’ai fait les mesures sur mon propre réseau, dessiné le schéma, construit le plan d’adressage, choisi le matériel, rédigé le devis et le compte rendu.',
+      difficultes: 'Impossible d’auditer un réseau qui n’est pas le sien ; le switch le moins cher ne gérait ni les VLAN ni le PoE.',
+      solutions: 'Mesures faites sur le partage de connexion de mon téléphone ; choix d’un switch administrable PoE+.',
+    },
+    valider: {
+      tests: 'Audit en ligne de commande : configuration IP, route, ping, traceroute, DNS et port 443.',
+      resultats: 'Le problème vient de la connexion quand elle est chargée, pas du Wi-Fi ; devis de 600 € HT pour un budget d’environ 1 000 €.',
+      ameliorations: 'Option proposée : une deuxième borne pour les salles du fond (215 €), car le béton risque d’affaiblir le Wi-Fi.',
+    },
+  },
+  preuves: {
+    'b1-patrimoine': { activite: 'Inventaire des équipements du cabinet, plan d’adressage et choix du matériel.', ou: [['La conception', 'conception'], ['Le devis', 'devis']] },
+    'b1-incidents': { activite: 'Qualification de la demande et diagnostic des coupures du soir et de l’imprimante qui disparaît.', ou: [['La demande', 'demande'], ['L’audit', 'audit']] },
+    'b1-projet': { activite: 'Organisation de la mission : étapes, livrables, devis et créneau d’intervention du samedi.', ou: [['Le devis', 'devis'], ['Dossier de réalisation', 'pdf']] },
+    'b1-service': { activite: 'Wi-Fi patients séparé du cabinet et compte rendu écrit pour l’utilisateur, sans jargon.', ou: [['Le compte rendu', 'compte-rendu']] },
+  },
   competencesBts: ['b1-patrimoine', 'b1-incidents', 'b1-projet', 'b1-service'],
 
   documents: [{

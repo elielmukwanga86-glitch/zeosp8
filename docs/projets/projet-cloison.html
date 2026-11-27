@@ -96,6 +96,7 @@
         <nav class="toc" aria-label="Sommaire de l’étude de cas">
           <p class="toc__label">Sommaire</p>
           <ol>
+            <li><a href="#fiche"><span class="toc__n">00</span>Fiche</a></li>
             <li><a href="#demande"><span class="toc__n">01</span>La demande</a></li>
             <li><a href="#audit"><span class="toc__n">02</span>L’audit</a></li>
             <li><a href="#conception"><span class="toc__n">03</span>La conception</a></li>
@@ -105,6 +106,63 @@
           </ol>
         </nav>
         <div class="prose">
+          <section class="chapter" id="fiche" aria-labelledby="fiche-titre">
+            <h2 class="chapter__head" id="fiche-titre" data-reveal><span class="chapter__n">00</span><span class="chapter__label">Fiche de réalisation</span><span class="chapter__title">La réalisation en seize points</span></h2>
+            <div class="grille">
+              <div class="grille__col">
+                <h3 class="grille__titre">Situer</h3>
+                <dl>
+                  <div><dt>Contexte</dt><dd>Atelier de professionnalisation ENSITECH, en septembre 2026 : cas d’école d’un cabinet de kinésithérapie fictif.</dd></div>
+                  <div><dt>Organisation</dt><dd>Je réponds, comme prestataire, à une offre d’audit réseau commandée par le kinésithérapeute.</dd></div>
+                  <div><dt>Problématique</dt><dd>Coupures en fin de journée, imprimante qui disparaît, patients connectés au même Wi‑Fi que le cabinet et ses données de santé.</dd></div>
+                  <div><dt>Objectifs</dt><dd>Qualifier la demande, mesurer, concevoir un réseau à deux VLAN isolés, chiffrer la solution et rendre compte au client.</dd></div>
+
+                </dl>
+              </div>
+              <div class="grille__col">
+                <h3 class="grille__titre">Cadrer</h3>
+                <dl>
+                  <div><dt>Besoins</dt><dd>Une connexion stable, une imprimante toujours joignable, et un Wi‑Fi patients séparé du réseau du cabinet.</dd></div>
+                  <div><dt>Contraintes</dt><dd>Budget d’environ 1 000 €, intervention un samedi matin, murs en béton, données de santé protégées par le RGPD.</dd></div>
+                  <div><dt>Solution retenue</dt><dd>Routeur, switch PoE+ et borne Wi‑Fi TP-Link Omada, deux VLAN isolés, réservations DHCP et borne au plafond du couloir.</dd></div>
+                  <div><dt>Technologies</dt><dd>VLAN, DHCP, Wi‑Fi, TP-Link Omada, commandes d’audit réseau, diagrams.net.</dd></div>
+
+                </dl>
+              </div>
+              <div class="grille__col">
+                <h3 class="grille__titre">Réaliser</h3>
+                <dl>
+                  <div><dt>Étapes</dt><dd>Qualification de la demande, audit, conception du réseau, devis, compte rendu au client.</dd></div>
+                  <div class="grille__moi"><dt>Ce que j’ai fait moi-même</dt><dd>J’ai fait les mesures sur mon propre réseau, dessiné le schéma, construit le plan d’adressage, choisi le matériel, rédigé le devis et le compte rendu.</dd></div>
+                  <div><dt>Difficultés</dt><dd>Impossible d’auditer un réseau qui n’est pas le sien ; le switch le moins cher ne gérait ni les VLAN ni le PoE.</dd></div>
+                  <div><dt>Solutions apportées</dt><dd>Mesures faites sur le partage de connexion de mon téléphone ; choix d’un switch administrable PoE+.</dd></div>
+
+                </dl>
+              </div>
+              <div class="grille__col">
+                <h3 class="grille__titre">Valider</h3>
+                <dl>
+                  <div><dt>Tests réalisés</dt><dd>Audit en ligne de commande : configuration IP, route, ping, traceroute, DNS et port 443.</dd></div>
+                  <div><dt>Résultats</dt><dd>Le problème vient de la connexion quand elle est chargée, pas du Wi‑Fi ; devis de 600 € HT pour un budget d’environ 1 000 €.</dd></div>
+                  <div><dt>Améliorations</dt><dd>Option proposée : une deuxième borne pour les salles du fond (215 €), car le béton risque d’affaiblir le Wi‑Fi.</dd></div>
+                  <div><dt>Compétences mobilisées</dt><dd>C1, C2, C4, C5 (bloc 1)</dd></div>
+                </dl>
+              </div>
+            </div>
+            <h3 class="prose__h3">Compétences du bloc 1 et preuves</h3>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Compétences du bloc 1 et preuves">
+              <table class="table comp">
+                <thead><tr><th scope="col">Compétence</th><th scope="col">Activité réalisée</th><th scope="col">Où le voir</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row"><span class="comp__code">C1</span>Gérer le patrimoine informatique</th><td>Inventaire des équipements du cabinet, plan d’adressage et choix du matériel.</td><td><a href="#conception">La conception</a> · <a href="#devis">Le devis</a></td></tr>
+                  <tr><th scope="row"><span class="comp__code">C2</span>Répondre aux incidents et aux demandes d’assistance et d’évolution</th><td>Qualification de la demande et diagnostic des coupures du soir et de l’imprimante qui disparaît.</td><td><a href="#demande">La demande</a> · <a href="#audit">L’audit</a></td></tr>
+                  <tr><th scope="row"><span class="comp__code">C4</span>Travailler en mode projet</th><td>Organisation de la mission : étapes, livrables, devis et créneau d’intervention du samedi.</td><td><a href="#devis">Le devis</a> · <a href="../assets/docs/Projet-Cloison_Reseau-cabinet-kine.pdf">Dossier de réalisation (PDF)</a></td></tr>
+                  <tr><th scope="row"><span class="comp__code">C5</span>Mettre à disposition des utilisateurs un service informatique</th><td>Wi‑Fi patients séparé du cabinet et compte rendu écrit pour l’utilisateur, sans jargon.</td><td><a href="#compte-rendu">Le compte rendu</a></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
           <section class="chapter" id="demande" aria-labelledby="demande-titre">
             <h2 class="chapter__head" id="demande-titre" data-reveal><span class="chapter__n">01</span><span class="chapter__label">La demande</span><span class="chapter__title">Ce que le client voit, et ce qui se passe vraiment</span></h2>
             <p>Le cabinet (inventé pour le cours) a une box fibre dans un placard, des murs en béton et un seul Wi‑Fi, dont le code est affiché en salle d’attente. Les bilans des patients sont scannés dans un dossier partagé du PC de l’accueil. Le budget est d’environ 1 000 € et l’intervention peut avoir lieu un samedi matin.</p>

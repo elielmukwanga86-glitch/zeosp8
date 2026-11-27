@@ -32,6 +32,38 @@ module.exports = {
   fiche: [['Hyperviseur', 'VMware ESXi'], ['Système', 'Debian 13'], ['Supervision', 'Zabbix 7.4'], ['Protocoles', 'ICMP · SNMP']],
 
   // Correspondance avec le référentiel (contenu/referentiel.js), utilisée par le tableau de synthèse.
+
+  // Analyse de la réalisation (grille en seize points du support de préparation à l’épreuve E5).
+  analyse: {
+    situer: {
+      contexte: 'Stage de 1re année de BTS, en juillet et août 2026, à la mairie des Clayes-sous-Bois.',
+      organisation: 'Parc réparti sur plusieurs réseaux (VLAN) : serveurs, données, VoIP, caméras, école, libre-service…',
+      problematique: 'Un parc jusque-là surtout administré à la main, sans vue d’ensemble des équipements.',
+      objectifs: 'Installer un serveur Zabbix, superviser en ICMP et SNMP, découvrir automatiquement les équipements et les classer par type.',
+    },
+    cadrer: {
+      besoins: 'Découvrir les équipements des différents réseaux et les ranger par type (PC, switch, serveur, caméra, imprimante…).',
+      contraintes: 'Pare-feu géré par Active Directory à ouvrir pour les flux de supervision ; imprimantes et copieurs sans agent Zabbix.',
+      solution: 'Zabbix 7.4 sur une VM Debian 13 hébergée sous VMware ESXi, avec des règles de découverte par réseau et des actions de classement.',
+      technologies: 'Zabbix 7.4, Debian 13, VMware ESXi, SNMP, ICMP, MariaDB, Apache + PHP, Active Directory.',
+    },
+    realiser: {
+      etapes: 'VM Debian 13 et SSH, installation de Zabbix 7.4, supervision SNMP, règles et actions de découverte, groupes et tests.',
+      actions: 'J’ai installé et configuré le serveur, mis en place la supervision SNMP, créé les règles et les actions de découverte, et rédigé la documentation technique.',
+      difficultes: 'La connexion vers la passerelle posait problème alors que le DNS répondait ; les imprimantes ne pouvaient pas être reconnues par un agent.',
+      solutions: 'Vérification étape par étape (interface, adresse, route, passerelle, DNS) ; identification des imprimantes par un OID SNMP et par leur nom.',
+    },
+    valider: {
+      tests: 'Tests de validation de la découverte, gestion des doublons, `snmpwalk` sur les équipements.',
+      resultats: 'Environ 169 hôtes découverts lors des essais, 9 VLAN recensés, 9 groupes d’équipements ; classement en place pour les principaux types.',
+      ameliorations: 'Finir le classement, configurer les alertes, passer en SNMPv3, créer des tableaux de bord, sauvegarder la base.',
+    },
+  },
+  preuves: {
+    'b1-patrimoine': { activite: 'Recensement automatique des équipements de la mairie (environ 169 hôtes) et classement en 9 groupes.', ou: [['Découverte automatique', 'decouverte'], ['Résultats', 'resultats']] },
+    'b1-incidents': { activite: 'Diagnostic d’un problème de passerelle, étape par étape, pendant la mise en place.', ou: [['Diagnostic', 'difficulte']] },
+    'b1-service': { activite: 'Déploiement du serveur de supervision Zabbix pour le service informatique, tests de validation et documentation technique.', ou: [['Ma démarche', 'demarche'], ['Documentation technique', 'pdf']] },
+  },
   competencesBts: ['b1-patrimoine', 'b1-incidents', 'b1-service', 'b2-installer', 'b2-exploiter'],
 
   documents: [{

@@ -31,6 +31,18 @@ module.exports = {
   // b1-service, b1-devpro, b2-concevoir, b2-installer, b2-exploiter).
   competencesBts: [],
 
+  // Épreuve E5 : pour chaque compétence du bloc 1 cochée, l’activité réalisée et où en voir la preuve
+  // (identifiant d’une section de l’étude de cas, ou 'pdf'). Le site refuse une compétence sans preuve.
+  // preuves: { 'b1-service': { activite: '…', ou: [['Tests', 'tests'], ['Dossier', 'pdf']] } },
+
+  // Étude de cas : analyse en seize points (support de préparation ENSITECH), affichée en tête de page.
+  // analyse: {
+  //   situer: { contexte, organisation, problematique, objectifs },
+  //   cadrer: { besoins, contraintes, solution, technologies },
+  //   realiser: { etapes, actions /* ce que j’ai fait moi-même */, difficultes, solutions },
+  //   valider: { tests, resultats, ameliorations },
+  // },
+
   // --- Réalisation courte (page: false) ---
   details: [
     'Ce que j’ai fait, une action par ligne.',

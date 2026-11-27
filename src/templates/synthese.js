@@ -1,11 +1,11 @@
 'use strict';
-const { esc, text } = require('../lib/html');
+const { esc, inline, text } = require('../lib/html');
 const { ICON } = require('./layout');
 
 /**
- * Tableau de synthèse au format de l’annexe 6-1 (épreuve E4) : une ligne par réalisation,
+ * Tableau de synthèse au format de l’annexe 6-1 (épreuve E5) : une ligne par réalisation,
  * classée « en cours de formation » ou « en milieu professionnel » (1re / 2de année),
- * une colonne par compétence. Le bloc 2 (épreuve E5) suit la même présentation.
+ * une colonne par compétence. Le bloc 2 (option SISR) suit la même présentation.
  */
 const RUBRIQUES = [
   { id: 'formation', titre: 'Réalisations en cours de formation' },
@@ -79,7 +79,7 @@ function synthese(site, projets, referentiel) {
           <div class="cols__margin"><p class="dochead__num" aria-hidden="true">A</p></div>
           <div class="dochead__main">
             <h1 class="dochead__title" id="case-title">Tableau de synthèse</h1>
-            <p class="dochead__deck">Tableau de synthèse des réalisations professionnelles, présenté comme l’annexe 6‑1 de l’épreuve E4 : mes réalisations en cours de formation et en milieu professionnel, et les compétences du référentiel mises en œuvre. Je le complète au fil de l’année.</p>
+            <p class="dochead__deck">Tableau de synthèse des réalisations professionnelles, présenté comme l’annexe VI‑1 de l’épreuve E5 : mes réalisations en cours de formation et en milieu professionnel, les compétences du référentiel mises en œuvre et, pour chacune, l’activité réalisée et ses preuves. Je le complète au fil de l’année.</p>
           </div>
         </div>
         <dl class="form-fiche">
@@ -90,10 +90,42 @@ ${fiche.map(([k, v]) => `          <div><dt>${text(k)}</dt><dd>${v.startsWith('<
 
     <div class="section synth-page">
       <div class="wrap">
-${referentiel.map((b) => tableau(b, projets)).join('\n')}
+${couverture(site, projets, referentiel[0])}${referentiel.map((b) => tableau(b, projets)).join('\n')}
         <p class="synth__legend"><span class="synth__dot" aria-hidden="true"></span>Compétence mise en œuvre dans la réalisation.</p>
       </div>
     </div>`;
+}
+
+/** Couverture des six compétences du bloc 1 : pour chacune, les réalisations, l’activité et les preuves. */
+function couverture(site, projets, bloc) {
+  const lien = (p, cible, label) => {
+    if (cible === 'pdf') return `<a href="assets/${esc(p.documents[0].fichier)}">${text(p.documents[0].titre)} (PDF)</a>`;
+    return p.page ? `<a href="projets/${p.slug}.html#${esc(cible)}">${text(label)}</a>` : text(label);
+  };
+  const cartes = bloc.competences.map((c) => {
+    const rs = projets.filter((p) => (p.competencesBts || []).includes(c.id));
+    const items = rs.map((p) => {
+      const pr = (p.preuves || {})[c.id] || {};
+      const ou = (pr.ou || []).map(([l, cible]) => lien(p, cible, l));
+      if (!ou.length) ou.push(p.page ? `<a href="projets/${p.slug}.html#fiche">Fiche de réalisation</a>` : '<a href="index.html#realisations">Autres réalisations</a>');
+      return `              <li><span class="couv__proj">${text(p.nom)}</span> ${inline(pr.activite || '')}<span class="couv__ou">${ou.join(' · ')}</span></li>`;
+    }).join('\n');
+    const prevu = (site.aCouvrir || {})[c.id];
+    return `          <div class="couv__carte${rs.length ? '' : ' couv__carte--vide'}">
+            <h3 class="couv__titre"><span class="couv__code">${c.code}</span>${text(c.nom)}</h3>
+            <p class="couv__etat">${rs.length ? `${rs.length} réalisation${rs.length > 1 ? 's' : ''}` : 'Pas encore couverte'}</p>
+            ${rs.length ? `<ul class="couv__liste">\n${items}\n            </ul>` : `<p class="couv__prevu">${inline(prevu || 'Aucune réalisation pour l’instant.')}</p>`}
+          </div>`;
+  }).join('\n');
+  const n = bloc.competences.filter((c) => projets.some((p) => (p.competencesBts || []).includes(c.id))).length;
+  return `        <section class="couv" aria-labelledby="couv-titre" data-reveal>
+          <h2 class="synth__title" id="couv-titre"><span class="synth__kicker">${text(bloc.titre)} · ${text(bloc.epreuve)} · ${n} compétences sur ${bloc.competences.length} couvertes</span>Couverture des six compétences</h2>
+          <p class="couv__intro">Pour chaque compétence : les réalisations où je l’ai mise en œuvre, l’activité réalisée et où en trouver la preuve. Une compétence n’est cochée que si une réalisation la prouve.</p>
+          <div class="couv__grille">
+${cartes}
+          </div>
+        </section>
+`;
 }
 
 /** Error page, served by GitHub Pages for unknown URLs. */

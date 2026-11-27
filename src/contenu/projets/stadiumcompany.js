@@ -49,6 +49,40 @@ module.exports = {
   technologies: ['Windows Server 2022', 'Active Directory', 'DNS', 'DHCP', 'GPO', 'pfSense', 'VMware Workstation', 'PowerShell'],
   fiche: [['Domaine', 'stadiumcompany.com'], ['Serveurs', 'Windows Server 2022'], ['Pare-feu', 'pfSense CE 2.9'], ['Tests', '11 sur 11 validés']],
 
+
+  // Analyse de la réalisation (grille en seize points du support de préparation à l’épreuve E5).
+  analyse: {
+    situer: {
+      contexte: 'Projet annuel de 2e année à l’ENSITECH (épreuve E5) : StadiumCompany, organisation fictive qui exploite un stade, une billetterie et un magasin.',
+      organisation: 'Projet découpé en 14 missions, de septembre à mai. Je le mène seul, dans un laboratoire VMware installé sur ma tour.',
+      problematique: 'Mettre en place les services d’infrastructure de l’entreprise sans qu’ils dépendent d’un seul serveur.',
+      objectifs: 'Annuaire Active Directory pour `stadiumcompany.com`, DNS primaire et secondaire, DHCP par VLAN, partages, profils et GPO, puis tout tester (mission 2).',
+    },
+    cadrer: {
+      besoins: 'Indicateur clé du cahier des charges : un poste branché sur n’importe quel VLAN obtient une configuration complète sans intervention manuelle.',
+      contraintes: 'Plage imposée `172.20.0.0/22` à découper en VLSM sans effectifs fournis ; laboratoire limité à trois VLAN simulés.',
+      solution: 'pfSense pour le routage, le filtrage et le relais DHCP ; deux contrôleurs Windows Server 2022 ; DHCP en basculement ; droits selon la méthode AGDLP.',
+      technologies: 'Windows Server 2022, Active Directory, DNS, DHCP, GPO, pfSense, VMware Workstation, PowerShell.',
+    },
+    realiser: {
+      etapes: 'pfSense, forêt `stadiumcompany.com`, DNS, neuf étendues DHCP, second contrôleur, annuaire et partages, GPO, poste client et tests.',
+      actions: 'Tout seul : plan d’adressage, création des machines virtuelles, configuration de pfSense et des deux serveurs, scripts PowerShell, plan de tests et captures.',
+      difficultes: 'Premier ping en échec ; `Install-WindowsFeature` introuvable sur SRV-DC02 ; lecteur P: qui n’apparaissait pas.',
+      solutions: 'Démarrer pfSense avant les serveurs ; utiliser PowerShell ISE 64 bits ; corriger le ciblage de la GPO (« n’est pas membre »), vérifié avec `gpresult /r`.',
+    },
+    valider: {
+      tests: 'Onze scénarios, chacun avec une capture d’écran datée : DHCP par le relais, droits, GPO, DNS, verrouillage, arrêt du DHCP de SRV-DC01, SRV-DC01 éteint.',
+      resultats: 'Onze tests sur onze réussis ; avec SRV-DC01 hors service, les postes obtiennent une adresse et les sessions s’ouvrent.',
+      ameliorations: 'Partages encore sur SRV-DC01 (serveur de fichiers ou DFS) ; PowerShell non bloqué ; comptes d’administration nominatifs prévus en mission 3.',
+    },
+  },
+  // Pour chaque compétence du bloc 1 cochée : l’activité réalisée et où en trouver la preuve
+  // (identifiant de section de l’étude de cas, ou 'pdf' pour le premier dossier).
+  preuves: {
+    'b1-patrimoine': { activite: 'Structure de l’annuaire (unités d’organisation, groupes, 14 comptes), droits d’accès selon AGDLP et continuité de service avec deux contrôleurs.', ou: [['Annuaire et droits', 'annuaire'], ['Dossier Redondance', 'pdf']] },
+    'b1-incidents': { activite: 'Diagnostic et résolution des problèmes rencontrés : ping en échec, commande introuvable, lecteur réseau absent.', ou: [['Difficultés', 'difficultes']] },
+    'b1-service': { activite: 'Déploiement des services AD, DNS, DHCP et GPO, puis onze tests d’acceptation avant de valider la mission.', ou: [['Déploiement', 'deploiement'], ['Tests', 'tests']] },
+  },
   competencesBts: ['b1-patrimoine', 'b1-incidents', 'b1-service', 'b2-concevoir', 'b2-installer', 'b2-exploiter'],
 
   sections: [

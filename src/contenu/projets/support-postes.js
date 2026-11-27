@@ -22,5 +22,11 @@ module.exports = {
     'Assistance technique et support informatique de premier niveau.',
   ],
 
+
+  preuves: {
+    'b1-patrimoine': { activite: 'Préparation, installation et configuration de postes Windows ; maintenance des postes et des équipements réseau.' },
+    'b1-incidents': { activite: 'Diagnostic et résolution d’incidents matériels et logiciels ; assistance de premier niveau.' },
+    'b1-service': { activite: 'Mise en service d’imprimantes réseau et assistance aux utilisateurs.' },
+  },
   competencesBts: ['b1-patrimoine', 'b1-incidents', 'b1-service'],
 };

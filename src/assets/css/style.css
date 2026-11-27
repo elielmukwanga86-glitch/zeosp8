@@ -673,3 +673,37 @@ html:not(.js) .brand__meta { display: none; }
 .mission--cours .mission__n, .mission--cours .mission__e { color: var(--acc-ink); }
 .mission--avenir .mission__t { color: var(--mut); }
 @media (min-width: 900px) { .missions__list { grid-template-columns: 1fr 1fr; column-gap: 32px; } }
+
+/* ---------- Fiche de réalisation (grille en seize points, épreuve E5) ---------- */
+.grille { display: grid; gap: 0 28px; border-top: 1px solid var(--rule); }
+@media (min-width: 700px) { .grille { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.grille__col { padding: 16px 0 6px; border-bottom: 1px solid var(--rule); min-width: 0; }
+.grille__titre { font-family: var(--f-mono) !important; font-size: 12.5px !important; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--acc-ink) !important; margin: 0 0 10px !important; }
+.grille dl { display: grid; gap: 12px; }
+.grille dt { font-family: var(--f-mono); font-size: 12.5px; color: var(--mut); margin-bottom: 2px; }
+.grille dd { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+.grille__moi { border-left: 2px solid var(--acc); padding-left: 10px; margin-left: -12px; }
+.grille__moi dd { color: var(--ink); }
+.table.comp { min-width: 560px; }
+.table.comp th[scope="row"] { font-weight: 500; width: 32%; }
+.table.comp td:last-child { width: 24%; font-family: var(--f-mono); font-size: 13px; }
+.table.comp a { color: var(--acc-ink); border-bottom: 1px solid currentColor; }
+.comp__code { display: inline-block; min-width: 2.4em; font-family: var(--f-mono); font-size: 12.5px; color: var(--acc-ink); }
+
+/* ---------- Couverture des six compétences du bloc 1 ---------- */
+.couv { margin-bottom: clamp(56px, 7vw, 96px); }
+.couv__intro { max-width: 46em; color: var(--ink-2); margin: 8px 0 24px; }
+.couv__grille { display: grid; gap: 0 32px; border-top: 1px solid var(--ink); }
+@media (min-width: 860px) { .couv__grille { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.couv__carte { padding: 18px 0 20px; border-bottom: 1px solid var(--rule); min-width: 0; }
+.couv__titre { font-family: var(--f-serif); font-weight: 500; font-size: 21px; line-height: 1.25; }
+.couv__code { font-family: var(--f-mono); font-size: 13px; color: var(--acc-ink); margin-right: 10px; vertical-align: 2px; }
+.couv__etat { font-family: var(--f-mono); font-size: 12.5px; color: var(--ok-ink); margin-top: 4px; }
+.couv__carte--vide .couv__etat { color: var(--acc-ink); }
+.couv__liste { margin-top: 12px; display: grid; gap: 12px; }
+.couv__liste li { font-size: 15px; line-height: 1.5; color: var(--ink-2); padding-left: 14px; position: relative; }
+.couv__liste li::before { content: ""; position: absolute; left: 0; top: .72em; width: 7px; height: 1px; background: var(--acc-ink); }
+.couv__proj { font-weight: 600; color: var(--ink); }
+.couv__ou { display: block; margin-top: 3px; font-family: var(--f-mono); font-size: 12.5px; }
+.couv__ou a, .couv__prevu a { color: var(--acc-ink); border-bottom: 1px solid currentColor; }
+.couv__prevu { margin-top: 12px; font-size: 15px; color: var(--ink-2); }

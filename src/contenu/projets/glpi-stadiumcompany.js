@@ -23,5 +23,9 @@ module.exports = {
     'Première étape de la mission 7 (gestion de parc et helpdesk) ; la prochaine est la liaison avec l’Active Directory (LDAP).',
   ],
 
+
+  preuves: {
+    'b1-service': { activite: 'Installation de GLPI sur une VM Debian (Apache, MariaDB, PHP), accessible en HTTPS sur `glpi.stadiumcompany.com`.' },
+  },
   competencesBts: ['b1-service', 'b2-installer'],
 };

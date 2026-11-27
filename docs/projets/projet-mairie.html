@@ -96,6 +96,7 @@
         <nav class="toc" aria-label="Sommaire de l’étude de cas">
           <p class="toc__label">Sommaire</p>
           <ol>
+            <li><a href="#fiche"><span class="toc__n">00</span>Fiche</a></li>
             <li><a href="#contexte"><span class="toc__n">01</span>Contexte</a></li>
             <li><a href="#architecture"><span class="toc__n">02</span>Architecture</a></li>
             <li><a href="#demarche"><span class="toc__n">03</span>Ma démarche</a></li>
@@ -107,6 +108,62 @@
           </ol>
         </nav>
         <div class="prose">
+          <section class="chapter" id="fiche" aria-labelledby="fiche-titre">
+            <h2 class="chapter__head" id="fiche-titre" data-reveal><span class="chapter__n">00</span><span class="chapter__label">Fiche de réalisation</span><span class="chapter__title">La réalisation en seize points</span></h2>
+            <div class="grille">
+              <div class="grille__col">
+                <h3 class="grille__titre">Situer</h3>
+                <dl>
+                  <div><dt>Contexte</dt><dd>Stage de 1re année de BTS, en juillet et août 2026, à la mairie des Clayes‑sous‑Bois.</dd></div>
+                  <div><dt>Organisation</dt><dd>Parc réparti sur plusieurs réseaux (VLAN) : serveurs, données, VoIP, caméras, école, libre-service…</dd></div>
+                  <div><dt>Problématique</dt><dd>Un parc jusque-là surtout administré à la main, sans vue d’ensemble des équipements.</dd></div>
+                  <div><dt>Objectifs</dt><dd>Installer un serveur Zabbix, superviser en ICMP et SNMP, découvrir automatiquement les équipements et les classer par type.</dd></div>
+
+                </dl>
+              </div>
+              <div class="grille__col">
+                <h3 class="grille__titre">Cadrer</h3>
+                <dl>
+                  <div><dt>Besoins</dt><dd>Découvrir les équipements des différents réseaux et les ranger par type (PC, switch, serveur, caméra, imprimante…).</dd></div>
+                  <div><dt>Contraintes</dt><dd>Pare-feu géré par Active Directory à ouvrir pour les flux de supervision ; imprimantes et copieurs sans agent Zabbix.</dd></div>
+                  <div><dt>Solution retenue</dt><dd>Zabbix 7.4 sur une VM Debian 13 hébergée sous VMware ESXi, avec des règles de découverte par réseau et des actions de classement.</dd></div>
+                  <div><dt>Technologies</dt><dd>Zabbix 7.4, Debian 13, VMware ESXi, SNMP, ICMP, MariaDB, Apache + PHP, Active Directory.</dd></div>
+
+                </dl>
+              </div>
+              <div class="grille__col">
+                <h3 class="grille__titre">Réaliser</h3>
+                <dl>
+                  <div><dt>Étapes</dt><dd>VM Debian 13 et SSH, installation de Zabbix 7.4, supervision SNMP, règles et actions de découverte, groupes et tests.</dd></div>
+                  <div class="grille__moi"><dt>Ce que j’ai fait moi-même</dt><dd>J’ai installé et configuré le serveur, mis en place la supervision SNMP, créé les règles et les actions de découverte, et rédigé la documentation technique.</dd></div>
+                  <div><dt>Difficultés</dt><dd>La connexion vers la passerelle posait problème alors que le DNS répondait ; les imprimantes ne pouvaient pas être reconnues par un agent.</dd></div>
+                  <div><dt>Solutions apportées</dt><dd>Vérification étape par étape (interface, adresse, route, passerelle, DNS) ; identification des imprimantes par un OID SNMP et par leur nom.</dd></div>
+
+                </dl>
+              </div>
+              <div class="grille__col">
+                <h3 class="grille__titre">Valider</h3>
+                <dl>
+                  <div><dt>Tests réalisés</dt><dd>Tests de validation de la découverte, gestion des doublons, <code>snmpwalk</code> sur les équipements.</dd></div>
+                  <div><dt>Résultats</dt><dd>Environ 169 hôtes découverts lors des essais, 9 VLAN recensés, 9 groupes d’équipements ; classement en place pour les principaux types.</dd></div>
+                  <div><dt>Améliorations</dt><dd>Finir le classement, configurer les alertes, passer en SNMPv3, créer des tableaux de bord, sauvegarder la base.</dd></div>
+                  <div><dt>Compétences mobilisées</dt><dd>C1, C2, C5 (bloc 1)</dd></div>
+                </dl>
+              </div>
+            </div>
+            <h3 class="prose__h3">Compétences du bloc 1 et preuves</h3>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Compétences du bloc 1 et preuves">
+              <table class="table comp">
+                <thead><tr><th scope="col">Compétence</th><th scope="col">Activité réalisée</th><th scope="col">Où le voir</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row"><span class="comp__code">C1</span>Gérer le patrimoine informatique</th><td>Recensement automatique des équipements de la mairie (environ 169 hôtes) et classement en 9 groupes.</td><td><a href="#decouverte">Découverte automatique</a> · <a href="#resultats">Résultats</a></td></tr>
+                  <tr><th scope="row"><span class="comp__code">C2</span>Répondre aux incidents et aux demandes d’assistance et d’évolution</th><td>Diagnostic d’un problème de passerelle, étape par étape, pendant la mise en place.</td><td><a href="#difficulte">Diagnostic</a></td></tr>
+                  <tr><th scope="row"><span class="comp__code">C5</span>Mettre à disposition des utilisateurs un service informatique</th><td>Déploiement du serveur de supervision Zabbix pour le service informatique, tests de validation et documentation technique.</td><td><a href="#demarche">Ma démarche</a> · <a href="../assets/docs/Projet-Mairie_Supervision-Zabbix.pdf">Documentation technique (PDF)</a></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
           <section class="chapter" id="contexte" aria-labelledby="contexte-titre">
             <h2 class="chapter__head" id="contexte-titre" data-reveal><span class="chapter__n">01</span><span class="chapter__label">Contexte</span><span class="chapter__title">Une administration encore manuelle</span></h2>
             <p>Pendant mon stage de juillet–août 2026 à la <strong>mairie des Clayes‑sous‑Bois</strong>, j’ai mis en place une solution de supervision centralisée de l’infrastructure informatique. Le parc est réparti sur plusieurs réseaux (VLAN) : serveurs, données, VoIP, caméras, école, libre-service… Jusque-là, il était surtout administré à la main.</p>

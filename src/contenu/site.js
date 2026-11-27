@@ -179,6 +179,14 @@ module.exports = {
   // articles : { date: '2026-10', titre, source, url, resume }
   veille: { theme: '', description: '', articles: [] },
 
+  // Compétences du bloc 1 pas encore couvertes par une réalisation : ce qui est prévu (affiché sur la
+  // page de synthèse, sans cocher la compétence). Ne mettre que des faits ; retirer une entrée dès
+  // qu’une réalisation la couvre.
+  aCouvrir: {
+    'b1-presence': 'Prévu dans le projet StadiumCompany : mission 12 (site Web de l’entreprise) et mission 13 (référencement du site).',
+    'b1-devpro': 'Prévu dans le projet StadiumCompany : mission 14 (veille et projet professionnel). Déjà en place : mon identité professionnelle en ligne (ce portfolio, LinkedIn, GitHub et CV).',
+  },
+
   // Certifications : { nom, organisme, date, url }
   certifications: [],
 };

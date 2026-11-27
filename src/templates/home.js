@@ -248,7 +248,7 @@ ${d.items.map((it) => {
           <span class="annex__tag">Annexe A</span>
           <span class="annex__body">
             <span class="annex__title">Tableau de synthèse des réalisations</span>
-            <span class="annex__text">Au format de l’annexe de l’épreuve E4 : mes réalisations et les compétences des blocs 1 et 2 mises en œuvre.</span>
+            <span class="annex__text">Au format de l’annexe VI‑1 (épreuve E5) : mes réalisations, les compétences des blocs 1 et 2 mises en œuvre et leurs preuves.</span>
             <span class="annex__go">Ouvrir le tableau ${ICON.arrowRight}</span>
           </span>
           <span class="annex__fig">${miniMatrice(projets)}</span>

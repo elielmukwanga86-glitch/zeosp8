@@ -96,6 +96,7 @@
         <nav class="toc" aria-label="Sommaire de l’étude de cas">
           <p class="toc__label">Sommaire</p>
           <ol>
+            <li><a href="#fiche"><span class="toc__n">00</span>Fiche</a></li>
             <li><a href="#contexte"><span class="toc__n">01</span>Contexte</a></li>
             <li><a href="#adressage"><span class="toc__n">02</span>Plan d’adressage</a></li>
             <li><a href="#architecture"><span class="toc__n">03</span>Architecture</a></li>
@@ -108,6 +109,62 @@
           </ol>
         </nav>
         <div class="prose">
+          <section class="chapter" id="fiche" aria-labelledby="fiche-titre">
+            <h2 class="chapter__head" id="fiche-titre" data-reveal><span class="chapter__n">00</span><span class="chapter__label">Fiche de réalisation</span><span class="chapter__title">La réalisation en seize points</span></h2>
+            <div class="grille">
+              <div class="grille__col">
+                <h3 class="grille__titre">Situer</h3>
+                <dl>
+                  <div><dt>Contexte</dt><dd>Projet annuel de 2<sup>e</sup> année à l’ENSITECH (épreuve E5) : StadiumCompany, organisation fictive qui exploite un stade, une billetterie et un magasin.</dd></div>
+                  <div><dt>Organisation</dt><dd>Projet découpé en 14 missions, de septembre à mai. Je le mène seul, dans un laboratoire VMware installé sur ma tour.</dd></div>
+                  <div><dt>Problématique</dt><dd>Mettre en place les services d’infrastructure de l’entreprise sans qu’ils dépendent d’un seul serveur.</dd></div>
+                  <div><dt>Objectifs</dt><dd>Annuaire Active Directory pour <code>stadiumcompany.com</code>, DNS primaire et secondaire, DHCP par VLAN, partages, profils et GPO, puis tout tester (mission 2).</dd></div>
+
+                </dl>
+              </div>
+              <div class="grille__col">
+                <h3 class="grille__titre">Cadrer</h3>
+                <dl>
+                  <div><dt>Besoins</dt><dd>Indicateur clé du cahier des charges : un poste branché sur n’importe quel VLAN obtient une configuration complète sans intervention manuelle.</dd></div>
+                  <div><dt>Contraintes</dt><dd>Plage imposée <code>172.20.0.0/22</code> à découper en VLSM sans effectifs fournis ; laboratoire limité à trois VLAN simulés.</dd></div>
+                  <div><dt>Solution retenue</dt><dd>pfSense pour le routage, le filtrage et le relais DHCP ; deux contrôleurs Windows Server 2022 ; DHCP en basculement ; droits selon la méthode AGDLP.</dd></div>
+                  <div><dt>Technologies</dt><dd>Windows Server 2022, Active Directory, DNS, DHCP, GPO, pfSense, VMware Workstation, PowerShell.</dd></div>
+
+                </dl>
+              </div>
+              <div class="grille__col">
+                <h3 class="grille__titre">Réaliser</h3>
+                <dl>
+                  <div><dt>Étapes</dt><dd>pfSense, forêt <code>stadiumcompany.com</code>, DNS, neuf étendues DHCP, second contrôleur, annuaire et partages, GPO, poste client et tests.</dd></div>
+                  <div class="grille__moi"><dt>Ce que j’ai fait moi-même</dt><dd>Tout seul : plan d’adressage, création des machines virtuelles, configuration de pfSense et des deux serveurs, scripts PowerShell, plan de tests et captures.</dd></div>
+                  <div><dt>Difficultés</dt><dd>Premier ping en échec ; <code>Install-WindowsFeature</code> introuvable sur SRV-DC02 ; lecteur P: qui n’apparaissait pas.</dd></div>
+                  <div><dt>Solutions apportées</dt><dd>Démarrer pfSense avant les serveurs ; utiliser PowerShell ISE 64 bits ; corriger le ciblage de la GPO (« n’est pas membre »), vérifié avec <code>gpresult /r</code>.</dd></div>
+
+                </dl>
+              </div>
+              <div class="grille__col">
+                <h3 class="grille__titre">Valider</h3>
+                <dl>
+                  <div><dt>Tests réalisés</dt><dd>Onze scénarios, chacun avec une capture d’écran datée : DHCP par le relais, droits, GPO, DNS, verrouillage, arrêt du DHCP de SRV-DC01, SRV-DC01 éteint.</dd></div>
+                  <div><dt>Résultats</dt><dd>Onze tests sur onze réussis ; avec SRV-DC01 hors service, les postes obtiennent une adresse et les sessions s’ouvrent.</dd></div>
+                  <div><dt>Améliorations</dt><dd>Partages encore sur SRV-DC01 (serveur de fichiers ou DFS) ; PowerShell non bloqué ; comptes d’administration nominatifs prévus en mission 3.</dd></div>
+                  <div><dt>Compétences mobilisées</dt><dd>C1, C2, C5 (bloc 1)</dd></div>
+                </dl>
+              </div>
+            </div>
+            <h3 class="prose__h3">Compétences du bloc 1 et preuves</h3>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Compétences du bloc 1 et preuves">
+              <table class="table comp">
+                <thead><tr><th scope="col">Compétence</th><th scope="col">Activité réalisée</th><th scope="col">Où le voir</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row"><span class="comp__code">C1</span>Gérer le patrimoine informatique</th><td>Structure de l’annuaire (unités d’organisation, groupes, 14 comptes), droits d’accès selon AGDLP et continuité de service avec deux contrôleurs.</td><td><a href="#annuaire">Annuaire et droits</a> · <a href="../assets/docs/StadiumCompany_Redondance.pdf">Dossier Redondance (PDF)</a></td></tr>
+                  <tr><th scope="row"><span class="comp__code">C2</span>Répondre aux incidents et aux demandes d’assistance et d’évolution</th><td>Diagnostic et résolution des problèmes rencontrés : ping en échec, commande introuvable, lecteur réseau absent.</td><td><a href="#difficultes">Difficultés</a></td></tr>
+                  <tr><th scope="row"><span class="comp__code">C5</span>Mettre à disposition des utilisateurs un service informatique</th><td>Déploiement des services AD, DNS, DHCP et GPO, puis onze tests d’acceptation avant de valider la mission.</td><td><a href="#deploiement">Déploiement</a> · <a href="#tests">Tests</a></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
           <section class="chapter" id="contexte" aria-labelledby="contexte-titre">
             <h2 class="chapter__head" id="contexte-titre" data-reveal><span class="chapter__n">01</span><span class="chapter__label">Contexte</span><span class="chapter__title">Un projet fil rouge sur toute l’année</span></h2>
             <p>StadiumCompany exploite trois sites : le stade, la billetterie et le magasin. Le cahier des charges de l’école découpe le projet en <strong>14 missions progressives</strong>, qui servent de réalisations pour l’épreuve E5. Je le mène <strong>seul</strong>, et je suis reparti de zéro en octobre avec un nouveau plan d’adressage.</p>

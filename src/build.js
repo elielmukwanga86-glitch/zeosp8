@@ -42,6 +42,10 @@ for (const p of projets) {
   if (!['professionnel', 'formation'].includes(p.milieu)) errors.push(`${where} : champ « milieu » à renseigner ('professionnel' ou 'formation').`);
   if (p.milieu === 'professionnel' && ![1, 2].includes(p.anneeBts)) errors.push(`${where} : champ « anneeBts » à renseigner (1 ou 2) pour une réalisation en stage.`);
   for (const id of p.competencesBts || []) if (!competenceIds.has(id)) errors.push(`${where} : compétence inconnue « ${id} » (voir contenu/referentiel.js).`);
+  // Épreuve E5 : aucune compétence du bloc 1 cochée sans l’activité réalisée (preuves).
+  for (const id of (p.competencesBts || []).filter((c) => c.startsWith('b1-'))) {
+    if (!p.preuves || !p.preuves[id] || !p.preuves[id].activite) errors.push(`${where} : compétence « ${id} » cochée sans preuve (champ preuves).`);
+  }
   if (p.page) {
     for (const key of ['accroche', 'resume', 'intro', 'description', 'visuel', 'chiffres', 'technologies', 'fiche', 'sections']) {
       if (p[key] === undefined) errors.push(`${where} : champ « ${key} » manquant (requis pour une page).`);
