@@ -274,8 +274,28 @@
           <div class="others__list">
           <div class="row">
             <h4 class="row__heading">
-              <button class="row__btn" type="button" aria-expanded="false" aria-controls="row-cisco-packet-tracer">
+              <button class="row__btn" type="button" aria-expanded="false" aria-controls="row-glpi-stadiumcompany">
                 <span class="row__idx">04</span>
+                <span class="row__txt"><span class="row__title">Serveur GLPI pour StadiumCompany</span><span class="row__ctx">En formation · Projet annuel (épreuve E5) · StadiumCompany · ENSITECH · Nov. 2026</span></span>
+                <span class="row__plus" aria-hidden="true"></span>
+              </button>
+            </h4>
+            <div class="row__panel" id="row-glpi-stadiumcompany">
+              <div class="row__inner"><div class="row__content">
+                <ul class="bullets">
+                  <li>Création d’une VM Debian (SRV-GLPI) dans le VLAN Serveurs du laboratoire StadiumCompany, à l’adresse <code>172.20.2.135</code>.</li>
+                  <li>Installation de la pile web : Apache, MariaDB et PHP avec les extensions demandées par GLPI.</li>
+                  <li>Création d’une base de données et d’un utilisateur dédiés, puis installation de GLPI en français.</li>
+                  <li>Accès à l’interface en HTTPS, avec un certificat auto-signé, sur <code>glpi.stadiumcompany.com</code>.</li>
+                  <li>Première étape de la mission 7 (gestion de parc et helpdesk) ; la prochaine est la liaison avec l’Active Directory (LDAP).</li>
+                </ul>
+              </div></div>
+            </div>
+          </div>
+          <div class="row">
+            <h4 class="row__heading">
+              <button class="row__btn" type="button" aria-expanded="false" aria-controls="row-cisco-packet-tracer">
+                <span class="row__idx">05</span>
                 <span class="row__txt"><span class="row__title">Administration réseau sous Cisco Packet Tracer</span><span class="row__ctx">En formation · Projet de formation · BTS SIO</span></span>
                 <span class="row__plus" aria-hidden="true"></span>
               </button>
@@ -309,7 +329,7 @@
           <div class="row">
             <h4 class="row__heading">
               <button class="row__btn" type="button" aria-expanded="false" aria-controls="row-support-postes">
-                <span class="row__idx">05</span>
+                <span class="row__idx">06</span>
                 <span class="row__txt"><span class="row__title">Déploiement de postes et support utilisateurs</span><span class="row__ctx">En milieu professionnel · Stages (Bac Pro et BTS) · Mairie des Clayes‑sous‑Bois · 2024–2026</span></span>
                 <span class="row__plus" aria-hidden="true"></span>
               </button>
@@ -405,7 +425,7 @@
         </header>
         <div class="cols">
           <div class="cols__margin">
-            <p class="margin-note" data-reveal>Présenté comme un index : les numéros en face de chaque compétence renvoient aux réalisations (01 à 05).</p>
+            <p class="margin-note" data-reveal>Présenté comme un index : les numéros en face de chaque compétence renvoient aux réalisations (01 à 06).</p>
           </div>
           <div>
             <div class="filter" role="group" aria-label="Filtrer les compétences par réalisation" data-reveal>
@@ -414,14 +434,15 @@
               <button class="chip-btn" type="button" aria-pressed="false" data-filter="stadiumcompany"><span class="chip-btn__n" aria-hidden="true">01</span>Projet StadiumCompany</button>
               <button class="chip-btn" type="button" aria-pressed="false" data-filter="projet-mairie"><span class="chip-btn__n" aria-hidden="true">02</span>Projet Mairie</button>
               <button class="chip-btn" type="button" aria-pressed="false" data-filter="projet-cloison"><span class="chip-btn__n" aria-hidden="true">03</span>Projet Cloison</button>
-              <button class="chip-btn" type="button" aria-pressed="false" data-filter="cisco-packet-tracer"><span class="chip-btn__n" aria-hidden="true">04</span>Cisco Packet Tracer</button>
-              <button class="chip-btn" type="button" aria-pressed="false" data-filter="support-postes"><span class="chip-btn__n" aria-hidden="true">05</span>Stages en mairie</button>
+              <button class="chip-btn" type="button" aria-pressed="false" data-filter="glpi-stadiumcompany"><span class="chip-btn__n" aria-hidden="true">04</span>GLPI</button>
+              <button class="chip-btn" type="button" aria-pressed="false" data-filter="cisco-packet-tracer"><span class="chip-btn__n" aria-hidden="true">05</span>Cisco Packet Tracer</button>
+              <button class="chip-btn" type="button" aria-pressed="false" data-filter="support-postes"><span class="chip-btn__n" aria-hidden="true">06</span>Stages en mairie</button>
             </div>
             <div class="domains" data-domains>
               <div class="domain" data-reveal>
                 <h3 class="domain__title">Systèmes</h3>
                 <ul class="skills">
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Windows 10 / 11</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Windows 10 / 11</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>06</span></li>
                   <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">Windows Server 2022</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
                   <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">Windows 11 Entreprise</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
                   <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Debian 13</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
@@ -438,13 +459,13 @@
               <div class="domain" data-reveal>
                 <h3 class="domain__title">Réseaux</h3>
                 <ul class="skills">
-                  <li class="skill" data-ctx="cisco-packet-tracer projet-cloison"><span class="skill__name">TCP/IP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03, 04</span></li>
-                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">LAN / WAN</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer projet-cloison"><span class="skill__name">TCP/IP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>03, 05</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">LAN / WAN</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
                   <li class="skill" data-ctx="projet-mairie projet-cloison stadiumcompany"><span class="skill__name">VLAN</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 02, 03</span></li>
-                  <li class="skill" data-ctx="cisco-packet-tracer projet-cloison projet-mairie stadiumcompany"><span class="skill__name">Adressage IPv4 · VLSM</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 02, 03, 04</span></li>
-                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">Routage statique</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
-                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">RIP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
-                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">Switching</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer projet-cloison projet-mairie stadiumcompany"><span class="skill__name">Adressage IPv4 · VLSM</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 02, 03, 05</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">Routage statique</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">RIP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
+                  <li class="skill" data-ctx="cisco-packet-tracer"><span class="skill__name">Switching</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
                   <li class="skill" data-ctx="projet-cloison stadiumcompany"><span class="skill__name">DHCP (relais, basculement)</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01, 03</span></li>
                   <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">DNS</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
                   <li class="skill" data-ctx="stadiumcompany"><span class="skill__name">pfSense</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>01</span></li>
@@ -457,8 +478,8 @@
                 <h3 class="domain__title">Supervision</h3>
                 <ul class="skills">
                   <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Zabbix</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">MariaDB</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
-                  <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Apache + PHP (interface web Zabbix)</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
+                  <li class="skill" data-ctx="projet-mairie glpi-stadiumcompany"><span class="skill__name">MariaDB</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02, 04</span></li>
+                  <li class="skill" data-ctx="projet-mairie glpi-stadiumcompany"><span class="skill__name">Apache + PHP</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02, 04</span></li>
                   <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Découverte automatique des équipements</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
                   <li class="skill" data-ctx="projet-mairie"><span class="skill__name">Supervision d’infrastructures</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>02</span></li>
                 </ul>
@@ -466,11 +487,12 @@
               <div class="domain" data-reveal>
                 <h3 class="domain__title">Support informatique</h3>
                 <ul class="skills">
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Préparation et déploiement de postes</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Installation et configuration de logiciels</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Diagnostic et résolution d’incidents</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Assistance utilisateurs</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
-                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Imprimantes réseau</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>05</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Préparation et déploiement de postes</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>06</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Installation et configuration de logiciels</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>06</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Diagnostic et résolution d’incidents</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>06</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Assistance utilisateurs</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>06</span></li>
+                  <li class="skill" data-ctx="support-postes"><span class="skill__name">Imprimantes réseau</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>06</span></li>
+                  <li class="skill" data-ctx="glpi-stadiumcompany"><span class="skill__name">GLPI (gestion de parc et helpdesk)</span><span class="skill__refs"><span class="sr-only"> — réalisations </span>04</span></li>
                 </ul>
               </div>
               <div class="domain" data-reveal>
@@ -502,7 +524,7 @@
             <span class="annex__text">Au format de l’annexe de l’épreuve E4 : mes réalisations et les compétences des blocs 1 et 2 mises en œuvre.</span>
             <span class="annex__go">Ouvrir le tableau <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </span>
-          <span class="annex__fig"><svg class="matrix" viewBox="0 0 176 90" aria-hidden="true" focusable="false"><rect x="0" y="0" width="14" height="14" class="on"/><rect x="19" y="0" width="14" height="14" class="on"/><rect x="38" y="0" width="14" height="14"/><rect x="57" y="0" width="14" height="14"/><rect x="76" y="0" width="14" height="14" class="on"/><rect x="95" y="0" width="14" height="14"/><rect x="124" y="0" width="14" height="14" class="on"/><rect x="143" y="0" width="14" height="14" class="on"/><rect x="162" y="0" width="14" height="14" class="on"/><rect x="0" y="19" width="14" height="14" class="on"/><rect x="19" y="19" width="14" height="14" class="on"/><rect x="38" y="19" width="14" height="14"/><rect x="57" y="19" width="14" height="14"/><rect x="76" y="19" width="14" height="14" class="on"/><rect x="95" y="19" width="14" height="14"/><rect x="124" y="19" width="14" height="14"/><rect x="143" y="19" width="14" height="14" class="on"/><rect x="162" y="19" width="14" height="14" class="on"/><rect x="0" y="38" width="14" height="14" class="on"/><rect x="19" y="38" width="14" height="14" class="on"/><rect x="38" y="38" width="14" height="14"/><rect x="57" y="38" width="14" height="14" class="on"/><rect x="76" y="38" width="14" height="14" class="on"/><rect x="95" y="38" width="14" height="14"/><rect x="124" y="38" width="14" height="14"/><rect x="143" y="38" width="14" height="14"/><rect x="162" y="38" width="14" height="14"/><rect x="0" y="57" width="14" height="14"/><rect x="19" y="57" width="14" height="14"/><rect x="38" y="57" width="14" height="14"/><rect x="57" y="57" width="14" height="14"/><rect x="76" y="57" width="14" height="14"/><rect x="95" y="57" width="14" height="14"/><rect x="124" y="57" width="14" height="14" class="on"/><rect x="143" y="57" width="14" height="14" class="on"/><rect x="162" y="57" width="14" height="14"/><rect x="0" y="76" width="14" height="14" class="on"/><rect x="19" y="76" width="14" height="14" class="on"/><rect x="38" y="76" width="14" height="14"/><rect x="57" y="76" width="14" height="14"/><rect x="76" y="76" width="14" height="14" class="on"/><rect x="95" y="76" width="14" height="14"/><rect x="124" y="76" width="14" height="14"/><rect x="143" y="76" width="14" height="14"/><rect x="162" y="76" width="14" height="14"/></svg></span>
+          <span class="annex__fig"><svg class="matrix" viewBox="0 0 176 109" aria-hidden="true" focusable="false"><rect x="0" y="0" width="14" height="14" class="on"/><rect x="19" y="0" width="14" height="14" class="on"/><rect x="38" y="0" width="14" height="14"/><rect x="57" y="0" width="14" height="14"/><rect x="76" y="0" width="14" height="14" class="on"/><rect x="95" y="0" width="14" height="14"/><rect x="124" y="0" width="14" height="14" class="on"/><rect x="143" y="0" width="14" height="14" class="on"/><rect x="162" y="0" width="14" height="14" class="on"/><rect x="0" y="19" width="14" height="14" class="on"/><rect x="19" y="19" width="14" height="14" class="on"/><rect x="38" y="19" width="14" height="14"/><rect x="57" y="19" width="14" height="14"/><rect x="76" y="19" width="14" height="14" class="on"/><rect x="95" y="19" width="14" height="14"/><rect x="124" y="19" width="14" height="14"/><rect x="143" y="19" width="14" height="14" class="on"/><rect x="162" y="19" width="14" height="14" class="on"/><rect x="0" y="38" width="14" height="14" class="on"/><rect x="19" y="38" width="14" height="14" class="on"/><rect x="38" y="38" width="14" height="14"/><rect x="57" y="38" width="14" height="14" class="on"/><rect x="76" y="38" width="14" height="14" class="on"/><rect x="95" y="38" width="14" height="14"/><rect x="124" y="38" width="14" height="14"/><rect x="143" y="38" width="14" height="14"/><rect x="162" y="38" width="14" height="14"/><rect x="0" y="57" width="14" height="14"/><rect x="19" y="57" width="14" height="14"/><rect x="38" y="57" width="14" height="14"/><rect x="57" y="57" width="14" height="14"/><rect x="76" y="57" width="14" height="14" class="on"/><rect x="95" y="57" width="14" height="14"/><rect x="124" y="57" width="14" height="14"/><rect x="143" y="57" width="14" height="14" class="on"/><rect x="162" y="57" width="14" height="14"/><rect x="0" y="76" width="14" height="14"/><rect x="19" y="76" width="14" height="14"/><rect x="38" y="76" width="14" height="14"/><rect x="57" y="76" width="14" height="14"/><rect x="76" y="76" width="14" height="14"/><rect x="95" y="76" width="14" height="14"/><rect x="124" y="76" width="14" height="14" class="on"/><rect x="143" y="76" width="14" height="14" class="on"/><rect x="162" y="76" width="14" height="14"/><rect x="0" y="95" width="14" height="14" class="on"/><rect x="19" y="95" width="14" height="14" class="on"/><rect x="38" y="95" width="14" height="14"/><rect x="57" y="95" width="14" height="14"/><rect x="76" y="95" width="14" height="14" class="on"/><rect x="95" y="95" width="14" height="14"/><rect x="124" y="95" width="14" height="14"/><rect x="143" y="95" width="14" height="14"/><rect x="162" y="95" width="14" height="14"/></svg></span>
         </a>
       </div>
     </section>

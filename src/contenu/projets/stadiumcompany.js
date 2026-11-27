@@ -57,7 +57,7 @@ module.exports = {
           [4, 'Redondance et tolérance de panne', 'avenir'],
           [5, 'Accès Internet sécurisé et DMZ', 'avenir'],
           [6, 'Wi-Fi employés et visiteurs', 'avenir'],
-          [7, 'Gestion de parc et helpdesk (GLPI)', 'avenir'],
+          [7, 'Gestion de parc et helpdesk (GLPI)', 'cours', 'Serveur GLPI installé ; liaison avec l’Active Directory à faire'],
           [8, 'Supervision open source', 'avenir'],
           [9, 'Supervision et annuaire LDAP', 'avenir'],
           [10, 'SIEM et détection des incidents', 'avenir'],

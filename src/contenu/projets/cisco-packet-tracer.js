@@ -2,7 +2,7 @@
 /** Réalisation courte (sans page dédiée) : administration réseau sous Cisco Packet Tracer. */
 module.exports = {
   slug: 'cisco-packet-tracer',
-  ordre: 4,
+  ordre: 5,
   page: false,
 
   nom: 'Cisco Packet Tracer',

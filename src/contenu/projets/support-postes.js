@@ -2,7 +2,7 @@
 /** Réalisation courte (sans page dédiée) : déploiement de postes et support pendant les stages en mairie. */
 module.exports = {
   slug: 'support-postes',
-  ordre: 5,
+  ordre: 6,
   page: false,
 
   nom: 'Support et postes',

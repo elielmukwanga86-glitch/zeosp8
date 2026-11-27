@@ -141,8 +141,8 @@ module.exports = {
       domaine: 'Supervision',
       items: [
         { nom: 'Zabbix', contextes: ['projet-mairie'] },
-        { nom: 'MariaDB', contextes: ['projet-mairie'] },
-        { nom: 'Apache + PHP (interface web Zabbix)', contextes: ['projet-mairie'] },
+        { nom: 'MariaDB', contextes: ['projet-mairie', 'glpi-stadiumcompany'] },
+        { nom: 'Apache + PHP', contextes: ['projet-mairie', 'glpi-stadiumcompany'] },
         { nom: 'Découverte automatique des équipements', contextes: ['projet-mairie'] },
         { nom: 'Supervision d’infrastructures', contextes: ['projet-mairie'] },
       ],
@@ -155,6 +155,7 @@ module.exports = {
         { nom: 'Diagnostic et résolution d’incidents', contextes: ['support-postes'] },
         { nom: 'Assistance utilisateurs', contextes: ['support-postes'] },
         { nom: 'Imprimantes réseau', contextes: ['support-postes'] },
+        { nom: 'GLPI (gestion de parc et helpdesk)', contextes: ['glpi-stadiumcompany'] },
       ],
     },
     {
